@@ -1,0 +1,188 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: social-login-bws\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-03 14:35+0200\n"
+"PO-Revision-Date: 2017-02-03 14:35+0200\n"
+"Last-Translator: plugin@bestwebsoft.com <plugin@bestwebsoft.com>\n"
+"Language-Team: BestWebSoft <plugin@bestwebsoft.com>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: social-login-bws.php:34 social-login-bws.php:337
+msgid "Social Login Settings"
+msgstr "Налаштування Social Login"
+
+#: social-login-bws.php:282
+msgid "WordPress Login form"
+msgstr "Форма логіна WordPress"
+
+#: social-login-bws.php:283
+msgid "WordPress Registration form"
+msgstr "Форма реєстрації WordPress"
+
+#: social-login-bws.php:284
+msgid "WordPress Comments form"
+msgstr "Форма коментарів WordPress"
+
+#: social-login-bws.php:298
+#, php-format
+msgid "Please fill in Client ID for %s."
+msgstr "Будь ласка, заповніть ідентифікатор клієнта для %s."
+
+#: social-login-bws.php:304
+#, php-format
+msgid "Please fill in Client secret for %s."
+msgstr "Будь ласка, заповніть секрет клієнта для %s."
+
+#: social-login-bws.php:317
+msgid "Settings saved"
+msgstr "Налаштування збережено"
+
+#: social-login-bws.php:325
+msgid "All plugin settings were restored."
+msgstr "Всі налаштування плагіну було скинуто до стандартних."
+
+#: social-login-bws.php:339 social-login-bws.php:677 social-login-bws.php:690
+msgid "Settings"
+msgstr "Налаштування"
+
+#: social-login-bws.php:340
+msgid "Custom code"
+msgstr "Користувацький код"
+
+#: social-login-bws.php:350
+#, php-format
+msgid ""
+"%1$s requires at least PHP version %2$s. Please contact you hosting provider "
+"in order to upgrade PHP version."
+msgstr ""
+"Для роботи %1$s потрібна версія PHP не нижче %2$s. Будь ласка, зв'яжіться з "
+"адміністратором вашого хостингу для оновлення версії PHP."
+
+#: social-login-bws.php:366
+#, php-format
+msgid "%1$s Sign In Button"
+msgstr "Кнопка \"Увійти за допомогою %1$s\""
+
+#: social-login-bws.php:371
+#, php-format
+msgid "Enable to add %1$s Sign In button to the necessary WordPress form."
+msgstr ""
+"Увімкніть, щоб додати до обраних форм кнопку \"Увійти за допомогою %1$s\"."
+
+#: social-login-bws.php:379
+msgid "Client ID"
+msgstr "Ідентифікатор клієнта"
+
+#: social-login-bws.php:383
+msgid "You need to create your own credentials in order to use google API."
+msgstr ""
+"Ви повинні створити свої власні облікові дані для того, щоб використовувати "
+"Google API."
+
+#: social-login-bws.php:383
+msgid "Learn More"
+msgstr "Дізнатись більше"
+
+#: social-login-bws.php:388
+msgid "Client Secret"
+msgstr "Секрет клієнта"
+
+#: social-login-bws.php:394
+msgid "Display Button in"
+msgstr "Відображати кнопку"
+
+#: social-login-bws.php:414
+msgid "Buttons Position"
+msgstr "Позиція кнопок"
+
+#: social-login-bws.php:419
+msgid "Top"
+msgstr "Зверху"
+
+#: social-login-bws.php:422
+msgid "Before the submit button"
+msgstr "Перед кнопкою підтвердження"
+
+#: social-login-bws.php:425
+msgid "Bottom"
+msgstr "Внизу"
+
+#: social-login-bws.php:428
+msgid ""
+"Choose the buttons position in the form. This option is available only for "
+"Login and Registration forms."
+msgstr ""
+"Оберіть позицію кнопок у формі. Ця опція доступна лише для форм логіна і "
+"реєстрації."
+
+#: social-login-bws.php:436
+msgid "Save Changes"
+msgstr "Зберегти зміни"
+
+#: social-login-bws.php:545
+msgid "please allow the access to your profile information"
+msgstr "будь ласка, дозвольте доступ до інформації вашого профілю"
+
+#: social-login-bws.php:546
+msgid "failed to register new user"
+msgstr "зареєструвати нового користувача не вдалось"
+
+#: social-login-bws.php:547
+msgid "new users registration is disabled"
+msgstr "реєстрацію нових користувачів вимкнено"
+
+#: social-login-bws.php:548
+msgid "you need to verify your account Email"
+msgstr "Email Вашого аккаунту потребує верифікації"
+
+#: social-login-bws.php:549
+msgid "user data is insufficient for registration"
+msgstr "недостатньо користувацьких даних для реєстрації"
+
+#: social-login-bws.php:550
+msgid "provided token data is invalid"
+msgstr "надані дані токена недійсні"
+
+#: social-login-bws.php:551
+msgid "provided token is invalid"
+msgstr "наданий токен недійсний"
+
+#: social-login-bws.php:552
+msgid "login failed"
+msgstr "увійти не вдалось"
+
+#: social-login-bws.php:558
+msgid "Error"
+msgstr "Помилка"
+
+#: social-login-bws.php:582
+#, php-format
+msgid "Sign In with %1$s"
+msgstr "Увійти за допомогою %1$s"
+
+#: social-login-bws.php:691
+msgid "FAQ"
+msgstr "FAQ"
+
+#: social-login-bws.php:692
+msgid "Support"
+msgstr "Підтримка"
+
+#~ msgid ""
+#~ "You need to create your own credentials in order to use google API. "
+#~ "%1$sLearn more%2$s."
+#~ msgstr ""
+#~ "Ви повинні створити свої власні облікові дані для того, щоб "
+#~ "використовувати Google API. %1$sДізнатись більше%2$s."
+
+#~ msgid "Add button to the switched forms to sign in with Google."
+#~ msgstr "Додати в обрані форми кнопку для входу за допомогою Google."
