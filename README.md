@@ -48,7 +48,7 @@ Add social media login, registration, and commenting to your WordPress website.
 <li><a href="http://bestwebsoft.com/products/wordpress/plugins/linkedin/?k=fd63f141dd7954e625f68d684c0aee7c">LinkedIn</a> - Add LinkedIn Share and Follow buttons to WordPress posts, pages and widgets. 5 plugins included – profile, insider, etc.</li>
 <li><a href="http://bestwebsoft.com/products/wordpress/plugins/pinterest/?k=115b7e72549acfa247b637d0040fdcae">Pinterest</a> - Add Pinterest Follow, Pin It buttons and profile widgets (Pin, Board, Profile) to WordPress posts, pages and widgets.</li>
 <li><a href="http://bestwebsoft.com/products/wordpress/plugins/twitter/?k=9dd47e185976cb75279eae306663689c">Twitter</a> - Add Twitter Follow, Tweet, Hashtag, and Mention buttons to WordPress posts, pages and widgets.</li>
-<li><a href="http://bestwebsoft.com/products/wordpress/plugins/facebook-like-button/?k=26157e2f3eddedd08bcc065dc0e957a8">Facebook Puttons</a> Button - Add Facebook Like, Share and Profile buttons to WordPress posts, pages and widgets.</li>
+<li><a href="http://bestwebsoft.com/products/wordpress/plugins/facebook-like-button/?k=26157e2f3eddedd08bcc065dc0e957a8">Facebook Button</a> - Add Facebook Like, Share and Profile buttons to WordPress posts, pages and widgets.</li>
 <li><a href="http://bestwebsoft.com/products/wordpress/plugins/google-plus-one/?k=fc954e6c65aa88799d4fc3ec859c334e">Google+1</a> - Add Google +1 Share, Follow, Hangout buttons and profile badge to WordPress posts, pages and widgets.</li>
 
 </ul>
