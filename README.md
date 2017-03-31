@@ -1,4 +1,4 @@
-<a href="http://bestwebsoft.com/products/wordpress/plugins/social-login/" target=_blank>Social Login WordPress Plugin</a>
+<a href="https://bestwebsoft.com/products/wordpress/plugins/social-login/" target=_blank>Social Login WordPress Plugin</a>
 ========================
 
 Add social media login, registration, and commenting to your WordPress website.
@@ -8,6 +8,7 @@ Add social media login, registration, and commenting to your WordPress website.
 <p>Install now and make forms filling for your visitors easier!</p>
 
 <h4>Features</h4>
+
 <ul>
 <li>Enable login with social networks:
 
@@ -28,9 +29,15 @@ Add social media login, registration, and commenting to your WordPress website.
 
 <p>If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! <a href="http://support.bestwebsoft.com/hc/en-us/requests/new">Suggest a Feature</a></p>
 
+<h4>Documentation</h4>
+
+<ul>
+<li><a href="https://docs.google.com/document/d/1jS1pGbaIyhR9-6wsvWFueMqd8ZJYKRQAJGkOc8j5lWE/">[Doc] How to Use</a></li>
+</ul>
+
 <h4>Help &#38; Support</h4>
 
-<p>Visit our Help Center if you have any questions, our friendly Support Team is happy to help &#8212; <a href="http://support.bestwebsoft.com/">http://support.bestwebsoft.com/</a></p>
+<p>Visit our Help Center if you have any questions, our friendly Support Team is happy to help - <a href="http://support.bestwebsoft.com/">http://support.bestwebsoft.com/</a></p>
 
 <h4>Translation</h4>
 
@@ -45,12 +52,11 @@ Add social media login, registration, and commenting to your WordPress website.
 
 <ul>
 <li><a href="http://bestwebsoft.com/products/wordpress/plugins/updater/?k=9456e33f48ae2ccb14bcca845086399d">Updater</a> - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.</li>
-<li><a href="http://bestwebsoft.com/products/wordpress/plugins/linkedin/?k=fd63f141dd7954e625f68d684c0aee7c">LinkedIn</a> - Add LinkedIn Share and Follow buttons to WordPress posts, pages and widgets. 5 plugins included – profile, insider, etc.</li>
+<li><a href="http://bestwebsoft.com/products/wordpress/plugins/linkedin/?k=fd63f141dd7954e625f68d684c0aee7c">LinkedIn</a> - Add LinkedIn Share and Follow buttons to WordPress posts, pages and widgets. 5 plugins included &#8211; profile, insider, etc.</li>
 <li><a href="http://bestwebsoft.com/products/wordpress/plugins/pinterest/?k=115b7e72549acfa247b637d0040fdcae">Pinterest</a> - Add Pinterest Follow, Pin It buttons and profile widgets (Pin, Board, Profile) to WordPress posts, pages and widgets.</li>
 <li><a href="http://bestwebsoft.com/products/wordpress/plugins/twitter/?k=9dd47e185976cb75279eae306663689c">Twitter</a> - Add Twitter Follow, Tweet, Hashtag, and Mention buttons to WordPress posts, pages and widgets.</li>
-<li><a href="http://bestwebsoft.com/products/wordpress/plugins/facebook-like-button/?k=26157e2f3eddedd08bcc065dc0e957a8">Facebook Button</a> - Add Facebook Like, Share and Profile buttons to WordPress posts, pages and widgets.</li>
-<li><a href="http://bestwebsoft.com/products/wordpress/plugins/google-plus-one/?k=fc954e6c65aa88799d4fc3ec859c334e">Google+1</a> - Add Google +1 Share, Follow, Hangout buttons and profile badge to WordPress posts, pages and widgets.</li>
-
+<li><a href="http://bestwebsoft.com/products/wordpress/plugins/facebook-like-button/?k=26157e2f3eddedd08bcc065dc0e957a8">Facebook</a> Button - Add Facebook Like, Share and Profile buttons to WordPress posts, pages and widgets.</li>
+<li><a href="http://bestwebsoft.com/products/wordpress/plugins/google-plus-one/?k=fc954e6c65aa88799d4fc3ec859c334e">Google +1</a> - Add Google +1 Share, Follow, Hangout buttons and profile badge to WordPress posts, pages and widgets.</li>
 </ul>
 
 <h4>Donate</h4>
