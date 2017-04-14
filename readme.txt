@@ -1,10 +1,10 @@
 ﻿=== Social Login by BestWebSoft ===
 Contributors: bestwebsoft
-Donate link: http://bestwebsoft.com/donate/
+Donate link: https://bestwebsoft.com/donate/
 Tags: social login, social connect, google connect plugin, registration, facebook login, twitter connect plugin, social authentication, sign in button, social plugin WordPress, LinkedIn sign in, social networks, comments
 Requires at least: 3.8
-Tested up to: 4.7.2
-Stable tag: 0.1
+Tested up to: 4.7.3
+Stable tag: 0.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,6 +15,8 @@ Add social media login, registration, and commenting to your WordPress website.
 Social Login plugin adds website authentication via popular networks to WordPress login, registration and comments forms. Allow your visitors to login and comment with their existing accounts on Google.
 
 Install now and make forms filling for your visitors easier!
+
+> **NOTE:** This is a public beta version, which contains basic product options. You are welcome to suggest new features and usability improvements. [Submit a new feature](https://support.bestwebsoft.com/hc/en-us/requests/new)
 
 = Features =
 
@@ -28,7 +30,7 @@ Install now and make forms filling for your visitors easier!
 * Incredibly simple settings for fast setup without modifying code
 * Detailed step-by-step documentation and videos
 
-If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! [Suggest a Feature](http://support.bestwebsoft.com/hc/en-us/requests/new)
+If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! [Suggest a Feature](https://support.bestwebsoft.com/hc/en-us/requests/new)
 
 = Documentation =
 
@@ -36,29 +38,29 @@ If you have a feature suggestion or idea you'd like to see in the plugin, we'd l
 
 = Help & Support =
 
-Visit our Help Center if you have any questions, our friendly Support Team is happy to help - <http://support.bestwebsoft.com/>
+Visit our Help Center if you have any questions, our friendly Support Team is happy to help - <https://support.bestwebsoft.com/>
 
 = Translation =
 
 * Russian (ru_RU)
 * Ukrainian (uk)
 
-Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send [the text of PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [BestWebSoft](http://support.bestwebsoft.com/hc/en-us/requests/new) and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO [files Poedit](http://www.poedit.net/download.php).
+Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send [the text of PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [BestWebSoft](https://support.bestwebsoft.com/hc/en-us/requests/new) and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO [files Poedit](http://www.poedit.net/download.php).
 
 = Recommended Plugins =
 
-* [Updater](http://bestwebsoft.com/products/wordpress/plugins/updater/?k=9456e33f48ae2ccb14bcca845086399d) - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.
-* [LinkedIn](http://bestwebsoft.com/products/wordpress/plugins/linkedin/?k=fd63f141dd7954e625f68d684c0aee7c) - Add LinkedIn Share and Follow buttons to WordPress posts, pages and widgets. 5 plugins included – profile, insider, etc.
-* [Pinterest](http://bestwebsoft.com/products/wordpress/plugins/pinterest/?k=115b7e72549acfa247b637d0040fdcae) - Add Pinterest Follow, Pin It buttons and profile widgets (Pin, Board, Profile) to WordPress posts, pages and widgets.
-* [Twitter](http://bestwebsoft.com/products/wordpress/plugins/twitter/?k=9dd47e185976cb75279eae306663689c) - Add Twitter Follow, Tweet, Hashtag, and Mention buttons to WordPress posts, pages and widgets.
-* [Facebook](http://bestwebsoft.com/products/wordpress/plugins/facebook-like-button/?k=26157e2f3eddedd08bcc065dc0e957a8) Button - Add Facebook Like, Share and Profile buttons to WordPress posts, pages and widgets.
-* [Google +1](http://bestwebsoft.com/products/wordpress/plugins/google-plus-one/?k=fc954e6c65aa88799d4fc3ec859c334e) - Add Google +1 Share, Follow, Hangout buttons and profile badge to WordPress posts, pages and widgets.
+* [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=9456e33f48ae2ccb14bcca845086399d) - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.
+* [LinkedIn](https://bestwebsoft.com/products/wordpress/plugins/linkedin/?k=fd63f141dd7954e625f68d684c0aee7c) - Add LinkedIn Share and Follow buttons to WordPress posts, pages and widgets. 5 plugins included – profile, insider, etc.
+* [Pinterest](https://bestwebsoft.com/products/wordpress/plugins/pinterest/?k=115b7e72549acfa247b637d0040fdcae) - Add Pinterest Follow, Pin It buttons and profile widgets (Pin, Board, Profile) to WordPress posts, pages and widgets.
+* [Twitter](https://bestwebsoft.com/products/wordpress/plugins/twitter/?k=9dd47e185976cb75279eae306663689c) - Add Twitter Follow, Tweet, Hashtag, and Mention buttons to WordPress posts, pages and widgets.
+* [Facebook](https://bestwebsoft.com/products/wordpress/plugins/facebook-like-button/?k=26157e2f3eddedd08bcc065dc0e957a8) Button - Add Facebook Like, Share and Profile buttons to WordPress posts, pages and widgets.
+* [Google +1](https://bestwebsoft.com/products/wordpress/plugins/google-plus-one/?k=fc954e6c65aa88799d4fc3ec859c334e) - Add Google +1 Share, Follow, Hangout buttons and profile badge to WordPress posts, pages and widgets.
 
 = Donate =
 
 Donations play an important role in supporting open-source projects. We greatly appreciate any donation you can make to help us continue further development of free products.
 
-[Donate Now](http://bestwebsoft.com/donate/)
+[Donate Now](https://bestwebsoft.com/donate/)
 
 == Installation ==
 
@@ -70,7 +72,7 @@ Donations play an important role in supporting open-source projects. We greatly 
 
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
-Please make sure that the problem hasn't been discussed yet on our forum (<http://support.bestwebsoft.com>). If no, please provide the following data along with your problem's description:
+Please make sure that the problem hasn't been discussed yet on our forum (<https://support.bestwebsoft.com>). If no, please provide the following data along with your problem's description:
 
 1. the link to the page where the problem occurs
 2. the name of the plugin and its version. If you are using a pro version - your order number.
@@ -85,10 +87,16 @@ Please make sure that the problem hasn't been discussed yet on our forum (<http:
 
 == Changelog ==
 
+= V0.2 - 14.04.2017 =
+* Bugfix : Multiple Cross-Site Scripting (XSS) vulnerability was fixed.
+
 = V0.1 - 03.02.2017 =
 * NEW : Plugin has been released.
 
 == Upgrade Notice ==
+
+= V0.2 =
+* Bugs fixed.
 
 = V0.1 =
 * Plugin release

@@ -86,7 +86,7 @@ if ( ! function_exists ( 'bws_general_menu' ) ) {
 				}
 			}
 
-			add_menu_page( 'BWS Panel', 'BWS Panel', 'manage_options', 'bws_panel', 'bws_add_menu_render', bws_menu_url( 'images/logo-white-min.png' ), '1001' );
+			add_menu_page( 'BWS Panel', 'BWS Panel', 'manage_options', 'bws_panel', 'bws_add_menu_render', 'none', '1001' );
 
 			add_submenu_page( 'bws_panel', __( 'Plugins', 'bestwebsoft' ), __( 'Plugins', 'bestwebsoft' ), 'manage_options', 'bws_panel', 'bws_add_menu_render' );
 			add_submenu_page( 'bws_panel', __( 'Themes', 'bestwebsoft' ), __( 'Themes', 'bestwebsoft' ), 'manage_options', 'bws_themes', 'bws_add_menu_render' );
@@ -130,7 +130,7 @@ if ( ! function_exists( 'bws_check_pro_license' ) ) {
 						);
 					$raw_response = wp_remote_post( 'http://bestwebsoft.com/wp-content/plugins/paid-products/plugins/update-check/1.0/', $options );
 					if ( is_wp_error( $raw_response ) || 200 != wp_remote_retrieve_response_code( $raw_response ) ) {
-						$result['error'] = __( 'Something went wrong. Please try again later. If the error appears again, please contact us', 'bestwebsoft' ) . ' <a href=http://support.bestwebsoft.com>BestWebSoft</a>. ' . __( 'We are sorry for inconvenience.', 'bestwebsoft' );
+						$result['error'] = __( 'Something went wrong. Please try again later. If the error appears again, please contact us', 'bestwebsoft' ) . ' <a href=https://support.bestwebsoft.com>BestWebSoft</a>. ' . __( 'We are sorry for inconvenience.', 'bestwebsoft' );
 					} else {
 						$response = maybe_unserialize( wp_remote_retrieve_body( $raw_response ) );
 						if ( is_array( $response ) && !empty( $response ) ) {
@@ -156,7 +156,7 @@ if ( ! function_exists( 'bws_check_pro_license' ) ) {
 										$result['message'] .= ' ' . __( 'Your license will expire on', 'bestwebsoft' ) . ' ' . $value->time_out . '.';
 
 									if ( isset( $value->trial ) && $trial_plugin != false )
-										$result['message'] .= ' ' . sprintf( __( 'In order to continue using the plugin it is necessary to buy a %s license.', 'bestwebsoft' ), '<a href="http://bestwebsoft.com/products/wordpress/plugins/' . $trial_plugin['link_slug'] . '/?k=' . $trial_plugin['link_key'] . '&pn=' . $trial_plugin['link_pn'] . '&v=' . $trial_plugin['plugin_info']['Version'] . '&wp_v=' . $wp_version . '" target="_blank" title="' . $trial_plugin['plugin_info']['Name'] . '">Pro</a>' );
+										$result['message'] .= ' ' . sprintf( __( 'In order to continue using the plugin it is necessary to buy a %s license.', 'bestwebsoft' ), '<a href="https://bestwebsoft.com/products/wordpress/plugins/' . $trial_plugin['link_slug'] . '/?k=' . $trial_plugin['link_key'] . '&pn=' . $trial_plugin['link_pn'] . '&v=' . $trial_plugin['plugin_info']['Version'] . '&wp_v=' . $wp_version . '" target="_blank" title="' . $trial_plugin['plugin_info']['Name'] . '">Pro</a>' );
 
 									if ( isset( $value->trial ) ) {
 										$bstwbsftwppdtplgns_options['trial'][ $plugin_basename ] = 1;
@@ -196,7 +196,7 @@ if ( ! function_exists( 'bws_check_pro_license' ) ) {
 								}
 							}
 						} else {
-							$result['error'] = __( 'Something went wrong. Please try again later. If the error appears again, please contact us', 'bestwebsoft' ) . ' <a href=http://support.bestwebsoft.com>BestWebSoft</a>. ' . __( 'We are sorry for inconvenience.', 'bestwebsoft' );
+							$result['error'] = __( 'Something went wrong. Please try again later. If the error appears again, please contact us', 'bestwebsoft' ) . ' <a href=https://support.bestwebsoft.com>BestWebSoft</a>. ' . __( 'We are sorry for inconvenience.', 'bestwebsoft' );
 						}
 					}
 				}
@@ -220,7 +220,7 @@ if ( ! function_exists ( 'bws_check_pro_license_form' ) ) {
 		$license_key = ( isset( $bstwbsftwppdtplgns_options[ $plugin_basename ] ) ) ? $bstwbsftwppdtplgns_options[ $plugin_basename ] : ''; ?>
 		<div class="clear"></div>
 		<form method="post" action="">
-			<p><?php echo _e( 'If necessary, you can check if the license key is correct or reenter it in the field below. You can find your license key on your personal page - Client Area - on our website', 'bestwebsoft' ) . ' <a href="http://bestwebsoft.com/client-area">http://bestwebsoft.com/client-area</a> ' . __( '(your username is the email address specified during the purchase). If necessary, please submit "Lost your password?" request.', 'bestwebsoft' ); ?></p>
+			<p><?php echo _e( 'If necessary, you can check if the license key is correct or reenter it in the field below. You can find your license key on your personal page - Client Area - on our website', 'bestwebsoft' ) . ' <a href="https://bestwebsoft.com/client-area">https://bestwebsoft.com/client-area</a> ' . __( '(your username is the email address specified during the purchase). If necessary, please submit "Lost your password?" request.', 'bestwebsoft' ); ?></p>
 			<p>
 				<input type="text" maxlength="100" name="bws_license_key" value="<?php echo $license_key; ?>" />
 				<input type="hidden" name="bws_license_submit" value="submit" />
@@ -243,11 +243,11 @@ if ( ! function_exists( 'bws_go_pro_from_trial_tab' ) ) {
 		if ( $trial_license_is_set ) { ?>
 			<form method="post" action="">
 				<p>
-					<?php echo sprintf( __( 'In order to continue using the plugin it is necessary to buy a %s license.', 'bestwebsoft' ), '<a href="http://bestwebsoft.com/products/wordpress/plugins/' . $link_slug . '/?k=' . $link_key . '&amp;pn=' . $link_pn . '&amp;v=' . $plugin_info["Version"] . '&amp;wp_v=' . $wp_version .'" target="_blank" title="' . $plugin_info["Name"] . '">Pro</a>' ) . ' ';
+					<?php echo sprintf( __( 'In order to continue using the plugin it is necessary to buy a %s license.', 'bestwebsoft' ), '<a href="https://bestwebsoft.com/products/wordpress/plugins/' . $link_slug . '/?k=' . $link_key . '&amp;pn=' . $link_pn . '&amp;v=' . $plugin_info["Version"] . '&amp;wp_v=' . $wp_version .'" target="_blank" title="' . $plugin_info["Name"] . '">Pro</a>' ) . ' ';
 					_e( 'After that, you can activate it by entering your license key.', 'bestwebsoft' ); ?><br />
 					<span class="bws_info">
 						<?php _e( 'License key can be found in the', 'bestwebsoft' ); ?>
-						<a href="http://bestwebsoft.com/wp-login.php">Client Area</a>
+						<a href="https://bestwebsoft.com/wp-login.php">Client Area</a>
 						<?php _e( '(your username is the email address specified during the purchase).', 'bestwebsoft' ); ?>
 					</span>
 				</p>
@@ -349,7 +349,7 @@ if ( ! function_exists( 'bws_go_pro_tab_check' ) ) {
 							$raw_response = wp_remote_post( 'http://bestwebsoft.com/wp-content/plugins/paid-products/plugins/update-check/1.0/', $options );
 
 							if ( is_wp_error( $raw_response ) || 200 != wp_remote_retrieve_response_code( $raw_response ) ) {
-								$result['error'] = __( "Something went wrong. Please try again later. If the error appears again, please contact us", 'bestwebsoft' ) . ' <a href="http://support.bestwebsoft.com">BestWebSoft</a>. ' . __( "We are sorry for inconvenience.", 'bestwebsoft' );
+								$result['error'] = __( "Something went wrong. Please try again later. If the error appears again, please contact us", 'bestwebsoft' ) . ' <a href="https://support.bestwebsoft.com">BestWebSoft</a>. ' . __( "We are sorry for inconvenience.", 'bestwebsoft' );
 							} else {
 								$response = maybe_unserialize( wp_remote_retrieve_body( $raw_response ) );
 								if ( is_array( $response ) && !empty( $response ) ) {
@@ -361,7 +361,7 @@ if ( ! function_exists( 'bws_go_pro_tab_check' ) ) {
 										} elseif ( "you_are_banned" == $value->package ) {
 											$result['error'] = __( "Unfortunately, you have exceeded the number of available tries per day. Please, upload the plugin manually.", 'bestwebsoft' );
 										} elseif ( "time_out" == $value->package ) {
-											$result['error'] = sprintf( __( "Unfortunately, Your license has expired. To continue getting top-priority support and plugin updates, you should extend it in your %s", 'bestwebsoft' ), ' <a href="http://bestwebsoft.com/client-area">Client Area</a>' );
+											$result['error'] = sprintf( __( "Unfortunately, Your license has expired. To continue getting top-priority support and plugin updates, you should extend it in your %s", 'bestwebsoft' ), ' <a href="https://bestwebsoft.com/client-area">Client Area</a>' );
 										} elseif ( "duplicate_domen_for_trial" == $value->package ) {
 											$result['error'] = __( "Unfortunately, the Pro licence was already installed to this domain. The Pro Trial license can be installed only once.", 'bestwebsoft' );
 										}
@@ -682,16 +682,16 @@ if ( ! function_exists( 'bws_go_pro_tab_show' ) ) {
 			<form method="post" action="">
 				<p>
 					<?php _e( 'Enter your license key to install and activate', 'bestwebsoft' ); ?>
-					<a href="http://bestwebsoft.com/products/wordpress/plugins/<?php echo $link_slug; ?>/?k=<?php echo $link_key; ?>&amp;pn=<?php echo $link_pn; ?>&amp;v=<?php echo $plugin_info["Version"]; ?>&amp;wp_v=<?php echo $wp_version; ?>" target="_blank" title="<?php echo $plugin_info["Name"]; ?> Pro">Pro</a>
+					<a href="https://bestwebsoft.com/products/wordpress/plugins/<?php echo $link_slug; ?>/?k=<?php echo $link_key; ?>&amp;pn=<?php echo $link_pn; ?>&amp;v=<?php echo $plugin_info["Version"]; ?>&amp;wp_v=<?php echo $wp_version; ?>" target="_blank" title="<?php echo $plugin_info["Name"]; ?> Pro">Pro</a>
 					<?php _e( 'version of the plugin.', 'bestwebsoft' ); ?><br />
 					<span class="bws_info">
 						<?php _e( 'License key can be found in the', 'bestwebsoft' ); ?>
-						<a href="http://bestwebsoft.com/wp-login.php">Client Area</a>
+						<a href="https://bestwebsoft.com/wp-login.php">Client Area</a>
 						<?php _e( '(your username is the email address specified during the purchase).', 'bestwebsoft' ); ?>
 					</span>
 				</p>
 				<?php if ( $trial_days_number !== false )
-					$trial_days_number = __( 'or', 'bestwebsoft' ) . ' <a href="http://bestwebsoft.com/products/wordpress/plugins/' . $link_slug . '/trial/" target="_blank">' . sprintf( __( 'Start Your Free %s-Day Trial Now', 'bestwebsoft' ), $trial_days_number ) . '</a>';
+					$trial_days_number = __( 'or', 'bestwebsoft' ) . ' <a href="https://bestwebsoft.com/products/wordpress/plugins/' . $link_slug . '/trial/" target="_blank">' . sprintf( __( 'Start Your Free %s-Day Trial Now', 'bestwebsoft' ), $trial_days_number ) . '</a>';
 				if ( isset( $bstwbsftwppdtplgns_options['go_pro'][ $bws_license_plugin ]['count'] ) &&
 					'5' < $bstwbsftwppdtplgns_options['go_pro'][ $bws_license_plugin ]['count'] &&
 					$bstwbsftwppdtplgns_options['go_pro'][ $bws_license_plugin ]['time'] > ( time() - ( 24 * 60 * 60 ) ) ) { ?>

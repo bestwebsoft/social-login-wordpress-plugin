@@ -1,7 +1,7 @@
 <?php
 /*
 * Function for displaying BestWebSoft menu
-* Version: 1.9.9
+* Version: 2.0.6
 */
 
 if ( ! function_exists ( 'bws_admin_enqueue_scripts' ) )
@@ -37,7 +37,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 			$sitewide_active_plugins = ( function_exists( 'is_multisite' ) && is_multisite() ) ? get_site_option( 'active_sitewide_plugins' ) : array();
 			$update_availible_all = get_site_transient( 'update_plugins' );
 
-			$plugin_category = isset( $_GET['category'] ) ? $_GET['category'] : 'all';
+			$plugin_category = isset( $_GET['category'] ) ? esc_html( $_GET['category'] ) : 'all';
 
 			if ( ( isset( $_GET['sub'] ) && 'installed' == $_GET['sub'] ) || ! isset( $_GET['sub'] ) ) {
 				$bws_plugins_update_availible = $bws_plugins_expired = array();
@@ -53,14 +53,16 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 						$is_pro_installed = array_key_exists( $value_plugin['pro_version'], $all_plugins );
 					}
 					/* check update_availible */
-					if ( $is_pro_installed && array_key_exists( $value_plugin['pro_version'], $update_availible_all->response ) ) {
-						unset( $bws_plugins[ $key_plugin ] );
-						$value_plugin['update_availible'] = $value_plugin['pro_version'];
-						$bws_plugins_update_availible[ $key_plugin ] = $value_plugin;
-					} else if ( $is_installed && array_key_exists( $key_plugin, $update_availible_all->response ) ) {
-						unset( $bws_plugins[ $key_plugin ] );
-						$value_plugin['update_availible'] = $key_plugin;
-						$bws_plugins_update_availible[ $key_plugin ] = $value_plugin;
+					if ( ! empty( $update_availible_all ) && ! empty( $update_availible_all->response ) ) {
+						if ( $is_pro_installed && array_key_exists( $value_plugin['pro_version'], $update_availible_all->response ) ) {
+							unset( $bws_plugins[ $key_plugin ] );
+							$value_plugin['update_availible'] = $value_plugin['pro_version'];
+							$bws_plugins_update_availible[ $key_plugin ] = $value_plugin;
+						} else if ( $is_installed && array_key_exists( $key_plugin, $update_availible_all->response ) ) {
+							unset( $bws_plugins[ $key_plugin ] );
+							$value_plugin['update_availible'] = $key_plugin;
+							$bws_plugins_update_availible[ $key_plugin ] = $value_plugin;
+						}
 					}
 					/* check expired */
 					if ( $is_pro_installed && isset( $bstwbsftwppdtplgns_options['time_out'][ $value_plugin['pro_version'] ] ) &&
@@ -117,7 +119,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 						$raw_response = wp_remote_post( 'http://bestwebsoft.com/wp-content/plugins/paid-products/plugins/update-check/1.0/', $options );
 
 						if ( is_wp_error( $raw_response ) || 200 != wp_remote_retrieve_response_code( $raw_response ) ) {
-							$error = __( "Something went wrong. Please try again later. If the error appears again, please contact us", 'bestwebsoft' ) . ' <a href="http://support.bestwebsoft.com">BestWebSoft</a>. ' . __( "We are sorry for inconvenience.", 'bestwebsoft' );
+							$error = __( "Something went wrong. Please try again later. If the error appears again, please contact us", 'bestwebsoft' ) . ' <a href="https://support.bestwebsoft.com">BestWebSoft</a>. ' . __( "We are sorry for inconvenience.", 'bestwebsoft' );
 						} else {
 							$response = maybe_unserialize( wp_remote_retrieve_body( $raw_response ) );
 							if ( is_array( $response ) && !empty( $response ) ) {
@@ -125,11 +127,11 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 									if ( "wrong_license_key" == $value->package ) {
 										$error = __( "Wrong license key.", 'bestwebsoft' );
 									} elseif ( "wrong_domain" == $value->package ) {
-										$error = __( 'This license key is bound to another site. Change it via personal Client Area.', 'bestwebsoft' ) . '<a target="_blank" href="http://bestwebsoft.com/client-area">' . __( 'Log in', 'bestwebsoft' ) . '</a>';
+										$error = __( 'This license key is bound to another site. Change it via personal Client Area.', 'bestwebsoft' ) . '<a target="_blank" href="https://bestwebsoft.com/client-area">' . __( 'Log in', 'bestwebsoft' ) . '</a>';
 									} elseif ( "you_are_banned" == $value->package ) {
 										$error = __( "Unfortunately, you have exceeded the number of available tries per day.", 'bestwebsoft' );
 									} elseif ( "time_out" == $value->package ) {
-										$error = sprintf( __( "Unfortunately, Your license has expired. To continue getting top-priority support and plugin updates, you should extend it in your %s", 'bestwebsoft' ), ' <a href="http://bestwebsoft.com/client-area">Client Area</a>' );
+										$error = sprintf( __( "Unfortunately, Your license has expired. To continue getting top-priority support and plugin updates, you should extend it in your %s", 'bestwebsoft' ), ' <a href="https://bestwebsoft.com/client-area">Client Area</a>' );
 									} elseif ( "duplicate_domen_for_trial" == $value->package ) {
 										$error = __( "Unfortunately, the Pro licence was already installed to this domain. The Pro Trial license can be installed only once.", 'bestwebsoft' );
 									} elseif ( is_array( $value->package ) && ! empty( $value->package ) ) {
@@ -171,7 +173,6 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 		    if ( empty( $sql_mode ) )
 		    	$sql_mode = __( 'Not set', 'bestwebsoft' );
 
-			$safe_mode = ( ini_get( 'safe_mode' ) ) ? __( 'On', 'bestwebsoft' ) : __( 'Off', 'bestwebsoft' );
 			$allow_url_fopen = ( ini_get( 'allow_url_fopen' ) ) ? __( 'On', 'bestwebsoft' ) : __( 'Off', 'bestwebsoft' );
 			$upload_max_filesize = ( ini_get( 'upload_max_filesize' ) )? ini_get( 'upload_max_filesize' ) : __( 'N/A', 'bestwebsoft' );
 			$post_max_size = ( ini_get( 'post_max_size' ) ) ? ini_get( 'post_max_size' ) : __( 'N/A', 'bestwebsoft' );
@@ -208,7 +209,6 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 						__( 'Operating System', 'bestwebsoft' )				=> PHP_OS,
 						__( 'Server', 'bestwebsoft' )						=> $_SERVER["SERVER_SOFTWARE"],
 						__( 'PHP Version', 'bestwebsoft' )					=> PHP_VERSION,
-						__( 'PHP Safe Mode', 'bestwebsoft' )				=> $safe_mode,
 						__( 'PHP Allow URL fopen', 'bestwebsoft' )			=> $allow_url_fopen,
 						__( 'PHP Memory Limit', 'bestwebsoft' )				=> $memory_limit,
 						__( 'Memory Usage', 'bestwebsoft' )					=> $memory_usage,
@@ -296,7 +296,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 			<div class="bws-header">
 				<div class="bws-title">
 					<a href="<?php echo ( $is_main_page ) ? self_admin_url( 'admin.php?page=bws_panel' ) : self_admin_url( 'admin.php?page=' . $page ); ?>">
-						<img class="bws-logo" src="<?php echo bws_menu_url( 'images/bestwebsoft-logo-white.svg' ); ?>" />
+						<span class="bws-logo bwsicons bwsicons-bws-logo"></span>
 						BestWebSoft
 						<span>panel</span>
 					</a>
@@ -314,8 +314,8 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 					<?php } ?>
 				</div>
 				<div class="bws-help-links-wrapper">
-					<a href="<?php echo esc_url( 'http://support.bestwebsoft.com/home' ); ?>" target="_blank"><?php _e( 'Support', 'bestwebsoft' ); ?></a>
-					<a href="<?php echo esc_url( 'http://bestwebsoft.com/client-area' ); ?>" target="_blank" title="<?php _e( 'Manage purchased licenses & subscriptions', 'bestwebsoft' ); ?>">Client Area</a>
+					<a href="<?php echo esc_url( 'https://support.bestwebsoft.com' ); ?>" target="_blank"><?php _e( 'Support', 'bestwebsoft' ); ?></a>
+					<a href="<?php echo esc_url( 'https://bestwebsoft.com/client-area' ); ?>" target="_blank" title="<?php _e( 'Manage purchased licenses & subscriptions', 'bestwebsoft' ); ?>">Client Area</a>
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -325,7 +325,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 					<div class="bws-membership">
 						<div class="bws-membership-title"><?php printf( __( 'Get Access to %s+ Premium Plugins', 'bestwebsoft' ), '30' ); ?></div>
 						<form class="bws-membership-form" method="post" action="">
-							<span class="bws-membership-link"><a target="_blank" href="http://bestwebsoft.com/membership/"><?php _e( 'Subscribe to Pro Membership', 'bestwebsoft' ); ?></a> <?php _e( 'or', 'bestwebsoft' ); ?></span>
+							<span class="bws-membership-link"><a target="_blank" href="https://bestwebsoft.com/membership/"><?php _e( 'Subscribe to Pro Membership', 'bestwebsoft' ); ?></a> <?php _e( 'or', 'bestwebsoft' ); ?></span>
 							<?php if ( isset( $bstwbsftwppdtplgns_options['go_pro'][ $bws_license_plugin ]['count'] ) &&
 								'5' < $bstwbsftwppdtplgns_options['go_pro'][ $bws_license_plugin ]['count'] &&
 								$bstwbsftwppdtplgns_options['go_pro'][ $bws_license_plugin ]['time'] > ( time() - ( 24 * 60 * 60 ) ) ) { ?>
@@ -525,7 +525,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 											}
 
 											if ( ! empty( $value_plugin['expired'] ) ) {
-												echo ' - <a class="bws-update-now" href="http://support.bestwebsoft.com/hc/en-us/articles/202356359" target="_blank">' . __( 'Renew to get updates', 'bestwebsoft' ) . '</a>';
+												echo ' - <a class="bws-update-now" href="https://support.bestwebsoft.com/hc/en-us/articles/202356359" target="_blank">' . __( 'Renew to get updates', 'bestwebsoft' ) . '</a>';
 											} elseif ( ! empty( $value_plugin['update_availible'] ) ) {
 												$r = $update_availible_all->response[ $value_plugin['update_availible'] ];
 												echo ' - <a class="bws-update-now" href="' . wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $value_plugin['update_availible'], 'upgrade-plugin_' . $value_plugin['update_availible'] ) . '" class="update-link" aria-label="' . sprintf( __( 'Update to v %s', 'bestwebsoft' ), $r->new_version ) . '">' . sprintf( __( 'Update to v %s', 'bestwebsoft' ), $r->new_version ) . '</a>';
@@ -550,7 +550,7 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 														<?php }
 													}
 												} else { ?>
-													<a class="bws_donate" href="http://bestwebsoft.com/donate/" target="_blank"><?php _e( 'Donate', 'bestwebsoft' ); ?></a> <span>|</span>
+													<a class="bws_donate" href="https://bestwebsoft.com/donate/" target="_blank"><?php _e( 'Donate', 'bestwebsoft' ); ?></a> <span>|</span>
 												<?php }
 
 												if ( $is_pro_active ) { ?>

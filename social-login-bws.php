@@ -1,17 +1,17 @@
 <?php
 /*
 Plugin Name: Social Login by BestWebSoft
-Plugin URI: http://bestwebsoft.com/products/wordpress/plugins/social-login/
+Plugin URI: https://bestwebsoft.com/products/wordpress/plugins/social-login/
 Description: Add social media login, registration, and commenting to your WordPress website.
 Author: BestWebSoft
 Text Domain: social-login-bws
 Domain Path: /languages
-Version: 0.1
-Author URI: http://bestwebsoft.com/
+Version: 0.2
+Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
 
-/*  © Copyright 2017  BestWebSoft  ( http://support.bestwebsoft.com )
+/*  © Copyright 2017  BestWebSoft  ( https://support.bestwebsoft.com )
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -101,7 +101,7 @@ if ( ! function_exists( 'scllgn_login_init' ) ) {
 				if ( isset( $_REQUEST['code'] ) ) {
 					$client->authenticate( $_REQUEST['code'] );
 					$_SESSION['access_token'] = $client->getAccessToken();
-					$redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+					$redirect = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 					header( 'Location: ' . filter_var( $redirect, FILTER_SANITIZE_URL ) );
 				}
 
@@ -293,13 +293,13 @@ if ( ! function_exists( 'scllgn_settings_page' ) ) {
 					$scllgn_options["{$provider}_is_enabled"] = 1;
 
 					if ( ! empty( $_REQUEST["scllgn_{$provider}_client_id"] ) ) {
-						$scllgn_options["{$provider}_client_id"] =  esc_html( $_REQUEST["scllgn_{$provider}_client_id"] );
+						$scllgn_options["{$provider}_client_id"] = trim( stripslashes( esc_html( $_REQUEST["scllgn_{$provider}_client_id"] ) ) );
 					} else {
 						$error .= sprintf( __( 'Please fill in Client ID for %s.', 'social-login-bws' ), $provider_name );
 					}
 
 					if ( ! empty( $_REQUEST["scllgn_{$provider}_client_secret"] ) ) {
-						$scllgn_options["{$provider}_client_secret"] =  esc_html( $_REQUEST["scllgn_{$provider}_client_secret"] );
+						$scllgn_options["{$provider}_client_secret"] = trim( stripslashes( esc_html( $_REQUEST["scllgn_{$provider}_client_secret"] ) ) );
 					} else {
 						$error .= sprintf( __( 'Please fill in Client secret for %s.', 'social-login-bws' ), $provider_name );
 					}
@@ -467,7 +467,7 @@ if ( ! function_exists( 'scllgn_enqueue_scripts' ) ) {
 			if ( isset( $_GET['action'] ) && 'custom_code' == $_GET['action'] )
 				bws_plugins_include_codemirror();
 		}
-		if ( ! is_admin() && comments_open() && ! is_user_logged_in() ) {
+		if ( ! is_admin() && is_single() && comments_open() && ! is_user_logged_in() ) {
 			/* Adding style to pages with comments */
 			foreach ( $scllgn_providers as $provider => $provider_name ) {
 				if ( ! empty( $scllgn_options["{$provider}_is_enabled"] ) && ! empty( $scllgn_options["{$provider}_comment_form"] ) ) {
@@ -651,7 +651,7 @@ if ( ! function_exists( 'scllgn_logout_redirect' ) ) {
 		if ( ! empty( $_SESSION['access_token'] ) ) {
 			/* Logging out from google account */
 			unset( $_SESSION['access_token'] );
-			$redirect_url = 'https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+			$redirect_url = 'https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=' . ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 		}
 		return $redirect_url;
 	}
@@ -689,7 +689,7 @@ if ( ! function_exists( 'scllgn_links' ) ) {
 			if ( ! is_network_admin() )
 				$links[]	=	'<a href="admin.php?page=social-login.php">' . __( 'Settings', 'social-login-bws' ) . '</a>';
 			$links[]	=	'<a href="http://wordpress.org/plugins/social-login-bws/faq/" target="_blank">' . __( 'FAQ', 'social-login-bws' ) . '</a>';
-			$links[]	=	'<a href="http://support.bestwebsoft.com">' . __( 'Support', 'social-login-bws' ) . '</a>';
+			$links[]	=	'<a href="https://support.bestwebsoft.com">' . __( 'Support', 'social-login-bws' ) . '</a>';
 		}
 		return $links;
 	}

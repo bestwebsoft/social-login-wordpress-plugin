@@ -69,17 +69,35 @@ function bws_show_settings_notice() {
 
 		/* help tooltips */
 		if ( $( '.bws_help_box' ).length > 0 ) {
-			$( '.bws_help_box' ).each( function() {
-				var content = $( this ).find( '.bws_hidden_help_text' ).html(),
-					max_width = $( this ).hasClass( 'bws-auto-width' ) ? 'auto' : '200px';
-				$( this ).tipTip({
-					'content': content,
-					'fadeIn': 50,
-					'fadeOut': 50,
-					'delay': 200,
-					'maxWidth': max_width
-				});
-			});
+			$( document ).tooltip( {
+				items: $( '.bws_help_box' ),
+				content: function() {
+		        	return $( this ).find( '.bws_hidden_help_text' ).html()
+		        },
+		        show: null, /* show immediately */
+		        tooltipClass: "bws-tooltip-content",
+				open: function( event, ui ) {					
+					if ( typeof( event.originalEvent ) === 'undefined' ) {
+						return false;
+					}
+					if ( $( event.originalEvent.target ).hasClass( 'bws-auto-width' ) ) {
+						ui.tooltip.css( "max-width", "inherit" );
+					}
+					var $id = $( ui.tooltip ).attr( 'id' );
+					/* close any lingering tooltips */
+					$( 'div.ui-tooltip' ).not( '#' + $id ).remove();
+				},
+				close: function( event, ui ) {
+					ui.tooltip.hover( function() {
+						$( this ).stop( true ).fadeTo( 200, 1 ); 
+					},
+					function() {
+						$( this ).fadeOut( '200', function() {
+							$( this ).remove();
+						});
+					});
+				}
+		    });
 		}
 
 		/**

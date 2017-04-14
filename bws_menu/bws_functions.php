@@ -100,11 +100,11 @@ if ( ! function_exists( 'bws_plugin_reviews_block' ) ) {
 			</div>
 			<div class="bws-plugin-reviews-support">
 				<?php _e( 'Need help?', 'bestwebsoft' ); ?>
-				<a href="http://support.bestwebsoft.com"><?php _e( 'Visit Help Center', 'bestwebsoft' ); ?></a>
+				<a href="https://support.bestwebsoft.com"><?php _e( 'Visit Help Center', 'bestwebsoft' ); ?></a>
 			</div>
 			<div class="bws-plugin-reviews-donate">
 				<?php _e( 'Want to support the plugin?', 'bestwebsoft' ); ?>
-				<a href="http://bestwebsoft.com/donate/"><?php _e( 'Donate', 'bestwebsoft' ); ?></a>
+				<a href="https://bestwebsoft.com/donate/"><?php _e( 'Donate', 'bestwebsoft' ); ?></a>
 			</div>
 		</div>
 	<?php }
@@ -124,7 +124,7 @@ if ( ! function_exists ( 'bws_plugin_update_row' ) ) {
 						<div class="update-message' . $div_class . '"' . $style . '>';
 						if ( $wp_version >= 4.6 )
 							echo '<p>';
-						echo '<strong>' . __( 'WARNING: Illegal use notification', 'bestwebsoft' ) . '.</strong> ' . __( 'You can use one license of the Pro plugin for one domain only. Please check and edit your license or domain if necessary using you personal Client Area. We strongly recommend you to solve the problem within 24 hours, otherwise the Pro plugin will be deactivated.', 'bestwebsoft' ) . ' <a target="_blank" href="http://support.bestwebsoft.com/hc/en-us/articles/204240089">' . __( 'Learn More', 'bestwebsoft' ) . '</a>';
+						echo '<strong>' . __( 'WARNING: Illegal use notification', 'bestwebsoft' ) . '.</strong> ' . __( 'You can use one license of the Pro plugin for one domain only. Please check and edit your license or domain if necessary using you personal Client Area. We strongly recommend you to solve the problem within 24 hours, otherwise the Pro plugin will be deactivated.', 'bestwebsoft' ) . ' <a target="_blank" href="https://support.bestwebsoft.com/hc/en-us/articles/204240089">' . __( 'Learn More', 'bestwebsoft' ) . '</a>';
 						if ( $wp_version >= 4.6 )
 							echo '</p>';
 						echo '</div>
@@ -141,9 +141,9 @@ if ( ! function_exists ( 'bws_plugin_update_row' ) ) {
 						if ( $wp_version >= 4.6 )
 							echo '<p>';
 						if ( isset( $bstwbsftwppdtplgns_options['trial'][ $plugin_key ] ) && $link_slug != false ) {
-							echo __( 'Notice: Your Pro Trial license has expired. To continue using the plugin, you should buy a Pro license', 'bestwebsoft' ) . ' - <a href="http://bestwebsoft.com/products/wordpress/plugins/' . $link_slug .'/">http://bestwebsoft.com/products/wordpress/plugins/' . $link_slug . '/</a>';
+							echo __( 'Notice: Your Pro Trial license has expired. To continue using the plugin, you should buy a Pro license', 'bestwebsoft' ) . ' - <a href="https://bestwebsoft.com/products/wordpress/plugins/' . $link_slug .'/">https://bestwebsoft.com/products/wordpress/plugins/' . $link_slug . '/</a>';
 						} else {
-							echo __( 'Your license has expired. To continue getting top-priority support and plugin updates, you should extend it.', 'bestwebsoft' ) . ' <a target="_new" href="http://support.bestwebsoft.com/entries/53487136">' . __( "Learn more", 'bestwebsoft' ) . '</a>';
+							echo __( 'Your license has expired. To continue getting top-priority support and plugin updates, you should extend it.', 'bestwebsoft' ) . ' <a target="_new" href="https://support.bestwebsoft.com/entries/53487136">' . __( "Learn more", 'bestwebsoft' ) . '</a>';
 						}
 						if ( $wp_version >= 4.6 )
 							echo '</p>';
@@ -204,7 +204,7 @@ if ( ! function_exists( 'bws_admin_notices' ) ) {
 							<img title="" src="<?php echo esc_attr( $bws_plugin_banner_to_settings[0]['banner_url'] ); ?>" alt="" />
 						</div>
 						<div class="text">
-							<strong><?php _e( 'Thank you for installing', 'bestwebsoft' ); ?> <?php echo $bws_plugin_banner_to_settings[0]['plugin_info']['Name']; ?> plugin!</strong><br />
+							<strong><?php printf( __( 'Thank you for installing %s plugin!', 'bestwebsoft' ), $bws_plugin_banner_to_settings[0]['plugin_info']['Name'] ); ?> </strong><br />
 							<?php _e( "Let's get started", 'bestwebsoft' ); ?>:
 							<a href="<?php echo $bws_plugin_banner_to_settings[0]['settings_url']; ?>"><?php _e( 'Settings', 'bestwebsoft' ); ?></a>
 							<?php if ( false != $bws_plugin_banner_to_settings[0]['post_type_url'] ) { ?>
@@ -336,7 +336,7 @@ if ( ! function_exists( 'bws_plugin_banner' ) ) {
 							<span><?php _e( 'Extend standard plugin functionality with new great options.', 'bestwebsoft' ); ?></span>
 						</div>
 						<div class="button_div">
-							<a class="button" target="_blank" href="http://bestwebsoft.com/products/wordpress/plugins/<?php echo $link_slug; ?>/?k=<?php echo $link_key; ?>&amp;pn=<?php echo $link_pn; ?>&amp;v=<?php echo $plugin_info["Version"]; ?>&amp;wp_v=<?php echo $wp_version; ?>"><?php _e( 'Learn More', 'bestwebsoft' ); ?></a>
+							<a class="button" target="_blank" href="https://bestwebsoft.com/products/wordpress/plugins/<?php echo $link_slug; ?>/?k=<?php echo $link_key; ?>&amp;pn=<?php echo $link_pn; ?>&amp;v=<?php echo $plugin_info["Version"]; ?>&amp;wp_v=<?php echo $wp_version; ?>"><?php _e( 'Learn More', 'bestwebsoft' ); ?></a>
 						</div>
 					</div>
 				</div>
@@ -379,7 +379,7 @@ if ( ! function_exists ( 'bws_plugin_banner_timeout' ) ) {
 					<div class="icon">
 						<img title="" src="<?php echo $banner_url; ?>" alt="" />
 					</div>
-					<div class="text"><?php printf( __( "Your license key for %s expires on %s and you won't be granted TOP-PRIORITY SUPPORT or UPDATES.", 'bestwebsoft' ), '<strong>' . $plugin_name . '</strong>', $bstwbsftwppdtplgns_options['time_out'][ $plugin_key ] ); ?> <a target="_new" href="http://support.bestwebsoft.com/entries/53487136"><?php _e( "Learn more", 'bestwebsoft' ); ?></a></div>
+					<div class="text"><?php printf( __( "Your license key for %s expires on %s and you won't be granted TOP-PRIORITY SUPPORT or UPDATES.", 'bestwebsoft' ), '<strong>' . $plugin_name . '</strong>', $bstwbsftwppdtplgns_options['time_out'][ $plugin_key ] ); ?> <a target="_new" href="https://support.bestwebsoft.com/entries/53487136"><?php _e( "Learn more", 'bestwebsoft' ); ?></a></div>
 				</div>
 			</div>
 		<?php }
@@ -474,9 +474,9 @@ if ( ! function_exists( 'bws_plugin_suggest_feature_banner' ) ) {
 					<img title="" src="<?php echo esc_attr( $banner_url_or_slug ); ?>" alt="" />
 				</div>
 				<div class="text">
-					<strong><?php _e( 'Thank you for choosing', 'bestwebsoft' ); ?> <?php echo $plugin_info['Name']; ?> plugin!</strong><br />
+					<strong><?php printf( __( 'Thank you for choosing %s plugin!', 'bestwebsoft' ), $plugin_info['Name'] ); ?></strong><br />
 					<?php _e( "If you have a feature, suggestion or idea you'd like to see in the plugin, we'd love to hear about it!", 'bestwebsoft' ); ?>
-					<a target="_blank" href="http://support.bestwebsoft.com/hc/en-us/requests/new"><?php _e( 'Suggest a Feature', 'bestwebsoft' ); ?></a>
+					<a target="_blank" href="https://support.bestwebsoft.com/hc/en-us/requests/new"><?php _e( 'Suggest a Feature', 'bestwebsoft' ); ?></a>
 				</div>
 				<form action="" method="post">
 					<button class="notice-dismiss bws_hide_settings_notice" title="<?php _e( 'Close notice', 'bestwebsoft' ); ?>"></button>
@@ -561,10 +561,13 @@ if ( ! function_exists ( 'bws_plugins_admin_init' ) ) {
 
 if ( ! function_exists ( 'bws_admin_enqueue_scripts' ) ) {
 	function bws_admin_enqueue_scripts() {
+		global $wp_scripts;
+
+		$jquery_version = isset( $wp_scripts->registered['jquery-ui-core']->ver ) ? $wp_scripts->registered['jquery-ui-core']->ver : '1.12.1';
+
+		wp_enqueue_style( 'jquery-ui-style', '//code.jquery.com/ui/' . $jquery_version . '/themes/smoothness/jquery-ui.min.css', array(), $jquery_version );
 		wp_enqueue_style( 'bws-admin-css', bws_menu_url( 'css/general_style.css' ) );
-		wp_enqueue_style( 'tipTip.css', bws_menu_url( 'css/tipTip.css' ) );
-		wp_enqueue_script( 'jquery.tipTip.minified.js', bws_menu_url( 'js/jquery.tipTip.minified.js' ) );
-		wp_enqueue_script( 'bws-admin-scripts', bws_menu_url( 'js/general_script.js' ), array( 'jquery' ) );
+		wp_enqueue_script( 'bws-admin-scripts', bws_menu_url( 'js/general_script.js' ), array( 'jquery', 'jquery-ui-tooltip' ) );
 
 		if ( isset( $_GET['page'] ) && ( in_array( $_GET['page'], array( 'bws_panel', 'bws_themes', 'bws_system_status' ) ) || strpos( $_GET['page'], '-bws-panel' ) ) ) {
 			wp_enqueue_style( 'bws_menu_style', bws_menu_url( 'css/style.css' ) );
@@ -627,7 +630,6 @@ if ( ! function_exists ( 'bws_plugins_admin_head' ) ) {
 				var bws_shortcode_button = {
 					'label': '<?php esc_attr_e( "Add BWS Shortcode", "bestwebsoft" ); ?>',
 					'title': '<?php esc_attr_e( "Add BWS Plugins Shortcode", "bestwebsoft" ); ?>',
-					'icon_url': '<?php echo bws_menu_url( "images/shortcode-icon.png" ); ?>',
 					'function_name': [
 						<?php foreach ( $bws_shortcode_list as $key => $value ) {
 							if ( isset( $value['js_function'] ) )
@@ -909,7 +911,7 @@ if ( ! function_exists( 'bws_add_help_box' ) ) {
 /* add help tab  */
 if ( ! function_exists( 'bws_help_tab' ) ) {
 	function bws_help_tab( $screen, $args ) {
-		$url = ( ! empty( $args['section'] ) ) ? 'http://support.bestwebsoft.com/hc/en-us/sections/' . $args['section'] : 'http://support.bestwebsoft.com/';
+		$url = ( ! empty( $args['section'] ) ) ? 'https://support.bestwebsoft.com/hc/en-us/sections/' . $args['section'] : 'https://support.bestwebsoft.com/';
 
 		$content = '<p><a href="' . $url . '" target="_blank">' . __( 'Visit Help Center', 'bestwebsoft' ) . '</a></p>';
 
@@ -925,7 +927,7 @@ if ( ! function_exists( 'bws_help_tab' ) ) {
 			'<p><strong>' . __( 'For more information:', 'bestwebsoft' ) . '</strong></p>' .
 			'<p><a href="https://drive.google.com/folderview?id=0B5l8lO-CaKt9VGh0a09vUjNFNjA&usp=sharing#list" target="_blank">' . __( 'Documentation', 'bestwebsoft' ) . '</a></p>' .
 			'<p><a href="http://www.youtube.com/user/bestwebsoft/playlists?flow=grid&sort=da&view=1" target="_blank">' . __( 'Video Instructions', 'bestwebsoft' ) . '</a></p>' .
-			'<p><a href="http://support.bestwebsoft.com/hc/en-us/requests/new" target="_blank">' . __( 'Submit a Request', 'bestwebsoft' ) . '</a></p>'
+			'<p><a href="https://support.bestwebsoft.com/hc/en-us/requests/new" target="_blank">' . __( 'Submit a Request', 'bestwebsoft' ) . '</a></p>'
 		);
 	}
 }
@@ -972,7 +974,6 @@ if ( ! function_exists( 'bws_enqueue_custom_code_php' ) ) {
 				$blog_id = get_current_blog_id();
 
 			if ( ! $is_multisite && ! empty( $bstwbsftwppdtplgns_options['custom_code']['bws-custom-code.php'] ) ) {
-
 				if ( file_exists( $bstwbsftwppdtplgns_options['custom_code']['bws-custom-code.php'] ) ) {
 					if ( ! defined( 'BWS_GLOBAL' ) )
 						define( 'BWS_GLOBAL', true );
