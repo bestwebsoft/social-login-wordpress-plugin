@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: social-login-bws\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-03 14:35+0200\n"
-"PO-Revision-Date: 2017-02-03 14:35+0200\n"
+"POT-Creation-Date: 2017-04-20 16:16+0300\n"
+"PO-Revision-Date: 2017-04-20 16:17+0300\n"
 "Last-Translator: plugin@bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language-Team: BestWebSoft <plugin@bestwebsoft.com>\n"
 "Language: uk\n"
@@ -13,52 +13,61 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: social-login-bws.php:34 social-login-bws.php:337
+#: social-login-bws.php:34 social-login-bws.php:444
 msgid "Social Login Settings"
 msgstr "Налаштування Social Login"
 
-#: social-login-bws.php:282
+#: social-login-bws.php:228 social-login-bws.php:253 social-login-bws.php:953
+#: social-login-bws.php:967 social-login-bws.php:978
+msgid "ERROR"
+msgstr "Помилка"
+
+#: social-login-bws.php:229 social-login-bws.php:254 social-login-bws.php:925
+msgid "This email is already registered, please choose another one."
+msgstr "Цей email вже зареєстрований, будь ласка, оберіть інший."
+
+#: social-login-bws.php:389
 msgid "WordPress Login form"
 msgstr "Форма логіна WordPress"
 
-#: social-login-bws.php:283
+#: social-login-bws.php:390
 msgid "WordPress Registration form"
 msgstr "Форма реєстрації WordPress"
 
-#: social-login-bws.php:284
+#: social-login-bws.php:391
 msgid "WordPress Comments form"
 msgstr "Форма коментарів WordPress"
 
-#: social-login-bws.php:298
+#: social-login-bws.php:405
 #, php-format
 msgid "Please fill in Client ID for %s."
 msgstr "Будь ласка, заповніть ідентифікатор клієнта для %s."
 
-#: social-login-bws.php:304
+#: social-login-bws.php:411
 #, php-format
 msgid "Please fill in Client secret for %s."
 msgstr "Будь ласка, заповніть секрет клієнта для %s."
 
-#: social-login-bws.php:317
+#: social-login-bws.php:424
 msgid "Settings saved"
 msgstr "Налаштування збережено"
 
-#: social-login-bws.php:325
+#: social-login-bws.php:432
 msgid "All plugin settings were restored."
 msgstr "Всі налаштування плагіну було скинуто до стандартних."
 
-#: social-login-bws.php:339 social-login-bws.php:677 social-login-bws.php:690
+#: social-login-bws.php:446 social-login-bws.php:797 social-login-bws.php:810
 msgid "Settings"
 msgstr "Налаштування"
 
-#: social-login-bws.php:340
+#: social-login-bws.php:447
 msgid "Custom code"
 msgstr "Користувацький код"
 
-#: social-login-bws.php:350
+#: social-login-bws.php:457
 #, php-format
 msgid ""
 "%1$s requires at least PHP version %2$s. Please contact you hosting provider "
@@ -67,56 +76,56 @@ msgstr ""
 "Для роботи %1$s потрібна версія PHP не нижче %2$s. Будь ласка, зв'яжіться з "
 "адміністратором вашого хостингу для оновлення версії PHP."
 
-#: social-login-bws.php:366
+#: social-login-bws.php:473
 #, php-format
 msgid "%1$s Sign In Button"
 msgstr "Кнопка \"Увійти за допомогою %1$s\""
 
-#: social-login-bws.php:371
+#: social-login-bws.php:478
 #, php-format
 msgid "Enable to add %1$s Sign In button to the necessary WordPress form."
 msgstr ""
 "Увімкніть, щоб додати до обраних форм кнопку \"Увійти за допомогою %1$s\"."
 
-#: social-login-bws.php:379
+#: social-login-bws.php:486
 msgid "Client ID"
 msgstr "Ідентифікатор клієнта"
 
-#: social-login-bws.php:383
+#: social-login-bws.php:490
 msgid "You need to create your own credentials in order to use google API."
 msgstr ""
 "Ви повинні створити свої власні облікові дані для того, щоб використовувати "
 "Google API."
 
-#: social-login-bws.php:383
+#: social-login-bws.php:490
 msgid "Learn More"
 msgstr "Дізнатись більше"
 
-#: social-login-bws.php:388
+#: social-login-bws.php:495
 msgid "Client Secret"
 msgstr "Секрет клієнта"
 
-#: social-login-bws.php:394
+#: social-login-bws.php:501
 msgid "Display Button in"
 msgstr "Відображати кнопку"
 
-#: social-login-bws.php:414
+#: social-login-bws.php:521
 msgid "Buttons Position"
 msgstr "Позиція кнопок"
 
-#: social-login-bws.php:419
+#: social-login-bws.php:526
 msgid "Top"
 msgstr "Зверху"
 
-#: social-login-bws.php:422
+#: social-login-bws.php:529
 msgid "Before the submit button"
 msgstr "Перед кнопкою підтвердження"
 
-#: social-login-bws.php:425
+#: social-login-bws.php:532
 msgid "Bottom"
 msgstr "Внизу"
 
-#: social-login-bws.php:428
+#: social-login-bws.php:535
 msgid ""
 "Choose the buttons position in the form. This option is available only for "
 "Login and Registration forms."
@@ -124,58 +133,94 @@ msgstr ""
 "Оберіть позицію кнопок у формі. Ця опція доступна лише для форм логіна і "
 "реєстрації."
 
-#: social-login-bws.php:436
+#: social-login-bws.php:543
 msgid "Save Changes"
 msgstr "Зберегти зміни"
 
-#: social-login-bws.php:545
+#: social-login-bws.php:652
 msgid "please allow the access to your profile information"
 msgstr "будь ласка, дозвольте доступ до інформації вашого профілю"
 
-#: social-login-bws.php:546
+#: social-login-bws.php:653
 msgid "failed to register new user"
 msgstr "зареєструвати нового користувача не вдалось"
 
-#: social-login-bws.php:547
+#: social-login-bws.php:654
 msgid "new users registration is disabled"
 msgstr "реєстрацію нових користувачів вимкнено"
 
-#: social-login-bws.php:548
+#: social-login-bws.php:655
 msgid "you need to verify your account Email"
 msgstr "Email Вашого аккаунту потребує верифікації"
 
-#: social-login-bws.php:549
+#: social-login-bws.php:656
 msgid "user data is insufficient for registration"
 msgstr "недостатньо користувацьких даних для реєстрації"
 
-#: social-login-bws.php:550
+#: social-login-bws.php:657
 msgid "provided token data is invalid"
 msgstr "надані дані токена недійсні"
 
-#: social-login-bws.php:551
+#: social-login-bws.php:658
 msgid "provided token is invalid"
 msgstr "наданий токен недійсний"
 
-#: social-login-bws.php:552
+#: social-login-bws.php:659
 msgid "login failed"
 msgstr "увійти не вдалось"
 
-#: social-login-bws.php:558
+#: social-login-bws.php:667
 msgid "Error"
 msgstr "Помилка"
 
-#: social-login-bws.php:582
+#: social-login-bws.php:697
 #, php-format
 msgid "Sign In with %1$s"
 msgstr "Увійти за допомогою %1$s"
 
-#: social-login-bws.php:691
+#: social-login-bws.php:811
 msgid "FAQ"
 msgstr "FAQ"
 
-#: social-login-bws.php:692
+#: social-login-bws.php:812
 msgid "Support"
 msgstr "Підтримка"
+
+#: social-login-bws.php:852
+#, php-format
+msgid "Enter %s to enable sign in with Social Login button."
+msgstr "Введіть %s для того, щоб увійти в систему з кнопкою Social Login."
+
+#: social-login-bws.php:853
+msgid "existing Gmail address"
+msgstr "існуючу адресу Gmail"
+
+#: social-login-bws.php:862
+msgid "Social Login Accounts"
+msgstr "Облікові записи Social Login"
+
+#: social-login-bws.php:932
+#, php-format
+msgid "The %1$s you specified for %2$s Account is already used by another user"
+msgstr ""
+"%1$s,що було вказано для облікового запису %2$s вже використовується іншим "
+"користувачем"
+
+#: social-login-bws.php:933
+msgid "email address"
+msgstr "Email"
+
+#: social-login-bws.php:937
+#, php-format
+msgid "Please enter valid %1$s Account %2$s"
+msgstr "Будь ласка, введіть дійсний %2$s для облікового запису %1$s"
+
+#: social-login-bws.php:939
+msgid "email"
+msgstr "email"
+
+#~ msgid "Unavailable %s email"
+#~ msgstr "Email для %s недоступний"
 
 #~ msgid ""
 #~ "You need to create your own credentials in order to use google API. "

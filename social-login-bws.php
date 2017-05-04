@@ -6,7 +6,7 @@ Description: Add social media login, registration, and commenting to your WordPr
 Author: BestWebSoft
 Text Domain: social-login-bws
 Domain Path: /languages
-Version: 0.2
+Version: 0.3
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -59,14 +59,25 @@ if ( ! function_exists( 'scllgn_init' ) ) {
 		bws_include_init( plugin_basename( __FILE__ ) );
 
 		/* check compatible with current WP version */
-		bws_wp_min_version_check( plugin_basename( __FILE__ ), $scllgn_plugin_info, '3.8' );
+		bws_wp_min_version_check( plugin_basename( __FILE__ ), $scllgn_plugin_info, '3.9' );
 
 		$is_admin = is_admin() && ! defined( 'DOING_AJAX' );
-
 		/* Get/Register and check settings for plugin */
-		if ( ! $is_admin || ( isset( $_GET['page'] ) && 'social-login.php' == $_GET['page'] ) ) {
+		if (
+			! $is_admin ||
+			( isset( $_GET['page'] ) && 'social-login.php' == $_GET['page'] ) || /* plugin settings page */
+			defined('IS_PROFILE_PAGE') || /* defined on profile.php(set to true) and user-edit.php(set to false) pages */
+			( defined( 'BWS_ENQUEUE_ALL_SCRIPTS' ) && BWS_ENQUEUE_ALL_SCRIPTS )
+		) {
 			session_id() or session_start();
 			scllgn_settings();
+		}
+
+		/* Additional check for email existance in usermeta of registered users */
+		add_filter( 'registration_errors', 'scllgn_registration_errors', 9, 3 );
+		if ( is_multisite() ) {
+			add_filter( 'wpmu_validate_user_signup', 'scllgn_validate_multisite_user_signup' );
+			add_filter( 'wpmu_validate_blog_signup', 'scllgn_validate_multisite_user_signup' );
 		}
 	}
 }
@@ -138,7 +149,7 @@ if ( ! function_exists( 'scllgn_login_init' ) ) {
 								/* checking if user already exists */
 								$user = get_user_by( 'login', $userinfo->id );
 								if ( ! $user && $email_is_verified ) {
-									$user = get_user_by( 'email', $userinfo->email );
+									$user = scllgn_get_user( $userinfo->email, $userinfo->id, 'google' );
 								}
 								$anyone_can_register = get_option( 'users_can_register' );
 								if ( ! $user ) {
@@ -204,6 +215,103 @@ if ( ! function_exists( 'scllgn_login_init' ) ) {
 				exit();
 			}
 		}
+	}
+}
+
+if ( ! function_exists( 'scllgn_registration_errors' ) ) {
+	function scllgn_registration_errors( $errors, $sanitized_user_login = '', $user_email = '' ) {
+		$user = scllgn_get_user( $user_email );
+		$error_codes = $errors->get_error_codes();
+		/* Add error message only if such message still isn't added */
+		if ( false !== $user && ! in_array( 'email_exists', $error_codes ) ) {
+			$error_message = sprintf(
+				'<strong>%1$s</strong>: %2$s',
+				__( 'ERROR', 'social-login-bws' ),
+				__( 'This email is already registered, please choose another one.', 'social-login-bws' )
+			);
+			$errors->add( 'scllgn_email_exists', $error_message );
+		}
+		return $errors;
+	}
+}
+
+if ( ! function_exists ( 'scllgn_validate_multisite_user_signup' ) ) {
+	function scllgn_validate_multisite_user_signup( $results ) {
+		global $current_user;
+
+		/**
+		 * Prevent email checkig if user is already logged in on the "register site" step for multisite
+		 */
+		if ( ! empty( $current_user->data->ID ) )
+			return $results;
+
+		$user = scllgn_get_user( $results['user_email'] );
+		$error_codes = $results['errors']->get_error_codes();
+		/* Add error message only if such message still isn't added */
+		if ( false !== $user && ! in_array( 'email_exists', $error_codes ) ) {
+			$error_message = sprintf(
+				'<strong>%1$s</strong>: %2$s',
+				__( 'ERROR', 'social-login-bws' ),
+				__( 'This email is already registered, please choose another one.', 'social-login-bws' )
+			);
+			$results['errors']->add( 'scllgn_email_exists', $error_message );
+		}
+
+		return $results;
+	}
+}
+
+/**
+ * Check if user with specified email is already exist and return user or false.
+ * @param		string		$email				email
+ * @param		string		$login				login
+ * @param		string		$provider_slug		provider slug
+ * @return		WP_User || false
+ */
+if ( ! function_exists( 'scllgn_get_user' ) ) {
+	function scllgn_get_user( $email = '', $login = '', $provider_slug = '' ) {
+		global $scllgn_providers;
+
+		$user = false;
+
+		if ( '' == $email && '' == $login )
+			return $user;
+
+		if ( '' != $email )
+			$user = get_user_by( 'email', $email );
+
+		/*if ( ! $user && '' != $login )
+			$user = get_user_by( 'login', $login );*/
+
+		/* Search email in "scllgn_{$provider}_login" metafields of registered users */
+		if ( ! $user ) {
+			$meta_query_array = array( 'relation' => 'OR' );
+
+			foreach ( $scllgn_providers as $provider => $provider_name ) {
+				$meta_value = array();
+
+				if ( '' != $email )
+					$meta_value[] = $email;
+
+				if ( $provider == $provider_slug && '' != $login )
+					$meta_value[] = $login;
+
+				if ( ! empty( $meta_value ) ) {
+					$meta_query_array[] = array(
+						'key'		=> "scllgn_{$provider}_login",
+						'value'		=> $meta_value,
+						'compare'	=> 'IN'
+					);
+				}
+			}
+
+			if ( count( $meta_query_array ) > 1 )
+				$users = get_users( array( 'meta_query' => $meta_query_array, 'number' => '1' ) );
+
+			if ( ! empty( $users ) )
+				$user = $users[0];
+		}
+		return apply_filters( 'scllgn_get_user', $user );
 	}
 }
 
@@ -464,10 +572,12 @@ if ( ! function_exists( 'scllgn_enqueue_scripts' ) ) {
 		if ( isset( $_GET['page'] ) && 'social-login.php' == $_GET['page'] ) {
 			/* Adding script to settings page */
 			wp_enqueue_script( 'scllgn_script', plugins_url( 'js/script.js', __FILE__ ), array( 'jquery' ), $scllgn_plugin_info['Version'] );
+			bws_enqueue_settings_scripts();
 			if ( isset( $_GET['action'] ) && 'custom_code' == $_GET['action'] )
 				bws_plugins_include_codemirror();
 		}
-		if ( ! is_admin() && is_single() && comments_open() && ! is_user_logged_in() ) {
+
+		if ( ! is_admin() && is_singular() && comments_open() && ! is_user_logged_in() ) {
 			/* Adding style to pages with comments */
 			foreach ( $scllgn_providers as $provider => $provider_name ) {
 				if ( ! empty( $scllgn_options["{$provider}_is_enabled"] ) && ! empty( $scllgn_options["{$provider}_comment_form"] ) ) {
@@ -480,6 +590,10 @@ if ( ! function_exists( 'scllgn_enqueue_scripts' ) ) {
 			}
 			if ( ! empty( $enqueue_style ) )
 				wp_enqueue_style( 'scllgn_style', plugins_url( 'css/style.css', __FILE__ ), array( 'dashicons' ), $scllgn_plugin_info['Version'] );
+		}
+
+		if ( defined( 'BWS_ENQUEUE_ALL_SCRIPTS' ) && BWS_ENQUEUE_ALL_SCRIPTS && ! wp_style_is( 'scllgn_style', 'enqueued' ) ) {
+			wp_enqueue_style( 'scllgn_style', plugins_url( 'css/style.css', __FILE__ ), array( 'dashicons' ), $scllgn_plugin_info['Version'] );
 		}
 	}
 }
@@ -552,20 +666,22 @@ if ( ! function_exists( 'scllgn_login_error' ) ) {
 				'login_error'				=> __( 'login failed', 'social-login-bws' )
 			);
 
+			$error_message = isset( $messages[ $_REQUEST['error'] ] ) ? $messages[ $_REQUEST['error'] ] : esc_html( esc_attr( $_REQUEST['error'] ) );
+
 			$error = ( ! empty( $error ) ) ? $error . "\n" : "";
 			$error .= sprintf(
 				'<strong>%1$s</strong>: %2$s',
 				__( 'Error', 'social-login-bws' ),
-				! empty( $messages[ $_REQUEST['error'] ] ) ? $messages[ $_REQUEST['error'] ] : esc_html( esc_attr( $_REQUEST['error'] ) )
+				$error_message
 			);
 		}
 		return $message;
 	}
 }
 
-/* Prepare and return login button for each provider */
+/* Prepare and return login button for specified provider */
 if ( ! function_exists( 'scllgn_get_button' ) ) {
-	function scllgn_get_button( $provider = 'google' ) {
+	function scllgn_get_button( $provider = 'google', $echo = false ) {
 		global $scllgn_options, $scllgn_providers, $pagenow;
 		if ( 'wp-login.php' != $pagenow ) {
 			$_SESSION['scllgn_redirect'] = home_url( add_query_arg( null, null ) );
@@ -574,14 +690,28 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
 				unset( $_SESSION['scllgn_redirect'] );
 		}
 		$button = "";
+		$button_text = apply_filters( "scllgn_{$provider}_button_text", sprintf( __( 'Sign In with %1$s', 'social-login-bws' ), $scllgn_providers[ $provider ] ) );
+		$button_text = apply_filters( "scllgn_button_text", $button_text );
 		if ( 'google' == $provider ) {
 			$client = scllgn_google_client();
 			$authUrl = urldecode( $client->createAuthUrl() );
-			$button .=	'<a href="' . $authUrl . '" class="scllgn_login_button scllgn_button_' . $scllgn_options['loginform_buttons_position'] . '" id="scllgn_google_button" data-position="' . $scllgn_options['loginform_buttons_position'] . '">' .
-							'<span class="dashicons dashicons-googleplus"></span>' .
-							'<span class="scllgn_button_text">' . apply_filters( 'scllgn_' . $provider . '_button_text', sprintf( __( 'Sign In with %1$s', 'social-login-bws' ), $scllgn_providers[ $provider ] ) ) . '</span>' .
-						'</a>';
+			$button .=	sprintf(
+				'<a href="%1$s" class="scllgn_login_button scllgn_button_%2$s" id="scllgn_google_button" data-position="%2$s">' .
+					'<span class="dashicons %3$s"></span>' .
+					'<span class="scllgn_button_text">%4$s</span>' .
+				'</a>',
+				$authUrl,
+				$scllgn_options['loginform_buttons_position'],
+				'dashicons-googleplus',
+				$button_text
+			);
 		}
+		$button = apply_filters( "scllgn_{$provider}_button", $button );
+		$button = apply_filters( "scllgn_button", $button );
+
+		if ( $echo )
+			echo $button;
+
 		return $button;
 	}
 }
@@ -591,9 +721,24 @@ if ( ! function_exists( 'scllgn_login_form' ) ) {
 	function scllgn_login_form() {
 		global $scllgn_options, $scllgn_providers;
 
-		foreach ( $scllgn_providers as $provider => $provider_name ) {
-			if ( ! empty( $scllgn_options["{$provider}_is_enabled"] ) && ! empty( $scllgn_options["{$provider}_login_form"] ) )
-				echo scllgn_get_button( $provider );
+		if ( ! is_user_logged_in() ) {
+			$buttons = array();
+
+			foreach ( $scllgn_providers as $provider => $provider_name ) {
+				if ( ! empty( $scllgn_options["{$provider}_is_enabled"] ) && ! empty( $scllgn_options["{$provider}_login_form"] ) )
+					$buttons[ $provider ] = scllgn_get_button( $provider );
+			}
+
+			/* Providing an ability to reorder providers or even unset some of them */
+			$buttons = apply_filters( 'scllgn_sort_login_buttons', $buttons );
+
+			if ( ! empty( $buttons ) ) {
+				$buttons = implode( '', $buttons );
+				printf(
+					'<div class="scllgn_buttons_block">%s</div>',
+					$buttons
+				);
+			}
 		}
 	}
 }
@@ -603,9 +748,24 @@ if ( ! function_exists( 'scllgn_register_form' ) ) {
 	function scllgn_register_form() {
 		global $scllgn_options, $scllgn_providers;
 
-		foreach ( $scllgn_providers as $provider => $provider_name ) {
-			if ( ! empty( $scllgn_options["{$provider}_is_enabled"] ) && ! empty( $scllgn_options["{$provider}_register_form"] ) )
-				echo scllgn_get_button( $provider );
+		if ( ! is_user_logged_in() ) {
+			$buttons = array();
+
+			foreach ( $scllgn_providers as $provider => $provider_name ) {
+				if ( ! empty( $scllgn_options["{$provider}_is_enabled"] ) && ! empty( $scllgn_options["{$provider}_register_form"] ) )
+					$buttons[ $provider ] = scllgn_get_button( $provider );
+			}
+
+			/* Providing an ability to reorder providers or even unset some of them */
+			$buttons = apply_filters( 'scllgn_sort_register_buttons', $buttons );
+
+			if ( ! empty( $buttons ) ) {
+				$buttons = implode( '', $buttons );
+				printf(
+					'<div class="scllgn_buttons_block">%s</div>',
+					$buttons
+				);
+			}
 		}
 	}
 }
@@ -616,13 +776,51 @@ if ( ! function_exists( 'scllgn_comment_form' ) ) {
 		global $scllgn_options, $scllgn_providers;
 
 		if ( comments_open() && ! is_user_logged_in() ) {
+			$buttons = array();
+
 			foreach ( $scllgn_providers as $provider => $provider_name ) {
 				if ( ! empty( $scllgn_options["{$provider}_is_enabled"] ) && ! empty( $scllgn_options["{$provider}_comment_form"] ) ) {
-					echo scllgn_get_button( $provider );
+					$buttons[ $provider ] = scllgn_get_button( $provider );
 				}
 			}
+
+			/* Providing an ability to reorder providers or even unset some of them */
+			$buttons = apply_filters( 'scllgn_sort_comment_buttons', $buttons );
+
+			if ( ! empty( $buttons ) ) {
+				$buttons = implode( '', $buttons );
+				printf(
+					'<div class="scllgn_buttons_block">%s</div>',
+					$buttons
+				);
+			}
+
 			if ( ! empty( $_SESSION['scllgn_userdata'] ) ) {
 				unset( $_SESSION['scllgn_userdata'] );
+			}
+		}
+	}
+}
+
+/* Display all available buttons */
+if ( ! function_exists( 'scllgn_display_all_buttons' ) ) {
+	function scllgn_display_all_buttons() {
+		global $scllgn_options, $scllgn_providers;
+
+		if ( ! is_user_logged_in() ) {
+			$buttons = array();
+
+			foreach ( $scllgn_providers as $provider => $provider_name ) {
+				$buttons[ $provider ] = scllgn_get_button( $provider );
+			}
+			$buttons = apply_filters( 'scllgn_all_social_buttons', $buttons );
+
+			if ( ! empty( $buttons ) ) {
+				$buttons = implode( '', $buttons );
+				printf(
+					'<div class="scllgn_buttons_block">%s</div>',
+					$buttons
+				);
 			}
 		}
 	}
@@ -634,7 +832,7 @@ if ( ! function_exists( 'scllgn_login_user' ) ) {
 		wp_clear_auth_cookie();
 		wp_set_current_user( $id );
 		wp_set_auth_cookie( $id );
-		$redirect = user_admin_url();
+		$redirect = admin_url();
 		if ( ! empty( $_SESSION['scllgn_redirect'] ) ) {
 			/* redirecting to the referrer page */
 			$redirect = $_SESSION['scllgn_redirect'];
@@ -642,18 +840,6 @@ if ( ! function_exists( 'scllgn_login_user' ) ) {
 		}
 		wp_safe_redirect( $redirect );
 		exit();
-	}
-}
-
-/* on logout from wordpress redirect to logout from google account too */
-if ( ! function_exists( 'scllgn_logout_redirect' ) ) {
-	function scllgn_logout_redirect( $redirect_url ) {
-		if ( ! empty( $_SESSION['access_token'] ) ) {
-			/* Logging out from google account */
-			unset( $_SESSION['access_token'] );
-			$redirect_url = 'https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=' . ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
-		}
-		return $redirect_url;
 	}
 }
 
@@ -720,9 +906,156 @@ if ( ! function_exists( 'scllgn_plugin_banner' ) ) {
 	}
 }
 
+/* Adding "Social Login" block to the user profile page */
+if ( ! function_exists( 'scllgn_user_profile' ) ) {
+	function scllgn_user_profile() {
+		global $scllgn_options, $scllgn_providers;
+		$user_id = isset( $_REQUEST['user_id'] ) ? intval( $_REQUEST['user_id'] ) : get_current_user_id();
+
+		$fields = array(
+			'google'		=> array(
+				'description'	=> sprintf(
+					__( 'Enter %s to enable sign in with Social Login button.', 'social-login-bws' ),
+					__( 'existing Gmail address', 'social-login-bws' )
+				),
+				'field_type'	=> 'email'
+			)
+		);
+
+		if ( empty( $scllgn_options ) ) {
+			scllgn_settings();
+		} ?>
+		<h2><?php _e( 'Social Login Accounts', 'social-login-bws' ); ?></h2>
+		<table class="form-table scllgn-form-table">
+			<?php foreach ( $scllgn_providers as $provider => $provider_name ) {
+				$provider_login = get_user_meta( $user_id, "scllgn_{$provider}_login", true ); ?>
+				<tr>
+					<th>
+						<?php echo $provider_name; ?>
+					</th>
+					<td>
+						<input type="<?php echo $fields[ $provider ]['field_type']; ?>" class="scllgn_login_field" name="<?php echo 'scllgn_' . $provider . '_login'; ?>" id="<?php echo 'scllgn_' . $provider . '_login'; ?>" value="<?php echo $provider_login; ?>">
+						<p class="description">
+							<?php echo $fields[ $provider ]['description']; ?>
+						</p>
+					</td>
+				</tr>
+			<?php } ?>
+		</table>
+	<?php }
+}
+
+/* updating user information */
+if ( ! function_exists( 'scllgn_user_profile_update' ) ) {
+	function scllgn_user_profile_update() {
+		global $scllgn_options, $scllgn_providers;
+		$user_id = isset( $_REQUEST['user_id'] ) ? intval( $_REQUEST['user_id'] ) : get_current_user_id();
+
+		if ( empty( $scllgn_options ) ) {
+			scllgn_settings();
+		}
+
+		foreach ( $scllgn_providers as $provider => $provider_name ) {
+			if ( isset( $_POST["scllgn_{$provider}_login"] ) ) {
+				$provider_login = trim( stripslashes( esc_html( $_POST["scllgn_{$provider}_login"] ) ) );
+				if ( ! empty( $provider_login ) ) {
+					if ( is_email( $provider_login ) ) { /* preg_match is used for PHP versions older than 5.3 */
+						$user = scllgn_get_user( $provider_login );
+
+						if ( false === $user || $user_id === $user->ID ) {
+							update_user_meta( $user_id, "scllgn_{$provider}_login", $provider_login );
+						}
+					}
+				} else {
+					delete_user_meta( $user_id, "scllgn_{$provider}_login" );
+				}
+			}
+		}
+	}
+}
+
+/* Adding errors on profile update */
+if ( ! function_exists( 'scllgn_user_profile_update_errors' ) ) {
+	function scllgn_user_profile_update_errors( $errors, $update = null, $user = null ) {
+		global $scllgn_options, $scllgn_providers;
+
+		$user_id = isset( $_REQUEST['user_id'] ) ? intval( $_REQUEST['user_id'] ) : get_current_user_id();
+
+		if ( empty( $scllgn_options ) ) {
+			scllgn_settings();
+		}
+
+		$providers_data = array(
+			'general'		=> array(
+				'messages'		=> array(
+					'in_use'		=> __( 'This email is already registered, please choose another one.', 'social-login-bws' )
+				)
+			),
+			'google'		=> array(
+				'type'			=> 'email',
+				'messages'		=> array(
+					'in_use'		=> sprintf(
+						__( 'The %1$s you specified for %2$s Account is already used by another user', 'social-login-bws' ),
+						__( 'email address', 'social-login-bws' ),
+						'Google'
+					),
+					'invalid'		=> sprintf(
+						__( 'Please enter valid %1$s Account %2$s', 'social-login-bws' ),
+						'Google',
+						__( 'email', 'social-login-bws' )
+					)
+				)
+			)
+		);
+
+		if ( isset( $_POST['email'] ) ) {
+			$error_codes = $errors->get_error_codes();
+			if ( ! in_array( 'email_exists', $error_codes ) ) {
+				$user_email = sanitize_text_field( wp_unslash( $_POST['email'] ) );
+				$user = scllgn_get_user( $user_email );
+				if ( false !== $user && $user_id != $user->ID ) {
+					$error_message = sprintf(
+						'<strong>%1$s</strong>: %2$s',
+						__( 'ERROR', 'social-login-bws' ),
+						$providers_data['general']['messages']['in_use']
+					);
+					$errors->add( "scllgn_email_exists", $error_message );
+				}
+			}
+		}
+
+		foreach ( $scllgn_providers as $provider => $provider_name ) {
+			if ( isset( $_POST["scllgn_{$provider}_login"] ) ) {
+				$provider_login = sanitize_text_field( wp_unslash( $_POST["scllgn_{$provider}_login"] ) );
+				if ( ! empty( $provider_login ) && 'email' == $providers_data[ $provider ][ 'type' ] && ! is_email( $provider_login ) ) {
+					$error_message = sprintf(
+						'<strong>%1$s</strong>: %2$s',
+						__( 'ERROR', 'social-login-bws' ),
+						$providers_data[ $provider ]['messages']['invalid']
+					);
+					$errors->add( "scllgn_{$provider}_login_validation_error", $error_message );
+				}
+
+				if ( ! empty( $provider_login ) ) {
+					$user = scllgn_get_user( $provider_login );
+					if ( false !== $user && $user_id != $user->ID ) {
+						$error_message = sprintf(
+							'<strong>%1$s</strong>: %2$s',
+							__( 'ERROR', 'social-login-bws' ),
+							$providers_data[ $provider ]['messages']['in_use']
+						);
+						$errors->add( "scllgn_{$provider}_login_unavailable", $error_message );
+					}
+				}
+			}
+		}
+	}
+}
+
 /* Function for delete options */
 if ( ! function_exists( 'scllgn_delete_options' ) ) {
 	function scllgn_delete_options() {
+		global $scllgn_providers;
 		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 			global $wpdb;
 			$old_blog = $wpdb->blogid;
@@ -730,10 +1063,16 @@ if ( ! function_exists( 'scllgn_delete_options' ) ) {
 			$blogids = $wpdb->get_col( "SELECT `blog_id` FROM $wpdb->blogs" );
 			foreach ( $blogids as $blog_id ) {
 				switch_to_blog( $blog_id );
+				foreach ( $scllgn_providers as $provider => $provider_name ) {
+					delete_metadata( 'user', 1, "scllgn_{$provider}_login", false, true );
+				}
 				delete_option( 'scllgn_options' );
 			}
 			switch_to_blog( $old_blog );
 		} else {
+			foreach ( $scllgn_providers as $provider => $provider_name ) {
+				delete_metadata( 'user', 1, "scllgn_{$provider}_login", false, true );
+			}
 			delete_option( 'scllgn_options' );
 		}
 
@@ -751,17 +1090,21 @@ add_action( 'plugins_loaded', 'scllgn_plugins_loaded' );
 add_action( 'init', 'scllgn_init' );
 add_action( 'admin_init', 'scllgn_admin_init' );
 
+
 if ( version_compare( phpversion(), "5.3", ">=" ) ) {
 	add_action( 'login_init', 'scllgn_login_init' );
 	add_action( 'login_form', 'scllgn_login_form' );
 	add_filter( 'login_message', 'scllgn_login_error' );
 	add_action( 'register_form', 'scllgn_register_form' );
 	add_action( 'comment_form_top', 'scllgn_comment_form' );
+	add_action( 'scllgn_login_form', 'scllgn_login_form' );
+	add_action( 'scllgn_register_form', 'scllgn_register_form' );
+	add_action( 'scllgn_comment_form', 'scllgn_comment_form' );
+	add_action( 'scllgn_display_all_buttons', 'scllgn_display_all_buttons' );
 
 	/* Adding stylesheets */
 	add_action( 'wp_enqueue_scripts', 'scllgn_enqueue_scripts' );
 	add_action( 'login_enqueue_scripts', 'scllgn_login_enqueue_scripts' );
-	add_filter( 'logout_redirect', 'scllgn_logout_redirect' );
 	add_filter( 'allowed_redirect_hosts','scllgn_allow_redirect' );
 }
 
@@ -774,3 +1117,11 @@ add_filter( 'plugin_row_meta', 'scllgn_links', 10, 2 );
 
 /* Adding banner */
 add_action( 'admin_notices', 'scllgn_plugin_banner' );
+
+/* adding custom fields to the user profile page*/
+add_action( 'show_user_profile', 'scllgn_user_profile' );
+add_action( 'edit_user_profile', 'scllgn_user_profile' );
+/* update user profile information */
+add_action( 'edit_user_profile_update', 'scllgn_user_profile_update' );
+add_action( 'personal_options_update', 'scllgn_user_profile_update' );
+add_action( 'user_profile_update_errors', 'scllgn_user_profile_update_errors' );

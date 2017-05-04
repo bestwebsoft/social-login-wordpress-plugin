@@ -2,9 +2,9 @@
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: social login, social connect, google connect plugin, registration, facebook login, twitter connect plugin, social authentication, sign in button, social plugin WordPress, LinkedIn sign in, social networks, comments
-Requires at least: 3.8
-Tested up to: 4.7.3
-Stable tag: 0.2
+Requires at least: 3.9
+Tested up to: 4.7.4
+Stable tag: 0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -35,6 +35,7 @@ If you have a feature suggestion or idea you'd like to see in the plugin, we'd l
 = Documentation =
 
 * [[Doc] How to Use](https://docs.google.com/document/d/1jS1pGbaIyhR9-6wsvWFueMqd8ZJYKRQAJGkOc8j5lWE/)
+* [[Doc] Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
 
 = Help & Support =
 
@@ -56,17 +57,13 @@ Some of these translations are not complete. We are constantly adding new featur
 * [Facebook](https://bestwebsoft.com/products/wordpress/plugins/facebook-like-button/?k=26157e2f3eddedd08bcc065dc0e957a8) Button - Add Facebook Like, Share and Profile buttons to WordPress posts, pages and widgets.
 * [Google +1](https://bestwebsoft.com/products/wordpress/plugins/google-plus-one/?k=fc954e6c65aa88799d4fc3ec859c334e) - Add Google +1 Share, Follow, Hangout buttons and profile badge to WordPress posts, pages and widgets.
 
-= Donate =
-
-Donations play an important role in supporting open-source projects. We greatly appreciate any donation you can make to help us continue further development of free products.
-
-[Donate Now](https://bestwebsoft.com/donate/)
-
 == Installation ==
 
 1. Upload the `social-login-bws` folder to `/wp-content/plugins/` directory.
 2. Activate the plugin using the 'Plugins' menu in your WordPress admin panel.
 3. You can adjust the necessary settings using your WordPress admin panel in "BWS Panel" > "Social Login".
+
+[View a Step-by-step Instruction on Social Login Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
 
 == Frequently Asked Questions ==
 
@@ -77,15 +74,19 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 1. the link to the page where the problem occurs
 2. the name of the plugin and its version. If you are using a pro version - your order number.
 3. the version of your WordPress installation
-4. copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit)
+4. copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc)
 
 == Screenshots ==
 
 1. Social Login buttons displaying on the login form.
 2. Social Login buttons displaying on the comment form.
-3. Plugin Settings page.
+3. Linking social accounts to existing WordPress account on the profile page.
+4. Plugin Settings page.
 
 == Changelog ==
+
+= V0.3 - 04.05.2017 =
+* NEW : Ability to link Google Account to your existing WordPress account has been added.
 
 = V0.2 - 14.04.2017 =
 * Bugfix : Multiple Cross-Site Scripting (XSS) vulnerability was fixed.
@@ -94,6 +95,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : Plugin has been released.
 
 == Upgrade Notice ==
+
+= V0.3 =
+* Functionality expanded.
 
 = V0.2 =
 * Bugs fixed.
