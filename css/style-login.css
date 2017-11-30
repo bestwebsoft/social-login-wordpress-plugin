@@ -11,6 +11,9 @@
 	background-color: rgba( 0, 0, 0, 0.4 );
 	overflow: hidden;
 }
+.scllgn_buttons_block {
+	margin-bottom: 10px;
+}
 .scllgn_login_button:hover {
 	border: 1px solid rgba( 0, 0, 0, 0.2 );
 	background-color: rgba( 0, 0, 0, 0.5 );
@@ -36,6 +39,14 @@
 	vertical-align: middle;
 	font-size: 20px;
 	border-right: 1px solid rgba( 0, 0, 0, 0.2 );
+	color: #fff;
+}
+#scllgn_linkedin_button > .dashicons {
+	font-family: 'bwsicons' !important;
+}
+#scllgn_linkedin_button > .dashicons:before {
+	content: "\e91b";
+	font-family: 'bwsicons' !important;
 }
 .rtl .scllgn_login_button .dashicons {
 	border-right: none;
@@ -47,10 +58,29 @@
 	padding: 5px 10px;
 	font-size: 14px;
 	line-height: 24px;
+	color: #fff;
 }
 #scllgn_google_button {
 	background-color: #dd4b39;
 }
 #scllgn_google_button:hover {
 	background-color: #c23321;
+}
+#scllgn_facebook_button {
+	background-color: #4080ff;
+}
+#scllgn_facebook_button:hover {
+	background-color: #2f62c9;
+}
+#scllgn_twitter_button {
+	background-color: #1da1f2;
+}
+#scllgn_twitter_button:hover {
+	background-color: #167bb9;
+}
+#scllgn_linkedin_button {
+	background-color: #007bb6;
+}
+#scllgn_linkedin_button:hover {
+	background-color: #00689a;
 }

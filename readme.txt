@@ -1,10 +1,10 @@
 ﻿=== Social Login by BestWebSoft ===
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
-Tags: social login, social connect, google connect plugin, registration, facebook login, twitter connect plugin, social authentication, sign in button, social plugin WordPress, LinkedIn sign in, social networks, comments
+Tags: social login, social connect, social networks, google login, registration, facebook login, twitter login, social authentication, sign in button, social plugin WordPress, LinkedIn login, social networks, comments via social networks, registration using social networks.
 Requires at least: 3.9
-Tested up to: 4.7.4
-Stable tag: 0.3
+Tested up to: 4.9.1
+Stable tag: 0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,7 +12,7 @@ Add social media login, registration, and commenting to your WordPress website.
 
 == Description ==
 
-Social Login plugin adds website authentication via popular networks to WordPress login, registration and comments forms. Allow your visitors to login and comment with their existing accounts on Google.
+Social Login plugin adds website authentication via popular networks to WordPress login, registration and comments forms. Allow your visitors to login and comment with their existing accounts on Google, Facebook, Twitter and LinkedIn.
 
 Install now and make forms filling for your visitors easier!
 
@@ -22,10 +22,14 @@ Install now and make forms filling for your visitors easier!
 
 * Enable login with social networks:
 	* Google +1
+	* Facebook [NEW]
+	* Twitter [NEW]
+	* LinkedIn [NEW]
 * Add to:
 	* Login form
 	* Registration form
 	* Comments form
+* Link your social accounts to your existing WordPress account
 * Compatible with latest WordPress version
 * Incredibly simple settings for fast setup without modifying code
 * Detailed step-by-step documentation and videos
@@ -43,6 +47,7 @@ Visit our Help Center if you have any questions, our friendly Support Team is ha
 
 = Translation =
 
+* Spanish (es_ES)
 * Russian (ru_RU)
 * Ukrainian (uk)
 
@@ -50,11 +55,11 @@ Some of these translations are not complete. We are constantly adding new featur
 
 = Recommended Plugins =
 
-* [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=9456e33f48ae2ccb14bcca845086399d) - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.
+* [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=9456e33f48ae2ccb14bcca845086399d) - Automatically check and update WordPress website core with all installed plugins and themes to the latest versions.
 * [LinkedIn](https://bestwebsoft.com/products/wordpress/plugins/linkedin/?k=fd63f141dd7954e625f68d684c0aee7c) - Add LinkedIn Share and Follow buttons to WordPress posts, pages and widgets. 5 plugins included – profile, insider, etc.
-* [Pinterest](https://bestwebsoft.com/products/wordpress/plugins/pinterest/?k=115b7e72549acfa247b637d0040fdcae) - Add Pinterest Follow, Pin It buttons and profile widgets (Pin, Board, Profile) to WordPress posts, pages and widgets.
-* [Twitter](https://bestwebsoft.com/products/wordpress/plugins/twitter/?k=9dd47e185976cb75279eae306663689c) - Add Twitter Follow, Tweet, Hashtag, and Mention buttons to WordPress posts, pages and widgets.
-* [Facebook](https://bestwebsoft.com/products/wordpress/plugins/facebook-like-button/?k=26157e2f3eddedd08bcc065dc0e957a8) Button - Add Facebook Like, Share and Profile buttons to WordPress posts, pages and widgets.
+* [Pinterest](https://bestwebsoft.com/products/wordpress/plugins/pinterest/?k=115b7e72549acfa247b637d0040fdcae) - Add Pinterest Follow, Save buttons and profile widgets (Pin, Board, Profile) to WordPress posts, pages and widgets.
+* [Twitter](https://bestwebsoft.com/products/wordpress/plugins/twitter/?k=9dd47e185976cb75279eae306663689c) - Add Twitter Follow, Tweet, Hashtag, and Mention buttons to WordPress posts and pages.
+* [Facebook Button](https://bestwebsoft.com/products/wordpress/plugins/facebook-like-button/?k=26157e2f3eddedd08bcc065dc0e957a8) - Add Facebook Follow, Like, and Share buttons to WordPress posts, pages, and widgets.
 * [Google +1](https://bestwebsoft.com/products/wordpress/plugins/google-plus-one/?k=fc954e6c65aa88799d4fc3ec859c334e) - Add Google +1 Share, Follow, Hangout buttons and profile badge to WordPress posts, pages and widgets.
 
 == Installation ==
@@ -79,11 +84,18 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 == Screenshots ==
 
 1. Social Login buttons displaying on the login form.
-2. Social Login buttons displaying on the comment form.
-3. Linking social accounts to existing WordPress account on the profile page.
+2. Linking social accounts to existing WordPress account on the profile page.
+3. Social Login buttons displaying on the comment form.
 4. Plugin Settings page.
 
 == Changelog ==
+
+= V0.4 - 30.11.2017 =
+* Update : The Spanish language file has been added.
+* Update : Redirect functionality has been improved.
+* NEW : Ability to link Facebook Account to your existing WordPress account has been added.
+* NEW : Ability to link Twitter Account to your existing WordPress account has been added.
+* NEW : Ability to link LinkedIn Account to your existing WordPress account has been added.
 
 = V0.3 - 04.05.2017 =
 * NEW : Ability to link Google Account to your existing WordPress account has been added.
@@ -95,6 +107,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : Plugin has been released.
 
 == Upgrade Notice ==
+
+= V0.4 =
+* Languages updated.
+* New features added.
 
 = V0.3 =
 * Functionality expanded.

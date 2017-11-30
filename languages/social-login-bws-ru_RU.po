@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: social-login-bws\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-20 16:18+0300\n"
-"PO-Revision-Date: 2017-04-20 16:18+0300\n"
+"POT-Creation-Date: 2017-11-13 14:56+0200\n"
+"PO-Revision-Date: 2017-11-13 15:21+0200\n"
 "Last-Translator: plugin@bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language-Team: BestWebSoft <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -13,119 +13,96 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: social-login-bws.php:34 social-login-bws.php:444
+#: social-login-bws.php:34 social-login-bws.php:503
 msgid "Social Login Settings"
 msgstr "Настройки Social Login"
 
-#: social-login-bws.php:228 social-login-bws.php:253 social-login-bws.php:953
-#: social-login-bws.php:967 social-login-bws.php:978
+#: social-login-bws.php:241 social-login-bws.php:267 social-login-bws.php:1559
+#: social-login-bws.php:1573 social-login-bws.php:1584
 msgid "ERROR"
 msgstr "Ошибка"
 
-#: social-login-bws.php:229 social-login-bws.php:254 social-login-bws.php:925
+#: social-login-bws.php:242 social-login-bws.php:268 social-login-bws.php:1486
 msgid "This email is already registered, please choose another one."
 msgstr "Этот email уже зарегистрирован, пожалуйста, выберите другой."
 
-#: social-login-bws.php:389
+# Формы логина WordPress
+# пробел в конце в переводе
+#: social-login-bws.php:453
 msgid "WordPress Login form"
-msgstr "Форма логина WordPress "
+msgstr "Формы логина WordPress"
 
-#: social-login-bws.php:390
+# Формы регистрации WordPress
+#: social-login-bws.php:454
 msgid "WordPress Registration form"
-msgstr "Форма регистрации WordPress"
+msgstr "Формы регистрации WordPress"
 
-#: social-login-bws.php:391
+# Формы комментариев WordPress
+#: social-login-bws.php:455
 msgid "WordPress Comments form"
-msgstr "Форма комментариев WordPress"
+msgstr "Формы комментариев WordPress"
 
-#: social-login-bws.php:405
+#: social-login-bws.php:469
 #, php-format
-msgid "Please fill in Client ID for %s."
-msgstr "Пожалуйста, заполните идентификатор клиента для %s."
+msgid "Please fill the Client ID for %s."
+msgstr "Заполните идентификатор клиента %s."
 
-#: social-login-bws.php:411
+#: social-login-bws.php:475
 #, php-format
-msgid "Please fill in Client secret for %s."
-msgstr "Пожалуйста, заполните секрет клиента для %s."
+msgid "Please fill the Client secret for %s."
+msgstr "Заполните секрет клиента %s."
 
-#: social-login-bws.php:424
+#: social-login-bws.php:486
 msgid "Settings saved"
 msgstr "Настройки сохранены"
 
-#: social-login-bws.php:432
+#: social-login-bws.php:494
 msgid "All plugin settings were restored."
 msgstr "Все настройки плагина восстановлены."
 
-#: social-login-bws.php:446 social-login-bws.php:797 social-login-bws.php:810
+#: social-login-bws.php:505 social-login-bws.php:1331 social-login-bws.php:1344
 msgid "Settings"
 msgstr "Настройки"
 
-#: social-login-bws.php:447
+#: social-login-bws.php:506
 msgid "Custom code"
 msgstr "Пользовательский код"
 
-#: social-login-bws.php:457
+# версию PHP
+#: social-login-bws.php:516
 #, php-format
 msgid ""
-"%1$s requires at least PHP version %2$s. Please contact you hosting provider "
-"in order to upgrade PHP version."
+"%1$s requires at least PHP version %2$s. Please contact your hosting "
+"provider in order to upgrade PHP version."
 msgstr ""
-"Для работы %1$s требуется версия PHP не ниже %2$s. Пожалуйста, свяжитесь с "
-"администратором вашего хостинга для обновления версии PHP."
+"%1s требует версию PHP не менее %2$s . Пожалуйста, свяжитесь с вашим "
+"провайдером хостинга, чтобы обновить версию PHP."
 
-#: social-login-bws.php:473
-#, php-format
-msgid "%1$s Sign In Button"
-msgstr "Кнопка \"Войти с помощью %1$s\""
+#: social-login-bws.php:532
+msgid "Enable Social Login for"
+msgstr "Включить Social Login для"
 
-#: social-login-bws.php:478
-#, php-format
-msgid "Enable to add %1$s Sign In button to the necessary WordPress form."
-msgstr ""
-"Включите, чтобы добавить в выбранные формы кнопку \"Войти с помощью %1$s\"."
-
-#: social-login-bws.php:486
-msgid "Client ID"
-msgstr "Идентификатор клиента"
-
-#: social-login-bws.php:490
-msgid "You need to create your own credentials in order to use google API."
-msgstr ""
-"Вы должны создать свои собственные учетные данные для того, чтобы "
-"использовать Google API."
-
-#: social-login-bws.php:490
-msgid "Learn More"
-msgstr "Ознакомиться детальней"
-
-#: social-login-bws.php:495
-msgid "Client Secret"
-msgstr "Секрет клиента"
-
-#: social-login-bws.php:501
-msgid "Display Button in"
-msgstr "Отображать кнопку"
-
-#: social-login-bws.php:521
+#: social-login-bws.php:546
 msgid "Buttons Position"
 msgstr "Позиция кнопок"
 
-#: social-login-bws.php:526
+#: social-login-bws.php:551
 msgid "Top"
 msgstr "Сверху"
 
-#: social-login-bws.php:529
+#: social-login-bws.php:554
 msgid "Before the submit button"
 msgstr "Перед кнопкой подтверждения"
 
-#: social-login-bws.php:532
+# Сверху -- Внизу ? Снизу либо тогда уже Вверху - внизу
+#: social-login-bws.php:557
 msgid "Bottom"
-msgstr "Внизу"
+msgstr "Снизу"
 
-#: social-login-bws.php:535
+#: social-login-bws.php:560
 msgid ""
 "Choose the buttons position in the form. This option is available only for "
 "Login and Registration forms."
@@ -133,89 +110,461 @@ msgstr ""
 "Выберите позицию кнопок в форме. Эта опция доступна только для форм логина и "
 "регистрации."
 
-#: social-login-bws.php:543
+#: social-login-bws.php:564 social-login-bws.php:595 social-login-bws.php:626
+#: social-login-bws.php:657
+#, php-format
+msgid "%1$s Sign In Button"
+msgstr "Кнопка \"Войти с помощью %1$s\""
+
+# Включите, чтобы добавить кнопку "Войти с помощью %1$s" в выбранные формы.
+#: social-login-bws.php:569 social-login-bws.php:600 social-login-bws.php:631
+#: social-login-bws.php:662
+#, php-format
+msgid "Enable to add %1$s Sign In button to the necessary WordPress form."
+msgstr ""
+"Включите, чтобы добавить кнопку \"Войти с помощью %1$s\" в выбранные формы."
+
+#: social-login-bws.php:577 social-login-bws.php:670
+msgid "Client ID"
+msgstr "Идентификатор клиента"
+
+# Для того, чтобы использовать Google API, вам необходимо создать свои собственные учетные данные.
+#: social-login-bws.php:581
+msgid "You need to create your own credentials in order to use google API."
+msgstr ""
+"Для того, чтобы использовать Google API, вам необходимо создать свои "
+"собственные учетные данные."
+
+# Подробнее
+#: social-login-bws.php:581 social-login-bws.php:612 social-login-bws.php:643
+#: social-login-bws.php:674
+msgid "Learn More"
+msgstr "Подробнее"
+
+#: social-login-bws.php:583
+msgid "While creating Google API use this redirect url: "
+msgstr "При создании Google API используйте этот URL-адрес перенаправления:"
+
+#: social-login-bws.php:588 social-login-bws.php:681
+msgid "Client Secret"
+msgstr "Секрет клиента"
+
+#: social-login-bws.php:608
+msgid "App ID"
+msgstr "Идентификатор приложения"
+
+# см строку 25
+#: social-login-bws.php:612
+msgid "You need to create your own credentials in order to use Facebook API."
+msgstr ""
+"Для того, чтобы использовать Facebook API, вам необходимо создать свои "
+"собственные учетные данные."
+
+#: social-login-bws.php:614
+msgid "While creating Facebook API use this redirect url: "
+msgstr "При создании Facebook API используйте этот URL-адрес перенаправления:"
+
+#: social-login-bws.php:619
+msgid "App Secret"
+msgstr "Секрет приложения"
+
+#: social-login-bws.php:639
+msgid "Consumer Key (API Key)"
+msgstr "Ключ пользователя (ключ приложения)"
+
+#: social-login-bws.php:643
+msgid "You need to create your own credentials in order to use twitter API."
+msgstr ""
+"Для того, чтобы использовать Twitter API, вам необходимо создать свои "
+"собственные учетные данные."
+
+#: social-login-bws.php:645
+msgid "While creating Twitter API use this redirect url: "
+msgstr "При создании Twitter API используйте этот URL-адрес перенаправления:"
+
+#: social-login-bws.php:650
+msgid "Consumer Secret (API Secret)"
+msgstr "Секрет пользователя (секрет приложения)"
+
+#: social-login-bws.php:674
+msgid "You need to create your own credentials in order to use linkedin API."
+msgstr ""
+"Для того, чтобы использовать LinkedIn API, вам необходимо создать свои "
+"собственные учетные данные."
+
+#: social-login-bws.php:676
+msgid "While creating LinkedIn API use this redirect url: "
+msgstr "При создании LinkedIn API используйте этот URL-адрес перенаправления:"
+
+#: social-login-bws.php:692
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: social-login-bws.php:652
-msgid "please allow the access to your profile information"
-msgstr "пожалуйста, разрешите доступ к информации вашего профиля"
+#: social-login-bws.php:1105
+msgid "please allow the access to your profile information."
+msgstr "разрешите доступ к вашей информации о профиле."
 
-#: social-login-bws.php:653
-msgid "failed to register new user"
-msgstr "зарегистрировать нового пользователя не удалось"
+#: social-login-bws.php:1106
+msgid "failed to register new user."
+msgstr "ошибка при регистрации нового пользователя"
 
-#: social-login-bws.php:654
-msgid "new users registration is disabled"
-msgstr "регистрация новых пользователей отключена"
+#: social-login-bws.php:1107
+msgid "new users registration is disabled."
+msgstr "регистрация новых пользователей отключена."
 
-#: social-login-bws.php:655
-msgid "you need to verify your account Email"
-msgstr "Email Вашего аккаунта нуждается в верификации"
+#: social-login-bws.php:1108
+msgid "you need to verify your Account Email."
+msgstr "вам необходимо подтвердить свою учетную запись электронной почты."
 
-#: social-login-bws.php:656
-msgid "user data is insufficient for registration"
-msgstr "недостаточно пользовательских данных для регистрации"
+#: social-login-bws.php:1109
+msgid "user data is insufficient for registration."
+msgstr "пользовательских данных недостаточно для регистрации."
 
-#: social-login-bws.php:657
-msgid "provided token data is invalid"
-msgstr "предоставленные данные токена недействительны"
+#: social-login-bws.php:1110
+msgid "provided token data is invalid."
+msgstr "данные токена недействительны."
 
-#: social-login-bws.php:658
-msgid "provided token is invalid"
-msgstr "предоставленный токен недействителен"
+#: social-login-bws.php:1111
+msgid "provided token is invalid."
+msgstr "токен некорректен."
 
-#: social-login-bws.php:659
-msgid "login failed"
-msgstr "войти не удалось"
+#: social-login-bws.php:1112
+msgid "login failed."
+msgstr "ошибка авторизации."
 
-#: social-login-bws.php:667
+#: social-login-bws.php:1120
 msgid "Error"
 msgstr "Ошибка"
 
-#: social-login-bws.php:697
+#: social-login-bws.php:1134
 #, php-format
 msgid "Sign In with %1$s"
 msgstr "Войти с помощью %1$s"
 
-#: social-login-bws.php:811
+#: social-login-bws.php:1345
 msgid "FAQ"
 msgstr "FAQ"
 
-#: social-login-bws.php:812
+#: social-login-bws.php:1346
 msgid "Support"
 msgstr "Поддержка"
 
-#: social-login-bws.php:852
+#: social-login-bws.php:1384
 #, php-format
 msgid "Enter %s to enable sign in with Social Login button."
-msgstr "Введите %s для возможности использования кнопки Social Login"
+msgstr "Введите %s для возможности использования кнопки Social Login."
 
-#: social-login-bws.php:853
+#: social-login-bws.php:1390
 msgid "existing Gmail address"
 msgstr "существующий адрес Gmail"
 
-#: social-login-bws.php:862
+#: social-login-bws.php:1397
+msgid "existing email address of Facebook account"
+msgstr "электронную почту существующего аккаунта Facebook"
+
+#: social-login-bws.php:1404
+msgid "existing email address of Twitter account"
+msgstr "электронную почту существующего аккаунта Twitter"
+
+#: social-login-bws.php:1411
+msgid "existing email address of LinkedIn account"
+msgstr "электронную почту существующего аккаунта LinkedIn"
+
+#: social-login-bws.php:1420
 msgid "Social Login Accounts"
 msgstr "Аккаунты Social Login"
 
-#: social-login-bws.php:932
+#: social-login-bws.php:1493 social-login-bws.php:1508
+#: social-login-bws.php:1523 social-login-bws.php:1538
 #, php-format
-msgid "The %1$s you specified for %2$s Account is already used by another user"
-msgstr "Указанный %1$s для аккаунта %2$s уже используется другим пользователем"
+msgid ""
+"The %1$s you specified for %2$s Account is already used by another user."
+msgstr ""
+"Указанный вами %1$s для учетной записи %2$s уже используются другим "
+"пользователем."
 
-#: social-login-bws.php:933
+#: social-login-bws.php:1494 social-login-bws.php:1509
+#: social-login-bws.php:1524 social-login-bws.php:1539
 msgid "email address"
 msgstr "email адрес"
 
-#: social-login-bws.php:937
+#: social-login-bws.php:1498 social-login-bws.php:1513
+#: social-login-bws.php:1528 social-login-bws.php:1543
 #, php-format
 msgid "Please enter valid %1$s Account %2$s"
 msgstr "Пожалуйста, заполните корректно %2$s для аккаунта %1$s"
 
-#: social-login-bws.php:939
+#: social-login-bws.php:1500 social-login-bws.php:1515
+#: social-login-bws.php:1530 social-login-bws.php:1545
 msgid "email"
 msgstr "email"
+
+#~ msgid "existing Gmail address."
+#~ msgstr "существующий адрес Gmail"
+
+#~ msgid "existing email address of Facebook account."
+#~ msgstr "электронную почту существующего аккаунта Facebook"
+
+#~ msgid "existing email address of Twitter account."
+#~ msgstr "электронную почту существующего аккаунта Twitter"
+
+#~ msgid "existing email address of LinkedIn account."
+#~ msgstr "электронную почту существующего аккаунта LinkedIn"
+
+#~ msgid ""
+#~ "The %1$s you specified for %2$s Account is already used by another user"
+#~ msgstr ""
+#~ "Указанный %1$s для аккаунта %2$s уже используется другим пользователем"
+
+# Enable Social Login for
+# Включить Social Login для
+#~ msgid "Display Button in"
+#~ msgstr "Включить Social Login для"
+
+# in заменить на the
+#, fuzzy
+#~ msgid "Please fill in Client ID for %s."
+#~ msgstr "Пожалуйста, заполните идентификатор клиента для %s."
+
+# in заменить на the
+#, fuzzy
+#~ msgid "Please fill in Client secret for %s."
+#~ msgstr "Пожалуйста, заполните секрет клиента для %s."
+
+# accoun наверно с большой надо
+# - вам нужно - вам необходимо
+#~ msgid "you need to verify your account Email."
+#~ msgstr "вам необходимо верифицировать електронную почту аккаунта."
+
+#~ msgid "requires"
+#~ msgstr "Требования"
+
+#~ msgid ""
+#~ "or higher, that is why it has been deactivated! Please upgrade WordPress "
+#~ "and try again."
+#~ msgstr ""
+#~ "или выше, поэтому он был отключен! Обновите WordPress и повторите попытку."
+
+#~ msgid "Back to the WordPress"
+#~ msgstr "Назад к WordPress"
+
+#~ msgid "Plugins page"
+#~ msgstr "Страница плагина"
+
+#~ msgid "Like the plugin?"
+#~ msgstr "Вам понравился плагин?"
+
+#~ msgid "Rate it"
+#~ msgstr "Оценить"
+
+#~ msgid "Need help?"
+#~ msgstr "Нужна помощь?"
+
+#~ msgid "Visit Help Center"
+#~ msgstr "Посетите Справочный Центр"
+
+#~ msgid "Want to support the plugin?"
+#~ msgstr "Хотите поддержать плагин?"
+
+#~ msgid "Donate"
+#~ msgstr "Пожертвовать"
+
+#~ msgid "WARNING: Illegal use notification"
+#~ msgstr "ПРЕДУПРЕЖДЕНИЕ: Уведомление о незаконном использовании"
+
+#~ msgid ""
+#~ "Notice: Your Pro Trial license has expired. To continue using the plugin, "
+#~ "you should buy a Pro license"
+#~ msgstr ""
+#~ "Примечание. Срок действия пробной лицензии Pro истек. Чтобы продолжить "
+#~ "использовать плагин, вы должны купить лицензию Pro"
+
+#~ msgid ""
+#~ "Your license has expired. To continue getting top-priority support and "
+#~ "plugin updates, you should extend it."
+#~ msgstr ""
+#~ "Срок действия вашей лицензии истек. Чтобы продолжить получать "
+#~ "приоритетную поддержку и обновления плагинов, вы должны расширить ее."
+
+#~ msgid "Learn more"
+#~ msgstr "Ознакомиться детальней"
+
+#~ msgid "Notice: You are using the Pro Trial license of %s plugin."
+#~ msgstr "Примечание. Вы используете временную лицензию Pro для плагина %s."
+
+#~ msgid "Notice: You are using the Pro Trial license of plugin."
+#~ msgstr "Примечание. Вы используете лицензию Pro для плагина."
+
+#~ msgid "The Pro Trial license will expire on"
+#~ msgstr "Срок действия временной лицензии Pro истекает"
+
+#~ msgid ""
+#~ "or higher! We do not guarantee that our plugin will work correctly. "
+#~ "Please upgrade to WordPress latest version."
+#~ msgstr ""
+#~ "или выше! Мы не гарантируем, что наш плагин будет работать правильно. "
+#~ "Обновите WordPress до последней версии."
+
+#~ msgid "Thank you for installing %s plugin!"
+#~ msgstr "Спасибо, что установили %s плагин!"
+
+#~ msgid "Let's get started"
+#~ msgstr "Приступим к работе"
+
+#~ msgid "or"
+#~ msgstr "или"
+
+#~ msgid "Add New"
+#~ msgstr "Добавить новый"
+
+#~ msgid "Close notice"
+#~ msgstr "Закрыть уведомление"
+
+#~ msgid "Thank you for installing plugins by BestWebSoft!"
+#~ msgstr "Благодарим вас за установку плагинов BestWebSoft!"
+
+#~ msgid "More Details"
+#~ msgstr "Подробнее"
+
+#~ msgid "Less Details"
+#~ msgstr "Меньше деталей"
+
+#~ msgid "Deprecated function(-s) is used on the site here:"
+#~ msgstr "Устаревшая функция(-и) используется здесь:"
+
+#~ msgid ""
+#~ "This function(-s) will be removed over time. Please update the product(-"
+#~ "s)."
+#~ msgstr ""
+#~ "Эта функция(-и) будет удалена в скором времени. Обновите продукт(-ы)."
+
+#~ msgid "It’s time to upgrade your"
+#~ msgstr "Пришло время обновить"
+
+#~ msgid "version!"
+#~ msgstr "версия!"
+
+#~ msgid "Extend standard plugin functionality with new great options."
+#~ msgstr ""
+#~ "Расширьте стандартную функциональность плагина с новым функционалом."
+
+#~ msgid ""
+#~ "Your license key for %s expires on %s and you won't be granted TOP-"
+#~ "PRIORITY SUPPORT or UPDATES."
+#~ msgstr ""
+#~ "Ваш лицензионный ключ для %s истекает через %s, и вам не будет "
+#~ "предоставлена ПРИОРИТЕТНАЯ ПОДДЕРЖКА или ОБНОВЛЕНИЯ."
+
+#~ msgid "Thank you for choosing %s plugin!"
+#~ msgstr "Спасибо, что выбрали плагин %s!"
+
+#~ msgid ""
+#~ "If you have a feature, suggestion or idea you'd like to see in the "
+#~ "plugin, we'd love to hear about it!"
+#~ msgstr ""
+#~ "Если у вас есть предложение или идея, которые вы хотели бы увидеть в "
+#~ "плагине, мы будем рады услышать об этом!"
+
+#~ msgid "Suggest a Feature"
+#~ msgstr "Предложить функцию"
+
+#~ msgid "Notice"
+#~ msgstr "Заметка"
+
+#~ msgid "The plugin's settings have been changed."
+#~ msgstr "Настройки плагина изменены."
+
+#~ msgid ""
+#~ "You can always look at premium options by checking the \"Pro Options\" in "
+#~ "the \"Misc\" tab."
+#~ msgstr ""
+#~ "Вы всегда можете посмотреть премиальные параметры, установив опцию «Pro "
+#~ "Options» на вкладке «Разное»."
+
+#~ msgid "Close"
+#~ msgstr "Закрыть"
+
+#~ msgid "Are you sure you want to restore default settings?"
+#~ msgstr "Вы действительно хотите восстановить настройки по умолчанию?"
+
+#~ msgid "Yes, restore all settings"
+#~ msgstr "Да, восстановить все настройки"
+
+#~ msgid "No, go back to the settings page"
+#~ msgstr "Нет, вернуться на страницу настроек"
+
+#~ msgid "Plugin"
+#~ msgstr "Плагин"
+
+#~ msgid "For more information:"
+#~ msgstr "Чтобы получить больше информации:"
+
+#~ msgid "Documentation"
+#~ msgstr "Документация"
+
+#~ msgid "Video Instructions"
+#~ msgstr "Видеоинструкция"
+
+#~ msgid "Submit a Request"
+#~ msgstr "Отправить запрос"
+
+#~ msgid ""
+#~ "You can use one license of the Pro plugin for one domain only. Please "
+#~ "check and edit your license or domain if necessary using you personal "
+#~ "Client Area. We strongly recommend you to solve the problem within 24 "
+#~ "hours, otherwise the Pro plugin will be deactivated."
+#~ msgstr ""
+#~ "Вы можете использовать одну лицензию плагина Pro только для одного "
+#~ "домена. Пожалуйста, проверьте и отредактируйте свою лицензию или домен, "
+#~ "если это необходимо, используя личную клиентскую зону. Мы настоятельно "
+#~ "рекомендуем вам решить проблему в течение 24 часов, иначе плагин Pro "
+#~ "будет отключен."
+
+#~ msgid "Insert"
+#~ msgstr "Вставить"
+
+#~ msgid "Graph returned an error: "
+#~ msgstr "Graph вернул ошибку: "
+
+#~ msgid "Facebook SDK returned an error: "
+#~ msgstr "Facebook SDK вернул ошибку: "
+
+#~ msgid "Invalid state."
+#~ msgstr "Недопустимое состояние."
+
+#~ msgid "Twitter returned an error: "
+#~ msgstr "Twitter вернул ошибку: "
+
+#~ msgid ""
+#~ "%1$s requires at least PHP version %2$s. Please contact you hosting "
+#~ "provider in order to upgrade PHP version."
+#~ msgstr ""
+#~ "Для работы %1$s требуется версия PHP не ниже %2$s. Пожалуйста, свяжитесь "
+#~ "с администратором вашего хостинга для обновления версии PHP."
+
+#~ msgid "please allow the access to your profile information"
+#~ msgstr "пожалуйста, разрешите доступ к информации вашего профиля"
+
+#~ msgid "failed to register new user"
+#~ msgstr "зарегистрировать нового пользователя не удалось"
+
+#~ msgid "new users registration is disabled"
+#~ msgstr "регистрация новых пользователей отключена"
+
+#~ msgid "you need to verify your account Email"
+#~ msgstr "Email Вашего аккаунта нуждается в верификации"
+
+#~ msgid "user data is insufficient for registration"
+#~ msgstr "недостаточно пользовательских данных для регистрации"
+
+#~ msgid "provided token data is invalid"
+#~ msgstr "предоставленные данные токена недействительны"
+
+#~ msgid "provided token is invalid"
+#~ msgstr "предоставленный токен недействителен"
+
+#~ msgid "login failed"
+#~ msgstr "войти не удалось"
 
 #~ msgid "Unavailable %s email"
 #~ msgstr "Email для %s недоступен"
