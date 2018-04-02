@@ -1,10 +1,10 @@
-﻿=== Social Login by BestWebSoft ===
+=== Social Login by BestWebSoft ===
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: social login, social connect, social networks, google login, registration, facebook login, twitter login, social authentication, sign in button, social plugin WordPress, LinkedIn login, social networks, comments via social networks, registration using social networks.
 Requires at least: 3.9
-Tested up to: 4.9.1
-Stable tag: 0.4
+Tested up to: 4.9.4
+Stable tag: 0.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,23 +12,23 @@ Add social media login, registration, and commenting to your WordPress website.
 
 == Description ==
 
-Social Login plugin adds website authentication via popular networks to WordPress login, registration and comments forms. Allow your visitors to login and comment with their existing accounts on Google, Facebook, Twitter and LinkedIn.
+Social login plugin adds website authentication via popular networks to WordPress login, registration and comments forms. Allow your visitors to login and comment with their existing accounts on Google, Facebook, Twitter, and LinkedIn.
 
 Install now and make forms filling for your visitors easier!
-
-> **NOTE:** This is a public beta version, which contains basic product options. You are welcome to suggest new features and usability improvements. [Submit a new feature](https://support.bestwebsoft.com/hc/en-us/requests/new)
 
 = Features =
 
 * Enable login with social networks:
 	* Google +1
-	* Facebook [NEW]
-	* Twitter [NEW]
-	* LinkedIn [NEW]
+	* Facebook
+	* Twitter
+	* LinkedIn
 * Add to:
 	* Login form
 	* Registration form
 	* Comments form
+* Select the default role for new users [NEW]
+* Enable user registration only via social buttons [NEW]
 * Link your social accounts to your existing WordPress account
 * Compatible with latest WordPress version
 * Incredibly simple settings for fast setup without modifying code
@@ -51,7 +51,7 @@ Visit our Help Center if you have any questions, our friendly Support Team is ha
 * Russian (ru_RU)
 * Ukrainian (uk)
 
-Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send [the text of PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [BestWebSoft](https://support.bestwebsoft.com/hc/en-us/requests/new) and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO [files Poedit](http://www.poedit.net/download.php).
+Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send [the text of PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [BestWebSoft](https://support.bestwebsoft.com/hc/en-us/requests/new) and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files [Poedit](http://www.poedit.net/download.php).
 
 = Recommended Plugins =
 
@@ -90,6 +90,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V0.5 - 02.04.2018 =
+* NEW : Ability to select new user default role has been added.
+* NEW : Ability to enable the user registration using the social login button regardless WordPress General settings has been added.
+
 = V0.4 - 30.11.2017 =
 * Update : The Spanish language file has been added.
 * Update : Redirect functionality has been improved.
@@ -107,6 +111,12 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : Plugin has been released.
 
 == Upgrade Notice ==
+
+= V0.5 =
+* The compatibility with new WordPress version updated.
+* Functionality expanded.
+* Functionality improved.
+* Languages updated.
 
 = V0.4 =
 * Languages updated.

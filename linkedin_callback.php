@@ -5,4 +5,4 @@ if ( ! isset( $_SESSION ) ) {
 if ( isset( $_GET['code'] ) ) {
 	$_SESSION['linkedin_code'] = $_GET['code'];
 }
-header( 'Location: /' . 'wp-login.php' );
+header( 'Location:' . $_SESSION['home_url'] . '/wp-login.php' );

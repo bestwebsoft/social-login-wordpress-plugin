@@ -28,7 +28,7 @@
 				.split( "&" )
 				.forEach( function ( item ) {
 					tmp = item.split( "=" );
-					if ( tmp[0] === 'redirect_to' ) {
+					if ( 'redirect_to' === tmp[0] ) {
 						redirect_url = decodeURIComponent( tmp[1] );
 					}
 				} );
@@ -57,11 +57,14 @@
 					type 	: 'POST',
 					data 	: ajax_data,
 					success	: function( auth_url ) {
-						if ( provider == 'google' && remember_checked ) {
+						if ( 'google' == provider && remember_checked ) {
 							window.location.href = auth_url;
 						} else {
 							window.location.href = click_url;
 						}
+					},
+					error: function() {
+						window.location.reload();
 					}
 				} );
 			}

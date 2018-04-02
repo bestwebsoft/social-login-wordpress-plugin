@@ -6,7 +6,7 @@ Description: Add social media login, registration, and commenting to your WordPr
 Author: BestWebSoft
 Text Domain: social-login-bws
 Domain Path: /languages
-Version: 0.4
+Version: 0.5
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -104,7 +104,6 @@ if ( ! function_exists( 'scllgn_login_init' ) ) {
 		if ( ! isset( $_SESSION ) ) {
 			session_start();
 		}
-
 		if ( ! empty( $_REQUEST['code'] ) ) {
 			/* Handling login with google account */
 			global $error;
@@ -158,16 +157,17 @@ if ( ! function_exists( 'scllgn_login_init' ) ) {
 										$user = scllgn_get_user( $userinfo->email, $userinfo->id, 'google' );
 									}
 									if ( ! $user ) {
-										/* no such user */
-										$anyone_can_register = get_option( 'users_can_register' );
-										if ( ! empty( $anyone_can_register ) ) {
+										if ( scllgn_registration_enabled() ) {
 											/* registering is allowed */
 											if ( $email_is_verified ) {
 												/* email is verified, registering new user */
 												$default_role = get_option( 'default_role' );
+												if ( ! $scllgn_options['user_role'] ) {
+													$userdata['role'] = $default_role;
+												} elseif ( $scllgn_options['user_role'] ) {
+													$userdata['role'] = $scllgn_options['user_role'];
+												}
 												$userdata['user_pass'] = wp_generate_password( $length = 12, $include_standard_special_chars = false );
-												$userdata['role'] = $default_role;
-
 												$user_id = wp_insert_user( $userdata ) ;
 												if ( ! is_wp_error( $user_id ) ) {
 													/* user successfully created. Logging in */
@@ -217,7 +217,7 @@ if ( ! function_exists( 'scllgn_login_init' ) ) {
 			}
 			if ( ! empty( $error ) ) {
 				/* redirecting to login page on error with error message */
-				$login_redirect_url = filter_var( wp_login_url() . '?error=$error', FILTER_SANITIZE_URL );
+				$login_redirect_url = filter_var( wp_login_url() . "?error=$error", FILTER_SANITIZE_URL );
 				wp_redirect( $login_redirect_url );
 				exit();
 			}
@@ -226,6 +226,24 @@ if ( ! function_exists( 'scllgn_login_init' ) ) {
 		scllgn_facebook_client();
 		scllgn_twitter_client();
 		scllgn_linkedin_client();
+	}
+}
+
+/* Check if the registration is enabled */
+if ( ! function_exists( 'scllgn_registration_enabled' ) ) {
+	function scllgn_registration_enabled() {
+		global $scllgn_options;
+		if ( 'default' == $scllgn_options['allow_registration'] ) {
+			$anyone_can_register = get_option( 'users_can_register' );
+			$is_registration_enabled = ! empty( $anyone_can_register );
+		} elseif ( 'allow' == $scllgn_options['allow_registration'] ) {
+			$is_registration_enabled = true;
+		} elseif ( 'deny' == $scllgn_options['allow_registration'] ) {
+			$is_registration_enabled = false;
+		} else {
+			$is_registration_enabled = false;
+		}
+		return $is_registration_enabled;
 	}
 }
 
@@ -424,6 +442,8 @@ if ( ! function_exists( 'scllgn_get_default_options' ) ) {
 			'display_settings_notice'				=> 1,
 			'first_install'							=> strtotime( 'now' ),
 			'suggest_feature_banner'				=> 1,
+			'user_role'								=> get_option( 'default_role' ),
+			'allow_registration'					=> 'default'
 		);
 
 		return $default_options;
@@ -480,12 +500,19 @@ if ( ! function_exists( 'scllgn_settings_page' ) ) {
 				}
 			}
 			foreach ( $forms as $form_slug => $form ) {
-				$scllgn_options[$form_slug] = isset( $_REQUEST["scllgn_{$form_slug}"] ) ? 1 : 0;
+				$scllgn_options[ $form_slug ] = isset( $_REQUEST["scllgn_{$form_slug}"] ) ? 1 : 0;
 			}
 			$scllgn_options['loginform_buttons_position'] = ( isset( $_REQUEST['scllgn_loginform_buttons_position'] ) && in_array( $_REQUEST['scllgn_loginform_buttons_position'], array( 'top', 'middle', 'bottom' ) ) ) ? $_REQUEST['scllgn_loginform_buttons_position'] : $scllgn_options['loginform_buttons_position'];
 
+			$scllgn_options['user_role'] = isset( $_REQUEST['scllgn_role'] ) ? $_REQUEST['scllgn_role'] : $scllgn_options['user_role'];
+
+			/* User Registration */
+
+			$scllgn_options['allow_registration'] = esc_attr( $_POST['scllgn_register_option'] );
+
 			$message = __( 'Settings saved', 'social-login-bws' );
 			update_option( 'scllgn_options', $scllgn_options );
+
 		}
 
 		/* add restore function */
@@ -519,7 +546,8 @@ if ( ! function_exists( 'scllgn_settings_page' ) ) {
 			if ( ! isset( $_GET['action'] ) || ( isset( $_GET['action'] ) && ! in_array( $_GET['action'], array( 'custom_code' ) ) ) ) {
 				if ( isset( $_REQUEST['bws_restore_default'] ) && check_admin_referer( $plugin_basename, 'bws_settings_nonce_name' ) ) {
 					bws_form_restore_default_confirm( $plugin_basename );
-				} else { ?>
+				} else {
+					scllgn_show_user_registration_setting_notice(); ?>
 					<form method="post" action="" enctype="multipart/form-data" class="bws_form scllgn-settings-form">
 						<table class="form-table scllgn-form-table">
 							<tbody>
@@ -529,7 +557,7 @@ if ( ! function_exists( 'scllgn_settings_page' ) ) {
 										<fieldset>
 										<?php foreach ( $forms as $form_slug => $form ) { ?>
 											<label>
-												<input type="checkbox" value="1" name="<?php echo "scllgn_{$form_slug}"; ?>"<?php checked( $scllgn_options[$form_slug], 1 ); ?> class="<?php echo "scllgn_{$form_slug}_checkbox"; ?>" />
+												<input type="checkbox" value="1" name="<?php echo "scllgn_{$form_slug}"; ?>"<?php checked( $scllgn_options[ $form_slug ], 1 ); ?> class="<?php echo "scllgn_{$form_slug}_checkbox"; ?>" />
 												<?php echo $form; ?>
 											</label><br />
 										<?php } ?>
@@ -540,7 +568,7 @@ if ( ! function_exists( 'scllgn_settings_page' ) ) {
 									<th>
 										<?php _e( 'Buttons Position', 'social-login-bws' ); ?>
 									</th>
-										<td>
+									<td>
 										<select name="scllgn_loginform_buttons_position" >
 											<option value="top" <?php selected( $scllgn_options['loginform_buttons_position'], 'top' ); ?>>
 												<?php _e( 'Top', 'social-login-bws' ) ?>
@@ -552,9 +580,78 @@ if ( ! function_exists( 'scllgn_settings_page' ) ) {
 												<?php _e( 'Bottom', 'social-login-bws' ) ?>
 											</option>
 										</select>
-										<div class="bws_info"><?php _e( 'Choose the buttons position in the form. This option is available only for Login and Registration forms.', 'social-login-bws' ); ?></div>
+										<div class="bws_info">
+											<?php _e( 'Choose the buttons position in the form. This option is available only for Login and Registration forms.', 'social-login-bws' ); ?>
+										</div>
 									</td>
 								</tr>
+								<tr scope="row" valign="top">
+									<th>
+										<?php _e( 'User Registration', 'social-login-bws' ); ?>
+									</th>
+									<td>
+										<fieldset>
+											<label>
+												<input type="radio" name="scllgn_register_option" class="scllgn_registration_default" value="default" <?php checked( 'default' == $scllgn_options['allow_registration'] ); ?> /> <?php _e( 'Default', 'social-login-bws' ); ?>
+											</label>
+											<div class="bws_info" style="display: inline;">
+												<?php _e( 'Select to allow or deny user registration using social buttons depending on', 'social-login-bws' ); ?>
+												<a href="options-general.php" target="_blank" nohref="nohref">
+													<?php _e( 'WordPress General settings.', 'social-login-bws' ); ?>
+												</a>
+											</div>
+											<br/>
+											<label>
+												<input type="radio" name="scllgn_register_option" class="scllgn_allow_registration" value="allow" <?php checked( 'allow' == $scllgn_options['allow_registration'] ); ?> /> <?php _e( 'Allow', 'social-login-bws' ); ?>
+											</label>
+											<div class="bws_info" style="display: inline;">
+												<?php _e( 'Select to allow user registration using social buttons regardless', 'social-login-bws' ); ?>
+												<a href="options-general.php" target="_blank" nohref="nohref">
+													<?php _e( 'WordPress General settings.', 'social-login-bws' ); ?>
+												</a>
+											</div>
+											<br/>
+											<label>
+												<input type="radio" name="scllgn_register_option" class="scllgn_deny_registration" value="deny" <?php checked( 'deny' == $scllgn_options['allow_registration'] ); ?> /> <?php _e( 'Deny', 'social-login-bws' ); ?>
+											</label>
+											<div class="bws_info" style="display: inline;">
+												<?php _e( 'Select to deny user registration using social buttons regardless', 'social-login-bws' ); ?>
+												<a href="options-general.php" target="_blank" nohref="nohref">
+													<?php _e( 'WordPress General settings.', 'social-login-bws' ); ?>
+												</a>
+											</div>
+										</fieldset>
+									</td>
+								</tr>
+								<tr scope="row" valign="top">
+									<th>
+										<?php _e( 'New User Default Role', 'social-login-bws' ); ?>
+									</th>
+									<td>
+										<fieldset>
+											<?php if ( function_exists( 'get_editable_roles' ) ) {
+												$default_role = get_option( 'default_role' ); ?>
+												<select name="scllgn_role" >
+													<?php foreach ( get_editable_roles() as $role => $fields ) {
+														printf(
+															'<option value="%1$s" %2$s >
+																%3$s%4$s
+															</option>',
+															$role,
+															selected( $scllgn_options['user_role'], $role ),
+															translate_user_role( $fields['name'] ),
+															( $role == $default_role ) ? ' (' . __( 'Default', 'social-login-bws' ) . ')' : ''
+														);
+													} ?>
+												</select>
+											<?php } ?>
+										</fieldset>
+										<div class="bws_info">
+											<?php _e( 'Choose the role for newly registered users.', 'social-login-bws' ); ?>
+										</div>
+									</td>
+								</tr>
+
 								<tr scope="row" valign="top" style="border-top: 1px solid #ccc;">
 									<th style="padding-top: 40px;"><?php printf( __( '%1$s Sign In Button', 'social-login-bws' ), $scllgn_providers['google'] ); ?></th>
 									<td style="padding-top: 40px;">
@@ -697,6 +794,25 @@ if ( ! function_exists( 'scllgn_settings_page' ) ) {
 	<?php }
 }
 
+if ( ! function_exists( 'scllgn_show_user_registration_setting_notice' ) ) {
+	function scllgn_show_user_registration_setting_notice() { 
+		$ms_class = is_multisite() ? 'notice notice-error' : 'updated'; 
+		$error_class = is_multisite() ? 'WARNING' : 'Notice'; ?>
+		<div id="scllgn_allow_user_registration_notice" class="below-h2 <?php echo $ms_class; ?>" style="display:none">
+			<p>
+				<strong><?php _e( $error_class, 'social-login-bws' ); ?></strong>: <?php _e( "You're going to allow user registration via social buttons regardless WordPress default settings. Make sure that you understand the consequences. Check the following", 'social-login-bws' ); ?>
+				<a target="_blank" href="https://support.bestwebsoft.com/hc/en-us/articles/360000371546"><?php _e( 'article', 'social-login-bws' ); ?></a>
+			</p>
+		</div>
+		<div id="scllgn_deny_user_registration_notice" class="below-h2 <?php echo $ms_class; ?>" style="display:none">
+			<p>
+				<strong><?php _e( $error_class, 'social-login-bws' ); ?></strong>: <?php _e( "You're going to deny user registration via social buttons regardless WordPress default settings. Make sure that you understand the consequences. Check the following", 'social-login-bws' ); ?>
+				<a target="_blank" href="https://support.bestwebsoft.com/hc/en-us/articles/360000371546"><?php _e( 'article', 'social-login-bws' ); ?></a>
+			</p>
+		</div>
+	<?php }
+}
+
 /* Function for getting_current_commenter */
 if ( ! function_exists( 'scllgn_get_current_commenter' ) ) {
 	function scllgn_get_current_commenter() {
@@ -719,7 +835,7 @@ if ( ! function_exists( 'scllgn_enqueue_scripts' ) ) {
 			bws_enqueue_settings_scripts();
 			if ( isset( $_GET['action'] ) && 'custom_code' == $_GET['action'] )
 				bws_plugins_include_codemirror();
-		} elseif ( scllgn_is_login_page() || ! is_admin() && is_singular() && comments_open() && ! is_user_logged_in() && ! empty( $scllgn_options["comment_form"] ) ) {
+		} elseif ( scllgn_is_login_page() || scllgn_is_signup_page() || ! is_admin() && is_singular() && comments_open() && ! is_user_logged_in() && ! empty( $scllgn_options["comment_form"] ) ) {
 			/* Adding style to pages with comments and custom login pages */
 			foreach ( $scllgn_providers as $provider => $provider_name ) {
 				if ( ! empty( $scllgn_options["{$provider}_is_enabled"] ) ) {
@@ -800,9 +916,22 @@ if ( ! function_exists( 'scllgn_is_login_page' ) ) {
 	}
 }
 
+/* Check if specified page is wp-signup.php page */
+if ( ! function_exists( 'scllgn_is_signup_page' ) ) {
+	function scllgn_is_signup_page() {
+		if ( ( strpos( $_SERVER['PHP_SELF'], 'wp-signup.php' ) ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
 /* New user social registration, register or authenticate users */
 if ( ! function_exists( 'scllgn_social_regiser' ) ) {
 	function scllgn_social_regiser( $userinfo, $provider_name = '' ) {
+		global $error;
+		$error = '';
 		$userdata = array(
 			'user_login'		=> $userinfo->id,
 			'user_email'		=> $userinfo->email,
@@ -816,9 +945,9 @@ if ( ! function_exists( 'scllgn_social_regiser' ) ) {
 		if ( ! $user && $email_is_verified ) {
 			$user = scllgn_get_user( $userinfo->email, $userinfo->id, $provider_name );
 		}
-		$anyone_can_register = get_option( 'users_can_register' );
+
 		if ( ! $user ) {
-			if ( ! empty( $anyone_can_register ) ) {
+			if ( ! empty( scllgn_registration_enabled() ) ) {
 				if ( $email_is_verified ) {
 					$default_role = get_option( 'default_role' );
 					$userdata['user_pass'] = wp_generate_password( $length = 12, $include_standard_special_chars = false );
@@ -835,6 +964,15 @@ if ( ! function_exists( 'scllgn_social_regiser' ) ) {
 					$redirect = $_SESSION['scllgn_redirect'];
 					unset( $_SESSION['scllgn_redirect'] );
 					wp_safe_redirect( $redirect );
+					exit();
+				} else {
+					/* new users registration is disabled */
+					$error = 'register_disabled';
+				}
+				if ( ! empty( $error ) ) {
+					/* redirecting to login page on error with error message */
+					$login_redirect_url = filter_var( wp_login_url() . "?error=$error", FILTER_SANITIZE_URL );
+					wp_redirect( $login_redirect_url );
 					exit();
 				}
 			}
@@ -874,7 +1012,7 @@ if ( ! function_exists( 'scllgn_google_client' ) ) {
 			require_once( dirname( __FILE__ ) . '/google_api/autoload.php' );
 
 			$redirect_uri = wp_login_url();
-			if ( is_ssl() && strtolower( substr( $redirect_uri, 0, 7 ) ) == 'http://' ) {
+			if ( is_ssl() && 'http://' == strtolower( substr( $redirect_uri, 0, 7 ) ) ) {
 				$redirect_uri = 'https://' . substr( $redirect_uri, 7 );
 			}
 
@@ -902,16 +1040,16 @@ if ( ! function_exists( 'scllgn_facebook_client' ) ) {
 		global $scllgn_options;
 		if ( ! empty( $scllgn_options['facebook_client_id'] ) && ! empty( $scllgn_options['facebook_client_secret'] ) ) {
 			if ( ! empty( $_SESSION['facebook_code'] ) ) {
+				$_SESSION['home_url'] = get_home_url();
 				$facebook_redirect = plugin_dir_url( __FILE__ ) . 'facebook_callback.php';
 				$token_url = 'https://graph.facebook.com/oauth/access_token?client_id=' . $scllgn_options['facebook_client_id'] . '&redirect_uri=' . $facebook_redirect . '&client_secret=' . $scllgn_options['facebook_client_secret'] . '&code=' . $_SESSION['facebook_code'];
-
 				$result = get_object_vars( json_decode( scllgn_get_url_contents( $token_url ) ) );
 
 				if ( ! empty( $result['access_token'] ) ) {
 					$graph_url  = 'https://graph.facebook.com/me?access_token=' . $result['access_token'];
 					$userinfo 	= json_decode( scllgn_get_url_contents( $graph_url ) );
 					if ( ! empty( $userinfo->id ) ) {
-						$graph_url 	= 'https://graph.facebook.com/v2.5/' . $userinfo->id . '?access_token=' . $result['access_token'] . '&fields=id,name,email';
+						$graph_url 	= 'https://graph.facebook.com/v2.11/' . $userinfo->id . '?access_token=' . $result['access_token'] . '&fields=id,name,email';
 						$userinfo 	= json_decode( scllgn_get_url_contents( $graph_url ) );
 
 						if ( ! empty( $userinfo->id ) ) {
@@ -1033,7 +1171,7 @@ if ( ! function_exists( 'scllgn_twitter_client' ) ) {
 				}
 			} else {
 				$twitter_redirect = wp_login_url();
-				if ( is_ssl() && strtolower( substr( $twitter_redirect, 0, 7 ) ) == 'http://' ) {
+				if ( is_ssl() && 'http://' == strtolower( substr( $twitter_redirect, 0, 7 ) ) ) {
 					$twitter_redirect = 'https://' . substr( $twitter_redirect, 7 );
 				}
 				if ( isset( $_REQUEST['scllgn_remember'] ) ) {
@@ -1163,11 +1301,11 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
 		$button = '';
 		$button_text = apply_filters( 'scllgn_' . $provider . '_button_text', sprintf( __( 'Sign In with %1$s', 'social-login-bws' ), $scllgn_providers[ $provider ] ) );
 		$button_text = apply_filters( 'scllgn_button_text', $button_text );
-		if ( $provider == 'google' ) {
+		if ( 'google' == $provider ) {
 			$client  = scllgn_google_client();
 			$authUrl = urldecode( $client->createAuthUrl() );
 			$dashicon_for_button = 	'dashicons-googleplus';
-		} elseif ( $provider == 'facebook' ) {
+		} elseif ( 'facebook' == $provider ) {
 			scllgn_facebook_client();
 			$facebook_redirect = plugin_dir_url( __FILE__ ) . 'facebook_callback.php';
 			$url = 'https://www.facebook.com/dialog/oauth';
@@ -1179,11 +1317,11 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
 			);
 			$authUrl = $url . '?' . http_build_query( $params, null, '&' );
 			$dashicon_for_button = 	'dashicons-facebook';
-		} elseif ( $provider =='twitter' ) {
+		} elseif ( 'twitter' == $provider ) {
 			scllgn_twitter_client();
 			$authUrl = 'https://api.twitter.com/oauth/authorize?include_email=true&oauth_token=' . $_SESSION['twitter_oauth_token'];
 			$dashicon_for_button = 	'dashicons-twitter';
-		} elseif ( $provider == 'linkedin' ) {
+		} elseif ( 'linkedin' == $provider ) {
 			scllgn_linkedin_client();
 			$oauth_nonce = md5( uniqid( rand(), true ) );
 			$_SESSION['linkedin_redirect'] = plugin_dir_url( __FILE__ ) . 'linkedin_callback.php';
@@ -1451,7 +1589,7 @@ if ( ! function_exists( 'scllgn_user_profile' ) ) {
 			<table class="form-table scllgn-form-table">
 				<?php foreach ( $scllgn_providers as $provider => $provider_name ) {
 					$provider_login = get_user_meta( $user_id, 'scllgn_' . $provider . '_login', true );
-					if ( $scllgn_options[$provider . '_is_enabled'] ) { ?>
+					if ( $scllgn_options[ $provider . '_is_enabled'] ) { ?>
 						<tr class="scllgn_<?php echo $provider; ?>_email_field">
 							<th>
 								<?php echo $provider_name; ?>
@@ -1723,5 +1861,5 @@ add_action( 'personal_options_update', 'scllgn_user_profile_update' );
 add_action( 'user_profile_update_errors', 'scllgn_user_profile_update_errors' );
 
 /* Adding AJAX*/
-add_action('wp_ajax_scllgn_remember', 'scllgn_ajax_data');
-add_action('wp_ajax_nopriv_scllgn_remember', 'scllgn_ajax_data');
+add_action( 'wp_ajax_scllgn_remember', 'scllgn_ajax_data' );
+add_action( 'wp_ajax_nopriv_scllgn_remember', 'scllgn_ajax_data' );

@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: social-login-bws\n"
-"POT-Creation-Date: 2017-11-13 12:42+0200\n"
-"PO-Revision-Date: 2017-11-13 12:43+0200\n"
+"POT-Creation-Date: 2018-03-13 14:06+0200\n"
+"PO-Revision-Date: 2018-03-13 14:06+0200\n"
 "Last-Translator: \n"
 "Language-Team: BestWebSoft <plugin@bestwebsoft.com>\n"
 "Language: es_ES\n"
@@ -16,58 +16,58 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: social-login-bws.php:34 social-login-bws.php:503
+#: social-login-bws.php:34 social-login-bws.php:516
 msgid "Social Login Settings"
 msgstr "Ajustes de Social Login"
 
-#: social-login-bws.php:241 social-login-bws.php:267 social-login-bws.php:1558
-#: social-login-bws.php:1572 social-login-bws.php:1583
+#: social-login-bws.php:250 social-login-bws.php:276 social-login-bws.php:1707
+#: social-login-bws.php:1721 social-login-bws.php:1732
 msgid "ERROR"
 msgstr "ERROR"
 
-#: social-login-bws.php:242 social-login-bws.php:268 social-login-bws.php:1485
+#: social-login-bws.php:251 social-login-bws.php:277 social-login-bws.php:1634
 msgid "This email is already registered, please choose another one."
 msgstr "Este correo electrónico ya está registrado, por favor elige otro."
 
-#: social-login-bws.php:453
+#: social-login-bws.php:465
 msgid "WordPress Login form"
 msgstr "Formulario de Acceso de WordPress"
 
-#: social-login-bws.php:454
+#: social-login-bws.php:466
 msgid "WordPress Registration form"
 msgstr "Formulario de Registro de WordPress"
 
-#: social-login-bws.php:455
+#: social-login-bws.php:467
 msgid "WordPress Comments form"
 msgstr "Formulario de Comentarios de WordPress"
 
-#: social-login-bws.php:469
+#: social-login-bws.php:481
 #, php-format
 msgid "Please fill the Client ID for %s."
 msgstr "Por favor rellena el ID de Cliente para %s."
 
-#: social-login-bws.php:475
+#: social-login-bws.php:487
 #, php-format
 msgid "Please fill the Client secret for %s."
 msgstr "Por favor rellena el Secreto de Cliente para %s."
 
-#: social-login-bws.php:486
+#: social-login-bws.php:504
 msgid "Settings saved"
 msgstr "Ajustes guardados"
 
-#: social-login-bws.php:494
+#: social-login-bws.php:513
 msgid "All plugin settings were restored."
 msgstr "Se restauraron todos los ajustes de plugin."
 
-#: social-login-bws.php:505 social-login-bws.php:1331 social-login-bws.php:1344
+#: social-login-bws.php:518 social-login-bws.php:1479 social-login-bws.php:1492
 msgid "Settings"
 msgstr "Ajustes"
 
-#: social-login-bws.php:506
+#: social-login-bws.php:519
 msgid "Custom code"
 msgstr "Código personalizado"
 
-#: social-login-bws.php:516
+#: social-login-bws.php:529
 #, php-format
 msgid ""
 "%1$s requires at least PHP version %2$s. Please contact your hosting "
@@ -77,27 +77,27 @@ msgstr ""
 "en contacto con tu proveedor de alojamiento web para actualizar la versión "
 "de PHP."
 
-#: social-login-bws.php:532
+#: social-login-bws.php:546
 msgid "Enable Social Login for"
 msgstr "Activar Social Login para"
 
-#: social-login-bws.php:546
+#: social-login-bws.php:560
 msgid "Buttons Position"
 msgstr "Posición de Botones"
 
-#: social-login-bws.php:551
+#: social-login-bws.php:565
 msgid "Top"
 msgstr "Arriba"
 
-#: social-login-bws.php:554
+#: social-login-bws.php:568
 msgid "Before the submit button"
 msgstr "Antes del botón de envío"
 
-#: social-login-bws.php:557
+#: social-login-bws.php:571
 msgid "Bottom"
 msgstr "Abajo"
 
-#: social-login-bws.php:560
+#: social-login-bws.php:575
 msgid ""
 "Choose the buttons position in the form. This option is available only for "
 "Login and Registration forms."
@@ -105,185 +105,270 @@ msgstr ""
 "Elige la posición de los botones en el formulario. Esta opción está "
 "disponible sólo para los formularios de Acceso y Registro."
 
-#: social-login-bws.php:564 social-login-bws.php:595 social-login-bws.php:626
-#: social-login-bws.php:657
+#: social-login-bws.php:581
+msgid "User Registration"
+msgstr ""
+
+#: social-login-bws.php:586 social-login-bws.php:634
+msgid "Default"
+msgstr ""
+
+#: social-login-bws.php:589
+msgid ""
+"Select to allow or deny user registration using social buttons depending on"
+msgstr ""
+
+#: social-login-bws.php:591 social-login-bws.php:601 social-login-bws.php:611
+msgid "WordPress General settings."
+msgstr ""
+
+#: social-login-bws.php:596
+#, fuzzy
+msgid "Allow"
+msgstr "Permitir"
+
+#: social-login-bws.php:599
+msgid "Select to allow user registration using social buttons regardless"
+msgstr ""
+
+#: social-login-bws.php:606
+#, fuzzy
+msgid "Deny"
+msgstr "Negar"
+
+#: social-login-bws.php:609
+msgid "Select to deny user registration using social buttons regardless"
+msgstr ""
+
+#: social-login-bws.php:619
+msgid "New User Default Role"
+msgstr ""
+
+#: social-login-bws.php:641
+msgid "Choose the role for newly registered users."
+msgstr ""
+
+#: social-login-bws.php:647 social-login-bws.php:678 social-login-bws.php:709
+#: social-login-bws.php:740
 #, php-format
 msgid "%1$s Sign In Button"
 msgstr "Botón Acceder con %1$s"
 
-#: social-login-bws.php:569 social-login-bws.php:600 social-login-bws.php:631
-#: social-login-bws.php:662
+#: social-login-bws.php:652 social-login-bws.php:683 social-login-bws.php:714
+#: social-login-bws.php:745
 #, php-format
 msgid "Enable to add %1$s Sign In button to the necessary WordPress form."
 msgstr ""
 "Activa para añadir el botón Acceder con %1$s al formulario necesario de "
 "WordPress."
 
-#: social-login-bws.php:577 social-login-bws.php:670
+#: social-login-bws.php:660 social-login-bws.php:753
 msgid "Client ID"
 msgstr "ID de Cliente"
 
-#: social-login-bws.php:581
+#: social-login-bws.php:664
 msgid "You need to create your own credentials in order to use google API."
 msgstr "Necesitas crear tus propias credenciales para usar Google API."
 
-#: social-login-bws.php:581 social-login-bws.php:612 social-login-bws.php:643
-#: social-login-bws.php:674
+#: social-login-bws.php:664 social-login-bws.php:695 social-login-bws.php:726
+#: social-login-bws.php:757
 msgid "Learn More"
 msgstr "Aprende más"
 
-#: social-login-bws.php:583
+#: social-login-bws.php:666
 msgid "While creating Google API use this redirect url: "
 msgstr "Al crear Google API utiliza esta URL de redirección: "
 
-#: social-login-bws.php:588 social-login-bws.php:681
+#: social-login-bws.php:671 social-login-bws.php:764
 msgid "Client Secret"
 msgstr "Secreto de Cliente"
 
-#: social-login-bws.php:608
+#: social-login-bws.php:691
 msgid "App ID"
 msgstr "ID de aplicación"
 
-#: social-login-bws.php:612
+#: social-login-bws.php:695
 msgid "You need to create your own credentials in order to use Facebook API."
 msgstr "Necesitas crear tus propias credenciales para usar Facebook API."
 
-#: social-login-bws.php:614
+#: social-login-bws.php:697
 msgid "While creating Facebook API use this redirect url: "
 msgstr "Al crear Facebook API utiliza esta URL de redirección: "
 
-#: social-login-bws.php:619
+#: social-login-bws.php:702
 msgid "App Secret"
 msgstr "Secreto de aplicación"
 
-#: social-login-bws.php:639
+#: social-login-bws.php:722
 msgid "Consumer Key (API Key)"
 msgstr "Clave de consumidor (Clave de API)"
 
-#: social-login-bws.php:643
+#: social-login-bws.php:726
 msgid "You need to create your own credentials in order to use twitter API."
 msgstr "Necesitas crear tus propias credenciales para usar Twitter API."
 
-#: social-login-bws.php:645
+#: social-login-bws.php:728
 msgid "While creating Twitter API use this redirect url: "
 msgstr "Al crear Twitter API utiliza esta URL de redirección: "
 
-#: social-login-bws.php:650
+#: social-login-bws.php:733
 msgid "Consumer Secret (API Secret)"
 msgstr "Secreto de consumidor (Secreto de API)"
 
-#: social-login-bws.php:674
+#: social-login-bws.php:757
 msgid "You need to create your own credentials in order to use linkedin API."
 msgstr "Necesitas crear tus propias credenciales para usar Linkedin API."
 
-#: social-login-bws.php:676
+#: social-login-bws.php:759
 msgid "While creating LinkedIn API use this redirect url: "
 msgstr "Al crear LinkedIn API utiliza esta URL de redirección: "
 
-#: social-login-bws.php:692
+#: social-login-bws.php:775
 msgid "Save Changes"
 msgstr "Guardar cambios"
 
-#: social-login-bws.php:1105
+#: social-login-bws.php:794
+msgid ""
+"You're going to allow user registration via social buttons regardless "
+"WordPress default settings. Make sure that you understand the consequences. "
+"Check the following"
+msgstr ""
+
+#: social-login-bws.php:795 social-login-bws.php:801
+msgid "article"
+msgstr ""
+
+#: social-login-bws.php:800
+msgid ""
+"You're going to deny user registration via social buttons regardless "
+"WordPress default settings. Make sure that you understand the consequences. "
+"Check the following"
+msgstr ""
+
+#: social-login-bws.php:1253
 msgid "please allow the access to your profile information."
 msgstr "por favor permite el acceso a la información de tu perfil."
 
-#: social-login-bws.php:1106
+#: social-login-bws.php:1254
 msgid "failed to register new user."
 msgstr "error al registrar nuevo usuario."
 
-#: social-login-bws.php:1107
+#: social-login-bws.php:1255
 msgid "new users registration is disabled."
 msgstr "registro de nuevos usuarios está desactivado."
 
-#: social-login-bws.php:1108
+#: social-login-bws.php:1256
 msgid "you need to verify your Account Email."
 msgstr "necesitas verificar el correo electrónico de tu cuenta."
 
-#: social-login-bws.php:1109
+#: social-login-bws.php:1257
 msgid "user data is insufficient for registration."
 msgstr "datos de usuario son insuficientes para el registro."
 
-#: social-login-bws.php:1110
+#: social-login-bws.php:1258
 msgid "provided token data is invalid."
 msgstr "proporcionados datos de token no son válidos."
 
-#: social-login-bws.php:1111
+#: social-login-bws.php:1259
 msgid "provided token is invalid."
 msgstr "token proporcionado no es válido."
 
-#: social-login-bws.php:1112
+#: social-login-bws.php:1260
 msgid "login failed."
 msgstr "error de acceso."
 
-#: social-login-bws.php:1120
+#: social-login-bws.php:1268
 msgid "Error"
 msgstr "Error"
 
-#: social-login-bws.php:1134
+#: social-login-bws.php:1282
 #, php-format
 msgid "Sign In with %1$s"
 msgstr "Acceder con %1$s"
 
-#: social-login-bws.php:1345
+#: social-login-bws.php:1493
 msgid "FAQ"
 msgstr "FAQ"
 
-#: social-login-bws.php:1346
+#: social-login-bws.php:1494
 msgid "Support"
 msgstr "Soporte"
 
-#: social-login-bws.php:1384
+#: social-login-bws.php:1532
 #, php-format
 msgid "Enter %s to enable sign in with Social Login button."
 msgstr "Introduce %s para activar el acceso con el botón de Social Login."
 
-#: social-login-bws.php:1390
+#: social-login-bws.php:1538
 msgid "existing Gmail address"
 msgstr "dirección de Gmail existente"
 
-#: social-login-bws.php:1397
+#: social-login-bws.php:1545
 msgid "existing email address of Facebook account"
 msgstr ""
 "ingrese la dirección de correo electrónico existente de la cuenta de Facebook"
 
-#: social-login-bws.php:1404
+#: social-login-bws.php:1552
 msgid "existing email address of Twitter account"
 msgstr ""
 "ingrese la dirección de correo electrónico existente de la cuenta de Twitter"
 
-#: social-login-bws.php:1411
+#: social-login-bws.php:1559
 msgid "existing email address of LinkedIn account"
 msgstr ""
 "ingrese la dirección de correo electrónico existente de la cuenta de LinkedIn"
 
-#: social-login-bws.php:1420
+#: social-login-bws.php:1568
 msgid "Social Login Accounts"
 msgstr "Сuentas de Social Login"
 
-#: social-login-bws.php:1492 social-login-bws.php:1507
-#: social-login-bws.php:1522 social-login-bws.php:1537
+#: social-login-bws.php:1641 social-login-bws.php:1656
+#: social-login-bws.php:1671 social-login-bws.php:1686
 #, php-format
 msgid ""
 "The %1$s you specified for %2$s Account is already used by another user."
 msgstr ""
 "La %1$s especificada para cuenta de %2$s ya está utilizada por otro usuario."
 
-#: social-login-bws.php:1493 social-login-bws.php:1508
-#: social-login-bws.php:1523 social-login-bws.php:1538
+#: social-login-bws.php:1642 social-login-bws.php:1657
+#: social-login-bws.php:1672 social-login-bws.php:1687
 msgid "email address"
 msgstr "dirección de correo electrónico"
 
-#: social-login-bws.php:1497 social-login-bws.php:1512
-#: social-login-bws.php:1527 social-login-bws.php:1542
+#: social-login-bws.php:1646 social-login-bws.php:1661
+#: social-login-bws.php:1676 social-login-bws.php:1691
 #, php-format
 msgid "Please enter valid %1$s Account %2$s"
 msgstr "Por favor introduce %2$s válido para cuenta de %1$s"
 
-#: social-login-bws.php:1499 social-login-bws.php:1514
-#: social-login-bws.php:1529 social-login-bws.php:1544
+#: social-login-bws.php:1648 social-login-bws.php:1663
+#: social-login-bws.php:1678 social-login-bws.php:1693
 msgid "email"
 msgstr "correo electrónico"
+
+#, fuzzy
+#~ msgid "User Role"
+#~ msgstr "Rol del usuario"
+
+#, fuzzy
+#~ msgid "Subscriber"
+#~ msgstr "Abonado"
+
+#, fuzzy
+#~ msgid "Admin"
+#~ msgstr "Administración"
+
+#, fuzzy
+#~ msgid "Editor"
+#~ msgstr "Editor"
+
+#, fuzzy
+#~ msgid "Allow registrasion with Social Button"
+#~ msgstr "Permitir el registro con el botón social"
+
+#, fuzzy
+#~ msgid "Use WordPress settings"
+#~ msgstr "Use la configuración de WordPress"
 
 #~ msgid "existing Gmail address."
 #~ msgstr "dirección de Gmail existente"

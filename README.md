@@ -1,19 +1,16 @@
 <a href="https://bestwebsoft.com/products/wordpress/plugins/social-login/" target=_blank>Social Login WordPress Plugin</a>
 ========================
 
-<p>Social Login plugin adds website authentication via popular networks to WordPress login, registration and comments forms. Allow your visitors to login and comment with their existing accounts on Google, Facebook, Twitter and LinkedIn.</p>
+<p>Social login plugin adds website authentication via popular networks to WordPress login, registration and comments forms. Allow your visitors to login and comment with their existing accounts on Google, Facebook, Twitter, and LinkedIn.</p>
 <p>Install now and make forms filling for your visitors easier!</p>
-<blockquote>
-<p><strong>NOTE:</strong> This is a public beta version, which contains basic product options. You are welcome to suggest new features and usability improvements. <a href="https://support.bestwebsoft.com/hc/en-us/requests/new" rel="nofollow">Submit a new feature</a></p>
-</blockquote>
 <h4>Features</h4>
 <ul>
 <li>Enable login with social networks:
 <ul>
 <li>Google +1</li>
-<li>Facebook [NEW]</li>
-<li>Twitter [NEW]</li>
-<li>LinkedIn [NEW]</li>
+<li>Facebook</li>
+<li>Twitter</li>
+<li>LinkedIn</li>
 </ul>
 </li>
 <li>Add to:
@@ -23,6 +20,8 @@
 <li>Comments form</li>
 </ul>
 </li>
+<li>Select the default role for new users [NEW]</li>
+<li>Enable user registration only via social buttons [NEW]</li>
 <li>Link your social accounts to your existing WordPress account</li>
 <li>Compatible with latest WordPress version</li>
 <li>Incredibly simple settings for fast setup without modifying code</li>
@@ -42,7 +41,7 @@
 <li>Russian (ru_RU)</li>
 <li>Ukrainian (uk)</li>
 </ul>
-<p>Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="https://codex.wordpress.org/Translating_WordPress" rel="nofollow">the text of PO and MO files</a> to <a href="https://support.bestwebsoft.com/hc/en-us/requests/new" rel="nofollow">BestWebSoft</a> and we&#8217;ll add it to the plugin. You can download the latest version of the program for work with PO and MO <a href="http://www.poedit.net/download.php" rel="nofollow">files Poedit</a>.</p>
+<p>Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="https://codex.wordpress.org/Translating_WordPress" rel="nofollow">the text of PO and MO files</a> to <a href="https://support.bestwebsoft.com/hc/en-us/requests/new" rel="nofollow">BestWebSoft</a> and we&#8217;ll add it to the plugin. You can download the latest version of the program for work with PO and MO files <a href="http://www.poedit.net/download.php" rel="nofollow">Poedit</a>.</p>
 <h4>Recommended Plugins</h4>
 <ul>
 <li><a href="https://bestwebsoft.com/products/wordpress/plugins/updater/?k=9456e33f48ae2ccb14bcca845086399d" rel="nofollow">Updater</a> &#8211; Automatically check and update WordPress website core with all installed plugins and themes to the latest versions.</li>

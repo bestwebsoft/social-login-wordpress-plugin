@@ -1,6 +1,6 @@
 .scllgn_login_button {
 	display: inline-block;
-	margin: 5px;
+	margin: 5px !important;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	color: #fff;
