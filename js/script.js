@@ -1,36 +1,36 @@
 function scllgn_user_registration_default() {
-	(function($) {
+	( function( $ ) {
 		$( "#scllgn_allow_user_registration_notice" ).css( 'display', 'none' );
 		$( "#scllgn_deny_user_registration_notice" ).css( 'display', 'none' );
-	})(jQuery);
+	} )( jQuery );
 }
 function scllgn_allow_user_registration_setting_notice() {
-	(function($) {
+	( function( $ ) {
 		$( "#scllgn_allow_user_registration_notice" ).css( 'display', 'block' );
 		$( "#scllgn_deny_user_registration_notice" ).css( 'display', 'none' );
-	})(jQuery);
+	} )( jQuery );
 }
 function scllgn_deny_user_registration_setting_notice() {
-	(function($) {
+	( function( $ ) {
 		$( "#scllgn_allow_user_registration_notice" ).css( 'display', 'none' );
 		$( "#scllgn_deny_user_registration_notice" ).css( 'display', 'block' );
-	})(jQuery);
+	} )( jQuery );
 }
+
 ( function( $ ) {
 	$( document ).ready( function() {
-
 		/**
 		 * add notice about User Registration
 		 */
 		$( ".scllgn_registration_default" ).click( function() {
 			scllgn_user_registration_default();
-		});
+		} );
 		$( ".scllgn_allow_registration" ).click( function() {
 			scllgn_allow_user_registration_setting_notice();
-		});
+		} );
 		$( ".scllgn_deny_registration" ).click( function() {
 			scllgn_deny_user_registration_setting_notice();
-		});
+		} );
 
 		var providers = ['google', 'facebook', 'twitter', 'linkedin'];
 

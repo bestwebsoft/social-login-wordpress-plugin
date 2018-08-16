@@ -9,8 +9,10 @@
 	background-color: rgba( 0, 0, 0, 0.4 );
 	overflow: hidden;
 }
-.scllgn_buttons_block {
-	margin-bottom: 10px;
+.scllgn_button_top .scllgn_login_button_short span{
+	height: 32px !important;
+	width: 32px !important; 
+	padding: 0 0 0 5px;
 }
 .scllgn_login_button:hover {
 	background-color: rgba( 0, 0, 0, 0.5 );
@@ -20,11 +22,26 @@
 .scllgn_login_button .dashicons {
 	display: table-cell;
 	box-sizing: border-box;
-	min-width: 32px;
 	vertical-align: middle;
 	font-size: 20px;
 	border-right: 1px solid rgba( 0, 0, 0, 0.2 );
 	color: #fff;
+	min-width: 28px;
+}
+.scllgn_login_button .dashicons {
+	min-width: 28px;
+	text-align: center;
+	color: #fff;
+	margin: 2px 0px 0px 0px;
+}
+.scllgn_login_button_short .dashicons {
+	text-align: center;
+	color: #fff;
+	min-width: 32px;
+	color: #fff;
+	padding: 5px 0 5px 2px;
+	margin-bottom: 0px;
+	margin-top: 0px;
 }
 .rtl .scllgn_login_button .dashicons {
 	border-right: none;

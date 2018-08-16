@@ -6,12 +6,12 @@ Description: Add social media login, registration, and commenting to your WordPr
 Author: BestWebSoft
 Text Domain: social-login-bws
 Domain Path: /languages
-Version: 0.5
+Version: 1.0
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
 
-/*  © Copyright 2017  BestWebSoft  ( https://support.bestwebsoft.com )
+/*  © Copyright 2018  BestWebSoft  ( https://support.bestwebsoft.com )
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -28,14 +28,19 @@ License: GPLv2 or later
 */
 
 /* Add BWS menu */
-if ( ! function_exists( 'scllgn_add_pages' ) ) {
-	function scllgn_add_pages() {
-		bws_general_menu();
-		$settings = add_submenu_page( 'bws_panel', __( 'Social Login Settings', 'social-login-bws' ), 'Social Login', 'manage_options', 'social-login.php', 'scllgn_settings_page' );
-		add_action( 'load-' . $settings, 'scllgn_add_tabs' );
+if ( ! function_exists( 'add_scllgn_admin_menu' ) ) {
+	function add_scllgn_admin_menu() {
+		global $submenu, $wp_version, $scllgn_plugin_info;
+
+		$settings = add_menu_page( __( 'Social Login Settings', 'social-login-bws' ), 'Social Login', 'manage_options', 'social-login.php', 'scllgn_settings_page' );
+
+		add_submenu_page( 'social-login.php', __( 'Social Login Settings', 'social-login-bws' ), __( 'Settings', 'social-login-bws' ), 'manage_options', 'social-login.php', 'scllgn_settings_page' );
+
+		add_submenu_page( 'social-login.php', 'BWS Panel', 'BWS Panel', 'manage_options', 'scllgn-bws-panel', 'bws_add_menu_render' );
+
+	 	add_action( 'load-' . $settings, 'scllgn_add_tabs' );
 	}
 }
-
 if ( ! function_exists( 'scllgn_plugins_loaded' ) ) {
 	function scllgn_plugins_loaded() {
 		/* Internationalization, first(!) */
@@ -311,10 +316,6 @@ if ( ! function_exists( 'scllgn_get_user' ) ) {
 		if ( '' != $email )
 			$user = get_user_by( 'email', $email );
 
-		/*if ( ! $user && '' != $login )
-			$user = get_user_by( 'login', $login );*/
-
-		/* Search email in "scllgn_" . $provider . "_login" metafields of registered users */
 		if ( ! $user ) {
 			$meta_query_array = array( 'relation' => 'OR' );
 
@@ -389,7 +390,7 @@ if ( ! function_exists( 'scllgn_settings' ) ) {
 			* @since 0.4
 			* @todo remove after 01.12.2018
 			*/
-			if ( array_key_exists( 'google_login_form', $scllgn_options ) && !array_key_exists( 'login_form', $scllgn_options ) ) {
+			if ( array_key_exists( 'google_login_form', $scllgn_options ) && ! array_key_exists( 'login_form', $scllgn_options ) ) {
 				$scllgn_options['login_form'] 	 = $scllgn_options['google_login_form'];
 				$scllgn_options['register_form'] = $scllgn_options['google_register_form'];
 				$scllgn_options['comment_form']  = $scllgn_options['google_comment_form'];
@@ -443,6 +444,14 @@ if ( ! function_exists( 'scllgn_get_default_options' ) ) {
 			'first_install'							=> strtotime( 'now' ),
 			'suggest_feature_banner'				=> 1,
 			'user_role'								=> get_option( 'default_role' ),
+			'button_display_google'					=> 'long',
+			'button_display_facebook'				=> 'long',
+			'button_display_twitter'				=> 'long',
+			'button_display_linkedin'				=> 'long',
+			'linkedin_button_name'					=> __( 'Sign in with LinkedIn', 'social-login-bws' ),
+			'twitter_button_name'					=> __( 'Sign in with Twitter', 'social-login-bws' ),
+			'facebook_button_name'					=> __( 'Sign in with Facebook', 'social-login-bws' ),
+			'google_button_name'					=> __( 'Sign in with Google', 'social-login-bws' ),
 			'allow_registration'					=> 'default'
 		);
 
@@ -463,333 +472,14 @@ if ( ! function_exists( 'scllgn_plugin_activate' ) ) {
 	}
 }
 
-/* Function formed content of the plugin's admin page. */
 if ( ! function_exists( 'scllgn_settings_page' ) ) {
-	function scllgn_settings_page() {
-		global $scllgn_options, $scllgn_providers, $scllgn_plugin_info;
-		$message = $error = '';
-		$plugin_basename = plugin_basename( __FILE__ );
-
-		$forms = array(
-			'login_form'		=> __( 'WordPress Login form', 'social-login-bws' ),
-			'register_form'		=> __( 'WordPress Registration form', 'social-login-bws' ),
-			'comment_form'		=> __( 'WordPress Comments form', 'social-login-bws' )
-		);
-
-		$php_version_is_proper = ( version_compare( phpversion(), '5.3', '>=' ) ) ? true : false;
-
-			if ( $php_version_is_proper && isset( $_REQUEST['scllgn_form_submit'] ) && check_admin_referer( $plugin_basename, 'scllgn_nonce_name' ) ) {
-			/* Takes all the changed settings on the plugin's admin page and saves them in array 'scllgn_options'. */
-			foreach ( $scllgn_providers as $provider => $provider_name ) {
-				if ( ! empty( $_REQUEST["scllgn_{$provider}_is_enabled"] ) ) {
-					$scllgn_options["{$provider}_is_enabled"] = 1;
-
-					if ( ! empty( $_REQUEST["scllgn_{$provider}_client_id"] ) ) {
-						$scllgn_options["{$provider}_client_id"] = trim( stripslashes( esc_html( $_REQUEST["scllgn_{$provider}_client_id"] ) ) );
-					} else {
-						$error .= sprintf( __( 'Please fill the Client ID for %s.', 'social-login-bws' ), $provider_name );
-					}
-
-					if ( ! empty( $_REQUEST["scllgn_{$provider}_client_secret"] ) ) {
-						$scllgn_options["{$provider}_client_secret"] = trim( stripslashes( esc_html( $_REQUEST["scllgn_{$provider}_client_secret"] ) ) );
-					} else {
-						$error .= sprintf( __( 'Please fill the Client secret for %s.', 'social-login-bws' ), $provider_name );
-					}
-				} else {
-					$scllgn_options["{$provider}_is_enabled"] = 0;
-				}
-			}
-			foreach ( $forms as $form_slug => $form ) {
-				$scllgn_options[ $form_slug ] = isset( $_REQUEST["scllgn_{$form_slug}"] ) ? 1 : 0;
-			}
-			$scllgn_options['loginform_buttons_position'] = ( isset( $_REQUEST['scllgn_loginform_buttons_position'] ) && in_array( $_REQUEST['scllgn_loginform_buttons_position'], array( 'top', 'middle', 'bottom' ) ) ) ? $_REQUEST['scllgn_loginform_buttons_position'] : $scllgn_options['loginform_buttons_position'];
-
-			$scllgn_options['user_role'] = isset( $_REQUEST['scllgn_role'] ) ? $_REQUEST['scllgn_role'] : $scllgn_options['user_role'];
-
-			/* User Registration */
-
-			$scllgn_options['allow_registration'] = esc_attr( $_POST['scllgn_register_option'] );
-
-			$message = __( 'Settings saved', 'social-login-bws' );
-			update_option( 'scllgn_options', $scllgn_options );
-
-		}
-
-		/* add restore function */
-		if ( isset( $_REQUEST['bws_restore_confirm'] ) && check_admin_referer( $plugin_basename, 'bws_settings_nonce_name' ) ) {
-			$scllgn_options = scllgn_get_default_options();
-			update_option( 'scllgn_options', $scllgn_options );
-			$message = __( 'All plugin settings were restored.', 'social-login-bws' );
-		} ?>
+	function scllgn_settings_page() { 
+		global $scllgn_options;
+		require_once( dirname( __FILE__ ) . '/includes/class-scllgn-settings.php' );
+		$page = new Scllgn_Settings_Tabs( plugin_basename( __FILE__ ) ); ?>
 		<div class="wrap">
 			<h1><?php _e( 'Social Login Settings', 'social-login-bws' ); ?></h1>
-			<h2 class="nav-tab-wrapper">
-				<a class="nav-tab<?php if ( ! isset( $_GET['action'] ) || ( isset( $_GET['action'] ) && ! in_array( $_GET['action'], array( 'custom_code' ) ) ) ) echo ' nav-tab-active'; ?>" href="admin.php?page=social-login.php"><?php _e( 'Settings', 'social-login-bws' ); ?></a>
-				<a class="nav-tab<?php if ( isset( $_GET['action'] ) && 'custom_code' == $_GET['action'] ) echo ' nav-tab-active'; ?>" href="admin.php?page=social-login.php&amp;action=custom_code"><?php _e( 'Custom code', 'social-login-bws' ); ?></a>
-			</h2>
-			<div class="updated fade below-h2 <?php if ( empty( $message ) || "" != $error ) echo "hidden"; ?>"><p><strong><?php echo $message; ?></strong></p></div>
-			<div class="error below-h2 <?php if ( $php_version_is_proper && "" == $error ) echo "hidden"; ?>">
-				<?php if ( '' != $error ) {
-					echo "<p><strong>$error</strong></p>";
-				}
-				if ( ! $php_version_is_proper ) { ?>
-					<p><strong>
-						<?php printf(
-							__( '%1$s requires at least PHP version %2$s. Please contact your hosting provider in order to upgrade PHP version.', 'social-login-bws' ),
-							$scllgn_plugin_info['Name'],
-							'5.3.0'
-						); ?>
-					</strong></p>
-				<?php } ?>
-			</div>
-			<?php bws_show_settings_notice();
-			if ( ! isset( $_GET['action'] ) || ( isset( $_GET['action'] ) && ! in_array( $_GET['action'], array( 'custom_code' ) ) ) ) {
-				if ( isset( $_REQUEST['bws_restore_default'] ) && check_admin_referer( $plugin_basename, 'bws_settings_nonce_name' ) ) {
-					bws_form_restore_default_confirm( $plugin_basename );
-				} else {
-					scllgn_show_user_registration_setting_notice(); ?>
-					<form method="post" action="" enctype="multipart/form-data" class="bws_form scllgn-settings-form">
-						<table class="form-table scllgn-form-table">
-							<tbody>
-								<tr scope="row" valign="top" class="scllgn_social_forms">
-									<th><?php _e( 'Enable Social Login for', 'social-login-bws' ); ?></th>
-									<td>
-										<fieldset>
-										<?php foreach ( $forms as $form_slug => $form ) { ?>
-											<label>
-												<input type="checkbox" value="1" name="<?php echo "scllgn_{$form_slug}"; ?>"<?php checked( $scllgn_options[ $form_slug ], 1 ); ?> class="<?php echo "scllgn_{$form_slug}_checkbox"; ?>" />
-												<?php echo $form; ?>
-											</label><br />
-										<?php } ?>
-										</fieldset>
-									</td>
-								</tr>
-								<tr scope="row" valign="top">
-									<th>
-										<?php _e( 'Buttons Position', 'social-login-bws' ); ?>
-									</th>
-									<td>
-										<select name="scllgn_loginform_buttons_position" >
-											<option value="top" <?php selected( $scllgn_options['loginform_buttons_position'], 'top' ); ?>>
-												<?php _e( 'Top', 'social-login-bws' ) ?>
-											</option>
-											<option value="middle" <?php selected( $scllgn_options['loginform_buttons_position'], 'middle' ); ?>>
-												<?php _e( 'Before the submit button', 'social-login-bws' ) ?>
-											</option>
-											<option value="bottom" <?php selected( $scllgn_options['loginform_buttons_position'], 'bottom' ); ?>>
-												<?php _e( 'Bottom', 'social-login-bws' ) ?>
-											</option>
-										</select>
-										<div class="bws_info">
-											<?php _e( 'Choose the buttons position in the form. This option is available only for Login and Registration forms.', 'social-login-bws' ); ?>
-										</div>
-									</td>
-								</tr>
-								<tr scope="row" valign="top">
-									<th>
-										<?php _e( 'User Registration', 'social-login-bws' ); ?>
-									</th>
-									<td>
-										<fieldset>
-											<label>
-												<input type="radio" name="scllgn_register_option" class="scllgn_registration_default" value="default" <?php checked( 'default' == $scllgn_options['allow_registration'] ); ?> /> <?php _e( 'Default', 'social-login-bws' ); ?>
-											</label>
-											<div class="bws_info" style="display: inline;">
-												<?php _e( 'Select to allow or deny user registration using social buttons depending on', 'social-login-bws' ); ?>
-												<a href="options-general.php" target="_blank" nohref="nohref">
-													<?php _e( 'WordPress General settings.', 'social-login-bws' ); ?>
-												</a>
-											</div>
-											<br/>
-											<label>
-												<input type="radio" name="scllgn_register_option" class="scllgn_allow_registration" value="allow" <?php checked( 'allow' == $scllgn_options['allow_registration'] ); ?> /> <?php _e( 'Allow', 'social-login-bws' ); ?>
-											</label>
-											<div class="bws_info" style="display: inline;">
-												<?php _e( 'Select to allow user registration using social buttons regardless', 'social-login-bws' ); ?>
-												<a href="options-general.php" target="_blank" nohref="nohref">
-													<?php _e( 'WordPress General settings.', 'social-login-bws' ); ?>
-												</a>
-											</div>
-											<br/>
-											<label>
-												<input type="radio" name="scllgn_register_option" class="scllgn_deny_registration" value="deny" <?php checked( 'deny' == $scllgn_options['allow_registration'] ); ?> /> <?php _e( 'Deny', 'social-login-bws' ); ?>
-											</label>
-											<div class="bws_info" style="display: inline;">
-												<?php _e( 'Select to deny user registration using social buttons regardless', 'social-login-bws' ); ?>
-												<a href="options-general.php" target="_blank" nohref="nohref">
-													<?php _e( 'WordPress General settings.', 'social-login-bws' ); ?>
-												</a>
-											</div>
-										</fieldset>
-									</td>
-								</tr>
-								<tr scope="row" valign="top">
-									<th>
-										<?php _e( 'New User Default Role', 'social-login-bws' ); ?>
-									</th>
-									<td>
-										<fieldset>
-											<?php if ( function_exists( 'get_editable_roles' ) ) {
-												$default_role = get_option( 'default_role' ); ?>
-												<select name="scllgn_role" >
-													<?php foreach ( get_editable_roles() as $role => $fields ) {
-														printf(
-															'<option value="%1$s" %2$s >
-																%3$s%4$s
-															</option>',
-															$role,
-															selected( $scllgn_options['user_role'], $role ),
-															translate_user_role( $fields['name'] ),
-															( $role == $default_role ) ? ' (' . __( 'Default', 'social-login-bws' ) . ')' : ''
-														);
-													} ?>
-												</select>
-											<?php } ?>
-										</fieldset>
-										<div class="bws_info">
-											<?php _e( 'Choose the role for newly registered users.', 'social-login-bws' ); ?>
-										</div>
-									</td>
-								</tr>
-
-								<tr scope="row" valign="top" style="border-top: 1px solid #ccc;">
-									<th style="padding-top: 40px;"><?php printf( __( '%1$s Sign In Button', 'social-login-bws' ), $scllgn_providers['google'] ); ?></th>
-									<td style="padding-top: 40px;">
-										<input type="checkbox" value="1" name="scllgn_google_is_enabled"<?php checked( $scllgn_options['google_is_enabled'] && $php_version_is_proper ); disabled( ! $php_version_is_proper ); ?> class="scllgn_provider_checkbox" data-scllgn-provider="google" />
-										<span class="bws_info">
-											<?php printf(
-											__( 'Enable to add %1$s Sign In button to the necessary WordPress form.', 'social-login-bws' ),
-											$scllgn_providers['google']
-											); ?>
-										</span>
-									</td>
-								</tr>
-								<?php if ( $php_version_is_proper ) { ?>
-								<tr scope="row" valign="top" class="scllgn_google_client_data">
-									<th><?php _e( 'Client ID', 'social-login-bws' ); ?></th>
-									<td>
-										<input type="text" name="scllgn_google_client_id" value="<?php echo $scllgn_options['google_client_id']; ?>" size="65" />
-										<div class="bws_info">
-											<?php _e( 'You need to create your own credentials in order to use google API.', 'social-login-bws' ); ?> <a href="https://docs.google.com/document/d/1jS1pGbaIyhR9-6wsvWFueMqd8ZJYKRQAJGkOc8j5lWE/edit#heading=h.ly70c5c1dj07" target="_blank" nohref="nohref"><?php _e( 'Learn More', 'social-login-bws' ); ?></a>
-											<br/>
-											<?php _e( 'While creating Google API use this redirect url: ', 'social-login-bws' );?><code><? echo wp_login_url(); ?></code>
-										</div>
-									</td>
-								</tr>
-								<tr scope="row" valign="top" class="scllgn_google_client_data">
-									<th><?php _e( 'Client Secret', 'social-login-bws' ); ?></th>
-									<td>
-										<input type="text" name="scllgn_google_client_secret" value="<?php echo $scllgn_options['google_client_secret']; ?>" size="25">
-									</td>
-								</tr>
-								<?php } ?>
-								<tr scope="row" valign="top" style="border-top: 1px solid #ccc;">
-									<th style="padding-top: 40px;"><?php printf( __( '%1$s Sign In Button', 'social-login-bws' ), $scllgn_providers['facebook'] ); ?></th>
-									<td style="padding-top: 40px;">
-										<input type="checkbox" value="1" name="scllgn_facebook_is_enabled"<?php checked( $scllgn_options['facebook_is_enabled'] && $php_version_is_proper ); disabled( ! $php_version_is_proper ); ?> class="scllgn_provider_checkbox" data-scllgn-provider="facebook" />
-										<span class="bws_info">
-											<?php printf(
-											__( 'Enable to add %1$s Sign In button to the necessary WordPress form.', 'social-login-bws' ),
-											$scllgn_providers['facebook']
-											); ?>
-										</span>
-									</td>
-								</tr>
-								<?php if ( $php_version_is_proper ) { ?>
-								<tr scope="row" valign="top" class="scllgn_facebook_client_data">
-									<th><?php _e( 'App ID', 'social-login-bws' ); ?></th>
-									<td>
-										<input type="text" name="scllgn_facebook_client_id" value="<?php echo $scllgn_options['facebook_client_id']; ?>" size="30"/>
-										<div class="bws_info">
-											<?php _e( 'You need to create your own credentials in order to use Facebook API.', 'social-login-bws' ); ?> <a href="https://docs.google.com/document/d/1jS1pGbaIyhR9-6wsvWFueMqd8ZJYKRQAJGkOc8j5lWE/edit#heading=h.5xcmcz2zjjtl" target="_blank" nohref="nohref"><?php _e( 'Learn More', 'social-login-bws' ); ?></a>
-											<br/>
-											<?php _e( 'While creating Facebook API use this redirect url: ', 'social-login-bws' );?><code><? echo plugin_dir_url( __FILE__ ) . 'facebook_callback.php'; ?></code>
-										</div>
-									</td>
-								</tr>
-								<tr scope="row" valign="top" class="scllgn_facebook_client_data">
-									<th><?php _e( 'App Secret', 'social-login-bws' ); ?></th>
-									<td>
-										<input type="text" name="scllgn_facebook_client_secret" value="<?php echo $scllgn_options['facebook_client_secret']; ?>" size="30" />
-									</td>
-								</tr>
-								<?php } ?>
-								<tr scope="row" valign="top" style="border-top: 1px solid #ccc;">
-									<th style="padding-top: 40px;"><?php printf( __( '%1$s Sign In Button', 'social-login-bws' ), $scllgn_providers['twitter'] ); ?></th>
-									<td style="padding-top: 40px;">
-										<input type="checkbox" value="1" name="scllgn_twitter_is_enabled"<?php checked( $scllgn_options['twitter_is_enabled'] && $php_version_is_proper ); disabled( ! $php_version_is_proper ); ?> class="scllgn_provider_checkbox" data-scllgn-provider="twitter" />
-										<span class="bws_info">
-											<?php printf(
-											__( 'Enable to add %1$s Sign In button to the necessary WordPress form.', 'social-login-bws' ),
-											$scllgn_providers['twitter']
-											); ?>
-										</span>
-									</td>
-								</tr>
-								<?php if ( $php_version_is_proper ) { ?>
-								<tr scope="row" valign="top" class="scllgn_twitter_client_data">
-									<th><?php _e( 'Consumer Key (API Key)', 'social-login-bws' ); ?></th>
-									<td>
-										<input type="text" name="scllgn_twitter_client_id" value="<?php echo $scllgn_options['twitter_client_id']; ?>" size="30" />
-										<div class="bws_info">
-											<?php _e( 'You need to create your own credentials in order to use twitter API.', 'social-login-bws' ); ?> <a href="https://docs.google.com/document/d/1jS1pGbaIyhR9-6wsvWFueMqd8ZJYKRQAJGkOc8j5lWE/edit#heading=h.fnl0icuiiahq" target="_blank" nohref="nohref"><?php _e( 'Learn More', 'social-login-bws' ); ?></a>
-											<br/>
-											<?php _e( 'While creating Twitter API use this redirect url: ', 'social-login-bws' );?><code><? echo wp_login_url(); ?></code>
-										</div>
-									</td>
-								</tr>
-								<tr scope="row" valign="top" class="scllgn_twitter_client_data">
-									<th><?php _e( 'Consumer Secret (API Secret)', 'social-login-bws' ); ?></th>
-									<td>
-										<input type="text" name="scllgn_twitter_client_secret" value="<?php echo $scllgn_options['twitter_client_secret']; ?>" size="50">
-									</td>
-								</tr>
-								<?php } ?>
-								<tr scope="row" valign="top" style="border-top: 1px solid #ccc;">
-									<th style="padding-top: 40px;"><?php printf( __( '%1$s Sign In Button', 'social-login-bws' ), $scllgn_providers['linkedin'] ); ?></th>
-									<td style="padding-top: 40px;">
-										<input type="checkbox" value="1" name="scllgn_linkedin_is_enabled"<?php checked( $scllgn_options['linkedin_is_enabled'] && $php_version_is_proper ); disabled( ! $php_version_is_proper ); ?> class="scllgn_provider_checkbox" data-scllgn-provider="linkedin" />
-										<span class="bws_info">
-											<?php printf(
-											__( 'Enable to add %1$s Sign In button to the necessary WordPress form.', 'social-login-bws' ),
-											$scllgn_providers['linkedin']
-											); ?>
-										</span>
-									</td>
-								</tr>
-								<?php if ( $php_version_is_proper ) { ?>
-								<tr scope="row" valign="top" class="scllgn_linkedin_client_data">
-									<th><?php _e( 'Client ID', 'social-login-bws' ); ?></th>
-									<td>
-										<input type="text" name="scllgn_linkedin_client_id" value="<?php echo $scllgn_options['linkedin_client_id']; ?>" size="20" />
-										<div class="bws_info">
-											<?php _e( 'You need to create your own credentials in order to use linkedin API.', 'social-login-bws' ); ?> <a href="https://docs.google.com/document/d/1jS1pGbaIyhR9-6wsvWFueMqd8ZJYKRQAJGkOc8j5lWE/edit#heading=h.vgel2zwdelzu" target="_blank" nohref="nohref"><?php _e( 'Learn More', 'social-login-bws' ); ?></a>
-											<br/>
-											<?php _e( 'While creating LinkedIn API use this redirect url: ', 'social-login-bws' );?><code><? echo plugin_dir_url( __FILE__ ) . 'linkedin_callback.php'; ?></code>
-										</div>
-									</td>
-								</tr>
-								<tr scope="row" valign="top" class="scllgn_linkedin_client_data">
-									<th><?php _e( 'Client Secret', 'social-login-bws' ); ?></th>
-									<td>
-										<input type="text" name="scllgn_linkedin_client_secret" value="<?php echo $scllgn_options['linkedin_client_secret']; ?>" size="20">
-									</td>
-								</tr>
-								<?php } ?>
-							<?php } ?>
-							</tbody>
-						</table>
-						<p class="submit">
-							<input type="hidden" name="scllgn_form_submit" value="submit" />
-							<input id="bws-submit-button" type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'social-login-bws' ); ?>" />
-							<?php wp_nonce_field( $plugin_basename, 'scllgn_nonce_name' ); ?>
-						</p>
-					</form>
-				<?php bws_form_restore_default_settings( $plugin_basename ); ?>
-			<?php } elseif ( 'custom_code' == $_GET['action'] ) {
-				bws_custom_code_tab();
-			}
-			bws_plugin_reviews_block( $scllgn_plugin_info['Name'], 'social-login-bws' ); ?>
+			<?php $page->display_content(); ?>
 		</div>
 	<?php }
 }
@@ -828,13 +518,20 @@ if ( ! function_exists( 'scllgn_get_current_commenter' ) ) {
 if ( ! function_exists( 'scllgn_enqueue_scripts' ) ) {
 	function scllgn_enqueue_scripts() {
 		global $scllgn_options, $scllgn_providers, $scllgn_plugin_info;
-		if ( is_admin() && isset( $_GET['page'] ) && 'social-login.php' == $_GET['page'] ) {
+		bws_enqueue_settings_scripts();
+		if( is_admin() ) {
+			/*Adding styles for dashicons*/
+			wp_enqueue_style( 'scllgn_admin_page_stylesheet', plugins_url( 'css/admin_page.css', __FILE__ ) );
+		}
+		if ( isset( $_GET['page'] ) && 'social-login.php' == $_GET['page'] ) {
+			/*Adding styles for buttons*/
+			wp_enqueue_style( 'scllgn_login_style', plugins_url( 'css/style-login.css', __FILE__ ) );
 			/* Adding script to settings page */
 			wp_enqueue_script( 'scllgn_script', plugins_url( 'js/script.js', __FILE__ ), array( 'jquery' ), $scllgn_plugin_info['Version'] );
 
-			bws_enqueue_settings_scripts();
-			if ( isset( $_GET['action'] ) && 'custom_code' == $_GET['action'] )
+			if ( isset( $_GET['action'] ) && 'custom_code' == $_GET['action'] ) {
 				bws_plugins_include_codemirror();
+			}
 		} elseif ( scllgn_is_login_page() || scllgn_is_signup_page() || ! is_admin() && is_singular() && comments_open() && ! is_user_logged_in() && ! empty( $scllgn_options["comment_form"] ) ) {
 			/* Adding style to pages with comments and custom login pages */
 			foreach ( $scllgn_providers as $provider => $provider_name ) {
@@ -850,7 +547,7 @@ if ( ! function_exists( 'scllgn_enqueue_scripts' ) ) {
 				/* userdata is set, filling data into the comment form */
 				add_filter( 'wp_get_current_commenter', 'scllgn_get_current_commenter' );
 			}
-		} elseif ( defined( 'BWS_ENQUEUE_ALL_SCRIPTS' ) && BWS_ENQUEUE_ALL_SCRIPTS ) {
+		} elseif ( defined( 'BWS_ENQUEUE_ALL_SCRIPTS' ) ) {
 			wp_enqueue_style( 'scllgn_style', plugins_url( 'css/style.css', __FILE__ ), array( 'dashicons' ), $scllgn_plugin_info['Version'] );
 			scllgn_login_enqueue_scripts( true );
 		}
@@ -1299,12 +996,12 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
 		global $scllgn_options, $scllgn_providers, $pagenow;
 
 		$button = '';
-		$button_text = apply_filters( 'scllgn_' . $provider . '_button_text', sprintf( __( 'Sign In with %1$s', 'social-login-bws' ), $scllgn_providers[ $provider ] ) );
-		$button_text = apply_filters( 'scllgn_button_text', $button_text );
 		if ( 'google' == $provider ) {
 			$client  = scllgn_google_client();
 			$authUrl = urldecode( $client->createAuthUrl() );
 			$dashicon_for_button = 	'dashicons-googleplus';
+			$button_html = $scllgn_options['button_display_google'];
+			$button_text = $scllgn_options['google_button_name'];
 		} elseif ( 'facebook' == $provider ) {
 			scllgn_facebook_client();
 			$facebook_redirect = plugin_dir_url( __FILE__ ) . 'facebook_callback.php';
@@ -1317,10 +1014,14 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
 			);
 			$authUrl = $url . '?' . http_build_query( $params, null, '&' );
 			$dashicon_for_button = 	'dashicons-facebook';
+			$button_html = $scllgn_options['button_display_facebook'];
+			$button_text = $scllgn_options['facebook_button_name'];
 		} elseif ( 'twitter' == $provider ) {
 			scllgn_twitter_client();
 			$authUrl = 'https://api.twitter.com/oauth/authorize?include_email=true&oauth_token=' . $_SESSION['twitter_oauth_token'];
 			$dashicon_for_button = 	'dashicons-twitter';
+			$button_html = $scllgn_options['button_display_twitter'];
+			$button_text = $scllgn_options['twitter_button_name'];
 		} elseif ( 'linkedin' == $provider ) {
 			scllgn_linkedin_client();
 			$oauth_nonce = md5( uniqid( rand(), true ) );
@@ -1335,18 +1036,34 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
 			);
 			$authUrl = $url . '?' . urldecode( http_build_query( $params ) );
 			$dashicon_for_button = 	'bws-icons';
+			$button_html = $scllgn_options['button_display_linkedin'];
+			$button_text = $scllgn_options['linkedin_button_name'];
 		}
-		$button .=	sprintf(
-			'<a href="%1$s" class="scllgn_login_button scllgn_button_%2$s" id="scllgn_%5$s_button" data-scllgn-position="%2$s" data-scllgn-provider="%5$s">' .
-				'<span class="dashicons %3$s""></span>' .
-				'<span class="scllgn_button_text">%4$s</span>' .
-			'</a>',
-			$authUrl,
-			$scllgn_options['loginform_buttons_position'],
-			$dashicon_for_button,
-			$button_text,
-			$provider
-		);
+		if( 'long' == $button_html ) {
+			$button .=	sprintf(
+				'<a href="%1$s" class="scllgn_login_button scllgn_button_%2$s scllgn_login_button_long scllgn_%5$s_button" id="scllgn_%5$s_button" data-scllgn-position="%2$s" data-scllgn-provider="%5$s">' .
+					'<span class="dashicons %3$s""></span>' .
+					'<span class="scllgn_button_text">%4$s</span>' .
+				'</a>',
+				$authUrl,
+				$scllgn_options['loginform_buttons_position'],
+				$dashicon_for_button,
+				$button_text,
+				$provider
+			);	
+		} elseif ( 'short' == $button_html ) {
+			$button .=	sprintf(
+				'<a href="%1$s" class="scllgn_login_button scllgn_login_button_icon scllgn_%5$s_button_admin scllgn_login_button_short scllgn_button_%2$s scllgn_%5$s_button" data-scllgn-position="%2$s" data-scllgn-provider="%5$s" id="scllgn_%5$s_button">' .
+					'<span class="dashicons %3$s scllgn_span_icon"></span>' .
+				'</a>',
+				$authUrl,
+				$scllgn_options['loginform_buttons_position'],
+				$dashicon_for_button,
+				$button_text,
+				$provider
+			);	
+		}
+		$button_text = apply_filters( 'scllgn_button_text', $button_text );
 		$button = apply_filters( 'scllgn_' . $provider . '_button', $button );
 		$button = apply_filters( 'scllgn_button', $button );
 
@@ -1363,23 +1080,17 @@ if ( ! function_exists( 'scllgn_login_form' ) ) {
 		global $scllgn_options, $scllgn_providers;
 
 		if ( ! is_user_logged_in() ) {
-			$buttons = array();
+			scllgn_display_all_buttons( 'login_form' );
+			$buttons_short = $buttons_long = array();
 
 			foreach ( $scllgn_providers as $provider => $provider_name ) {
 				if ( ! empty( $scllgn_options["{$provider}_is_enabled"] ) && ! empty( $scllgn_options["login_form"] ) ) {
-					$buttons[ $provider ] = scllgn_get_button( $provider );
+					if ( 'long' == $scllgn_options["button_display_{$provider}"] ) {
+						$buttons_long[ $provider ] = scllgn_get_button( $provider );
+					} else {
+						$buttons_short[ $provider ] = scllgn_get_button( $provider );
+					}
 				}
-			}
-
-			/* Providing an ability to reorder providers or even unset some of them */
-			$buttons = apply_filters( 'scllgn_sort_login_buttons', $buttons );
-
-			if ( ! empty( $buttons ) ) {
-				$buttons = implode( '', $buttons );
-				printf(
-					'<div class="scllgn_buttons_block">%s</div>',
-					$buttons
-				);
 			}
 		}
 	}
@@ -1389,25 +1100,18 @@ if ( ! function_exists( 'scllgn_login_form' ) ) {
 if ( ! function_exists( 'scllgn_register_form' ) ) {
 	function scllgn_register_form() {
 		global $scllgn_options, $scllgn_providers;
-
-		if ( ! is_user_logged_in() && ! empty( $scllgn_options["register_form"] ) ) {
-			$buttons = array();
+		if ( ! is_user_logged_in() && ! empty( $scllgn_options["register_form"] ) && 'deny' != $scllgn_options["allow_registration"] ) {
+		scllgn_display_all_buttons( 'register_form' );
+		$buttons_short = $buttons_long = array();
 
 			foreach ( $scllgn_providers as $provider => $provider_name ) {
-				if ( ! empty( $scllgn_options["{$provider}_is_enabled"] ) ) {
-					$buttons[ $provider ] = scllgn_get_button( $provider );
+				if ( ! empty( $scllgn_options["{$provider}_is_enabled"] ) && ! empty( $scllgn_options["register_form"] ) ) {
+					if ( 'long' == $scllgn_options["button_display_{$provider}"] ) {
+						$buttons_long[ $provider ] = scllgn_get_button( $provider );
+					} else {
+						$buttons_short[ $provider ] = scllgn_get_button( $provider );
+					}
 				}
-			}
-
-			/* Providing an ability to reorder providers or even unset some of them */
-			$buttons = apply_filters( 'scllgn_sort_register_buttons', $buttons );
-
-			if ( ! empty( $buttons ) ) {
-				$buttons = implode( '', $buttons );
-				printf(
-					'<div class="scllgn_buttons_block">%s</div>',
-					$buttons
-				);
 			}
 		}
 	}
@@ -1419,7 +1123,7 @@ if ( ! function_exists( 'scllgn_comment_form' ) ) {
 		global $scllgn_options, $scllgn_providers;
 
 		if ( comments_open() && ! empty( $scllgn_options["comment_form"] ) ) {
-			scllgn_display_all_buttons();
+			scllgn_display_all_buttons( 'comment_form' );
 
 			if ( ! empty( $_SESSION['scllgn_userdata'] ) ) {
 				unset( $_SESSION['scllgn_userdata'] );
@@ -1430,24 +1134,49 @@ if ( ! function_exists( 'scllgn_comment_form' ) ) {
 
 /* Display all available buttons */
 if ( ! function_exists( 'scllgn_display_all_buttons' ) ) {
-	function scllgn_display_all_buttons() {
+	function scllgn_display_all_buttons( $form = '' ) {
 		global $scllgn_options, $scllgn_providers;
 
 		if ( ! is_user_logged_in() ) {
-			$buttons = array();
+			$buttons_short = $buttons_long = array();
 
 			foreach ( $scllgn_providers as $provider => $provider_name ) {
-				if ( ! empty( $scllgn_options["{$provider}_is_enabled"] ) ) {
-					$buttons[ $provider ] = scllgn_get_button( $provider );
+				if ( ! empty( $scllgn_options["{$provider}_is_enabled"] ) && ! empty( $scllgn_options["login_form"] ) ) {
+					if ( 'long' == $scllgn_options["button_display_{$provider}"] ) {
+						$buttons_long[ $provider ] = scllgn_get_button( $provider );
+					} else {
+						$buttons_short[ $provider ] = scllgn_get_button( $provider );
+					}
 				}
 			}
-			$buttons = apply_filters( 'scllgn_all_social_buttons', $buttons );
 
-			if ( ! empty( $buttons ) ) {
-				$buttons = implode( '', $buttons );
+			if ( 'comment_form' == $form ) {
+				$buttons_long = apply_filters( 'scllgn_sort_comment_buttons', $buttons_long );
+				$buttons_short = apply_filters( 'scllgn_sort_comment_buttons', $buttons_short );
+			}
+			
+			if ( 'login_form' == $form ) {
+				$buttons_long = apply_filters( 'scllgn_sort_login_buttons', $buttons_long );
+				$buttons_short = apply_filters( 'scllgn_sort_login_buttons', $buttons_short );
+			}
+
+			if ( 'register_form' == $form ) {
+				$buttons_long = apply_filters( 'scllgn_sort_register_buttons', $buttons_long );
+				$buttons_short = apply_filters( 'scllgn_sort_register_buttons', $buttons_short );
+			}
+			
+			if ( ! empty( $buttons_short ) ) {
+				$buttons_short = implode( '', $buttons_short );
 				printf(
 					'<div class="scllgn_buttons_block">%s</div>',
-					$buttons
+					$buttons_short
+				);
+			}
+			if ( ! empty( $buttons_long ) ) {
+				$buttons_long = implode( '', $buttons_long );
+				printf(
+					'<div class="scllgn_buttons_block">%s</div>',
+					$buttons_long
 				);
 			}
 		}
@@ -1802,7 +1531,7 @@ function scllgn_ajax_data() {
 	/* Create new Google Client with remeber me login option */
 	if ( ! empty( $_POST['scllgn_remember'] ) && ! empty( $_POST['scllgn_provider'] ) && 'google' == $_POST['scllgn_provider'] ) {
 		$client  = scllgn_google_client();
-		$authUrl = $client ->createAuthUrl();
+		$authUrl = $client->createAuthUrl();
 		echo $authUrl;
 	}
 
@@ -1812,7 +1541,7 @@ function scllgn_ajax_data() {
 register_activation_hook( __FILE__, 'scllgn_plugin_activate' );
 
 /* Calling a function add administrative menu. */
-add_action( 'admin_menu', 'scllgn_add_pages' );
+add_action( 'admin_menu', 'add_scllgn_admin_menu' );
 add_action( 'plugins_loaded', 'scllgn_plugins_loaded' );
 add_action( 'init', 'scllgn_init' );
 add_action( 'admin_init', 'scllgn_admin_init' );

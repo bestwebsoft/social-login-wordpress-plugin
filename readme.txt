@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: social login, social connect, social networks, google login, registration, facebook login, twitter login, social authentication, sign in button, social plugin WordPress, LinkedIn login, social networks, comments via social networks, registration using social networks.
 Requires at least: 3.9
-Tested up to: 4.9.4
-Stable tag: 0.5
+Tested up to: 4.9.8
+Stable tag: 1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,8 +27,8 @@ Install now and make forms filling for your visitors easier!
 	* Login form
 	* Registration form
 	* Comments form
-* Select the default role for new users [NEW]
-* Enable user registration only via social buttons [NEW]
+* Select the default role for new users
+* Enable user registration only via social buttons
 * Link your social accounts to your existing WordPress account
 * Compatible with latest WordPress version
 * Incredibly simple settings for fast setup without modifying code
@@ -87,8 +87,13 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 2. Linking social accounts to existing WordPress account on the profile page.
 3. Social Login buttons displaying on the comment form.
 4. Plugin Settings page.
+5. Social Login short buttons displaying on the login form.
 
 == Changelog ==
+
+= V1.0 - 16.08.2018 =
+* Update : The plugin settings page has been changed.
+* NEW : Ability to change social buttons output and its text has been added.
 
 = V0.5 - 02.04.2018 =
 * NEW : Ability to select new user default role has been added.
@@ -111,6 +116,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : Plugin has been released.
 
 == Upgrade Notice ==
+
+= V1.0 - 20.07.2018 =
+* Functionality expanded.
 
 = V0.5 =
 * The compatibility with new WordPress version updated.

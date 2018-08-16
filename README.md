@@ -20,8 +20,8 @@
 <li>Comments form</li>
 </ul>
 </li>
-<li>Select the default role for new users [NEW]</li>
-<li>Enable user registration only via social buttons [NEW]</li>
+<li>Select the default role for new users</li>
+<li>Enable user registration only via social buttons</li>
 <li>Link your social accounts to your existing WordPress account</li>
 <li>Compatible with latest WordPress version</li>
 <li>Incredibly simple settings for fast setup without modifying code</li>
