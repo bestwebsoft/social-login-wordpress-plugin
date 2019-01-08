@@ -57,7 +57,7 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 					$this->options['button_display_' . $provider] = $_REQUEST['scllgn_' . $provider . '_display_button'];
 					$this->options[ $provider . '_button_name'] = $_REQUEST['scllgn_' . $provider . '_button_text'];
 					$this->options["{$provider}_is_enabled"] = 1;
-
+					$this->options['google_is_enabled'] = 1;
 					if ( ! empty( $_REQUEST["scllgn_{$provider}_client_id"] ) ) {
 						$this->options["{$provider}_client_id"] = trim( stripslashes( esc_html( $_REQUEST["scllgn_{$provider}_client_id"] ) ) );
 					} else {
@@ -71,6 +71,7 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 					}
 				} else {
 					$this->options["{$provider}_is_enabled"] = 0;
+					$this->options['google_is_enabled'] = 0;
 				}
 			}
 

@@ -6,12 +6,12 @@ Description: Add social media login, registration, and commenting to your WordPr
 Author: BestWebSoft
 Text Domain: social-login-bws
 Domain Path: /languages
-Version: 1.0
+Version: 1.1
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
 
-/*  © Copyright 2018  BestWebSoft  ( https://support.bestwebsoft.com )
+/*  © Copyright 2019  BestWebSoft  ( https://support.bestwebsoft.com )
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -386,17 +386,7 @@ if ( ! function_exists( 'scllgn_settings' ) ) {
 		$scllgn_options = get_option( 'scllgn_options' );
 
 		if ( ! isset( $scllgn_options['plugin_option_version'] ) || $scllgn_options['plugin_option_version'] != $scllgn_plugin_info['Version'] ) {
-			/**
-			* @since 0.4
-			* @todo remove after 01.12.2018
-			*/
-			if ( array_key_exists( 'google_login_form', $scllgn_options ) && ! array_key_exists( 'login_form', $scllgn_options ) ) {
-				$scllgn_options['login_form'] 	 = $scllgn_options['google_login_form'];
-				$scllgn_options['register_form'] = $scllgn_options['google_register_form'];
-				$scllgn_options['comment_form']  = $scllgn_options['google_comment_form'];
-				unset( $scllgn_options['google_login_form'], $scllgn_options['google_register_form'], $scllgn_options['google_comment_form'] );
-			}
-			/* end @todo */
+
 			$options_default = scllgn_get_default_options();
 			$scllgn_options = array_merge( $options_default, $scllgn_options );
 			$scllgn_options['plugin_option_version'] = $scllgn_plugin_info['Version'];
@@ -479,6 +469,13 @@ if ( ! function_exists( 'scllgn_settings_page' ) ) {
 		$page = new Scllgn_Settings_Tabs( plugin_basename( __FILE__ ) ); ?>
 		<div class="wrap">
 			<h1><?php _e( 'Social Login Settings', 'social-login-bws' ); ?></h1>
+			<noscript>
+            	<div class="error below-h2">
+                	<p><strong><?php _e( 'WARNING', 'social-login-bws' ); ?>
+                    	    :</strong> <?php _e( 'The plugin works correctly only if JavaScript is enabled.', 'social-login-bws' ); ?>
+                	</p>
+            	</div>
+        	</noscript>
 			<?php $page->display_content(); ?>
 		</div>
 	<?php }
@@ -644,7 +641,8 @@ if ( ! function_exists( 'scllgn_social_regiser' ) ) {
 		}
 
 		if ( ! $user ) {
-			if ( ! empty( scllgn_registration_enabled() ) ) {
+            $regenlebl = scllgn_registration_enabled();
+			if ( ! empty( $regenlebl ) ) {
 				if ( $email_is_verified ) {
 					$default_role = get_option( 'default_role' );
 					$userdata['user_pass'] = wp_generate_password( $length = 12, $include_standard_special_chars = false );
@@ -941,7 +939,7 @@ if ( ! function_exists( 'scllgn_linkedin_client' ) ) {
 			) : array();
 
 			$ch = curl_init();
-			curl_setopt( $ch, CURLOPT_URL, 'https://api.linkedin.com/v1/people/~:(id,last-name,first-name,email-address)?format=json' );
+			curl_setopt( $ch, CURLOPT_URL, 'https://api.linkedin.com/v1/people/~:( id,last-name,first-name,email-address )?format=json' );
 			curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 			curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
 			curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );

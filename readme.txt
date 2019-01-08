@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: social login, social connect, social networks, google login, registration, facebook login, twitter login, social authentication, sign in button, social plugin WordPress, LinkedIn login, social networks, comments via social networks, registration using social networks.
 Requires at least: 3.9
-Tested up to: 4.9.8
-Stable tag: 1.0
+Tested up to: 5.0.2
+Stable tag: 1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,6 +91,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.1 - 08.01.2019 =
+* Update : All functionality was updated for WordPress 5.0.2.
+* Bugfix : Fixed small bugs.
+
 = V1.0 - 16.08.2018 =
 * Update : The plugin settings page has been changed.
 * NEW : Ability to change social buttons output and its text has been added.
@@ -116,6 +120,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : Plugin has been released.
 
 == Upgrade Notice ==
+
+= V1.1 =
+* The compatibility with new WordPress version updated.
+* Bugs fixed.
 
 = V1.0 - 20.07.2018 =
 * Functionality expanded.
