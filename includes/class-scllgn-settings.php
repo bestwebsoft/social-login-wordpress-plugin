@@ -57,8 +57,8 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 					$this->options['button_display_' . $provider] = $_REQUEST['scllgn_' . $provider . '_display_button'];
 					$this->options[ $provider . '_button_name'] = $_REQUEST['scllgn_' . $provider . '_button_text'];
 					$this->options["{$provider}_is_enabled"] = 1;
-					$this->options['google_is_enabled'] = 1;
-					if ( ! empty( $_REQUEST["scllgn_{$provider}_client_id"] ) ) {
+
+					if ( ! empty( $_REQUEST["scllgn_{$provider}_client_id"]  ) ) {
 						$this->options["{$provider}_client_id"] = trim( stripslashes( esc_html( $_REQUEST["scllgn_{$provider}_client_id"] ) ) );
 					} else {
 						$error .= sprintf( __( 'Please fill the Client ID for %s.', 'social-login-bws' ), $provider_name );
@@ -71,7 +71,6 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 					}
 				} else {
 					$this->options["{$provider}_is_enabled"] = 0;
-					$this->options['google_is_enabled'] = 0;
 				}
 			}
 
@@ -216,7 +215,7 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 									<div class="bws_info">
 										<?php _e( 'You need to create your own credentials in order to use google API.', 'social-login-bws' ); ?> <a href="https://docs.google.com/document/d/1jS1pGbaIyhR9-6wsvWFueMqd8ZJYKRQAJGkOc8j5lWE/edit#heading=h.ly70c5c1dj07" target="_blank" nohref="nohref"><?php _e( 'Learn More', 'social-login-bws' ); ?></a>
 										<br/>
-										<?php _e( 'While creating Google API use this redirect url: ', 'social-login-bws' );?><code><? echo wp_login_url(); ?></code>
+										<?php _e( 'While creating Google API use this redirect url: ', 'social-login-bws' );?><code><? echo plugins_url() . '/social-login-bws/hybrid/hybridauth/?hauth.done=Google'; ?></code>
 									</div>
 								</td>
 							</tr>
@@ -271,7 +270,7 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 							<div class="bws_info">
 								<?php _e( 'You need to create your own credentials in order to use Facebook API.', 'social-login-bws' ); ?> <a href="https://docs.google.com/document/d/1jS1pGbaIyhR9-6wsvWFueMqd8ZJYKRQAJGkOc8j5lWE/edit#heading=h.5xcmcz2zjjtl" target="_blank" nohref="nohref"><?php _e( 'Learn More', 'social-login-bws' ); ?></a>
 								<br/>
-								<?php _e( 'While creating Facebook API use this redirect url: ', 'social-login-bws' );?><code><? echo plugins_url() . '/social-login-bws/facebook_callback.php'; ?></code>
+								<?php _e( 'While creating Facebook API use this redirect url: ', 'social-login-bws' );?><code><? echo plugins_url() . '/social-login-bws/hybrid/hybridauth/?hauth.done=Facebook'; ?></code>
 							</div>
 						</td>
 					</tr>
@@ -325,7 +324,7 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 							<div class="bws_info">
 								<?php _e( 'You need to create your own credentials in order to use twitter API.', 'social-login-bws' ); ?> <a href="https://docs.google.com/document/d/1jS1pGbaIyhR9-6wsvWFueMqd8ZJYKRQAJGkOc8j5lWE/edit#heading=h.fnl0icuiiahq" target="_blank" nohref="nohref"><?php _e( 'Learn More', 'social-login-bws' ); ?></a>
 								<br/>
-								<?php _e( 'While creating Twitter API use this redirect url: ', 'social-login-bws' );?><code><? echo wp_login_url(); ?></code>
+								<?php _e( 'While creating Twitter API use this redirect url: ', 'social-login-bws' );?><code><? echo plugins_url() . '/social-login-bws/hybrid/hybridauth/'; ?></code>
 							</div>
 						</td>
 					</tr>
@@ -379,7 +378,7 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 							<div class="bws_info">
 								<?php _e( 'You need to create your own credentials in order to use linkedin API.', 'social-login-bws' ); ?> <a href="https://docs.google.com/document/d/1jS1pGbaIyhR9-6wsvWFueMqd8ZJYKRQAJGkOc8j5lWE/edit#heading=h.vgel2zwdelzu" target="_blank" nohref="nohref"><?php _e( 'Learn More', 'social-login-bws' ); ?></a>
 								<br/>
-								<?php _e( 'While creating LinkedIn API use this redirect url: ', 'social-login-bws' );?><code><? echo plugins_url() . '/social-login-bws/linkedin_callback.php'; ?></code>
+								<?php _e( 'While creating LinkedIn API use this redirect url: ', 'social-login-bws' );?><code><? echo plugins_url() . '/social-login-bws/hybrid/hybridauth/?hauth.done=LinkedIn'; ?></code>
 							</div>
 						</td>
 					</tr>

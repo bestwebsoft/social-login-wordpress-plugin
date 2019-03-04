@@ -2,6 +2,7 @@
 /*
 * Get latest version
 */
+
 if ( ! function_exists ( 'bws_include_init' ) ) {
 	function bws_include_init( $base, $bws_menu_source = 'plugins' ) {
 		global $bstwbsftwppdtplgns_options, $bstwbsftwppdtplgns_added_menu, $bstwbsftwppdtplgns_active_plugins;
