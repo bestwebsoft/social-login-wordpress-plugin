@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: social login, social connect, social networks, google login, registration, facebook login, twitter login, social authentication, sign in button, social plugin WordPress, LinkedIn login, social networks, comments via social networks, registration using social networks.
 Requires at least: 3.9
-Tested up to: 5.1
-Stable tag: 1.2
+Tested up to: 5.2.2
+Stable tag: 1.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,6 +91,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.3 - 04.09.2019 =
+* Update: The deactivation feedback has been changed. Misleading buttons have been removed.
+
 = V1.2 - 04.03.2019
 * NEW : The open source login and registration functionality has been replaced with hybridauth library. 
 
@@ -123,6 +126,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : Plugin has been released.
 
 == Upgrade Notice ==
+
+= V1.3 =
+* Usability improved
 
 = V1.2 = 
 * Functionality expanded

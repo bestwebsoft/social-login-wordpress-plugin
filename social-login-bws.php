@@ -6,7 +6,7 @@ Description: Add social media login, registration, and commenting to your WordPr
 Author: BestWebSoft
 Text Domain: social-login-bws
 Domain Path: /languages
-Version: 1.2
+Version: 1.3
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
