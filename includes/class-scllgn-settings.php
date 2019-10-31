@@ -78,10 +78,10 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 				$this->options[ $form_slug ] = isset( $_REQUEST["scllgn_{$form_slug}"] ) ? 1 : 0;
 			}
 			$this->options['loginform_buttons_position'] = ( isset( $_REQUEST['scllgn_loginform_buttons_position'] ) && in_array( $_REQUEST['scllgn_loginform_buttons_position'], array( 'top', 'middle', 'bottom' ) ) ) ? $_REQUEST['scllgn_loginform_buttons_position'] : $this->options['loginform_buttons_position'];
-
 			$this->options['user_role'] = isset( $_REQUEST['scllgn_role'] ) ? $_REQUEST['scllgn_role'] : $this->options['user_role'];
-
 			$this->options['allow_registration'] = esc_attr( $_POST['scllgn_register_option'] );
+			$this->options['delete_metadata'] = isset( $_POST['scllgn_delete_metadata'] ) ? 1 : 0;
+
 			update_option( 'scllgn_options', $this->options );
 
 			$message = __( 'Settings saved', 'social-login-bws' );
@@ -188,43 +188,57 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 											);
 										} ?>
 									</select>
-									<?php } ?>
-								</fieldset>
-								<div class="bws_info">
-									<?php _e( 'Choose the role for newly registered users.', 'social-login-bws' ); ?>
-								</div>
-							</td>
-						</tr>
+								<?php } ?>
+							</fieldset>
+							<div class="bws_info">
+								<?php _e( 'Choose the role for newly registered users.', 'social-login-bws' ); ?>
+							</div>
+						</td>
+					</tr>
 
-						<tr scope="row" valign="top" style="border-top: 1px solid #ccc;">
-							<th style="padding-top: 20px;"><?php printf( __( '%1$s Sign In Button', 'social-login-bws' ), $scllgn_providers['google'] ); ?></th>
-							<td style="padding-top: 20px;">
-								<input type="checkbox" value="1" name="scllgn_google_is_enabled"<?php checked( $this->options['google_is_enabled'] ); disabled( ! $php_version_is_proper ); ?> class="scllgn_provider_checkbox" data-scllgn-provider="google" />
+					<tr scope="row" valign="top">
+						<th>
+							<?php _e( 'Delete User Metadata', 'social-login-bws' ); ?>
+						</th>
+						<td>
+							<label>
+								<input type="checkbox" value="1" name="scllgn_delete_metadata"<?php checked( $this->options['delete_metadata'], 1 ); ?> class="scllgn_delete_metadata_checkbox" />
 								<span class="bws_info">
-									<?php printf(
-										__( 'Enable to add %1$s Sign In button to the necessary WordPress form.', 'social-login-bws' ),
-										$scllgn_providers['google']
-										); ?>
-									</span>
-								</td>
-							</tr>
-							<tr scope="row" valign="top" class="scllgn_google_client_data">
-								<th><?php _e( 'Client ID', 'social-login-bws' ); ?></th>
-								<td>
-									<input type="text" name="scllgn_google_client_id" value="<?php echo $this->options['google_client_id']; ?>" size="20" />
-									<div class="bws_info">
-										<?php _e( 'You need to create your own credentials in order to use google API.', 'social-login-bws' ); ?> <a href="https://docs.google.com/document/d/1jS1pGbaIyhR9-6wsvWFueMqd8ZJYKRQAJGkOc8j5lWE/edit#heading=h.ly70c5c1dj07" target="_blank" nohref="nohref"><?php _e( 'Learn More', 'social-login-bws' ); ?></a>
-										<br/>
-										<?php _e( 'While creating Google API use this redirect url: ', 'social-login-bws' );?><code><? echo plugins_url() . '/social-login-bws/hybrid/hybridauth/?hauth.done=Google'; ?></code>
-									</div>
-								</td>
-							</tr>
-							<tr scope="row" valign="top" class="scllgn_google_client_data">
-								<th><?php _e( 'Client Secret', 'social-login-bws' ); ?></th>
-								<td>
-									<input type="text" name="scllgn_google_client_secret" value="<?php echo $this->options['google_client_secret']; ?>" size="20">
-								</td>
-							</tr>
+									<?php _e( 'Enable to delete all user metadata when deleting the plugin.', 'social-login-bws' ); ?>
+								</span>
+							</label>
+						</td>
+					</tr>
+
+					<tr scope="row" valign="top" style="border-top: 1px solid #ccc;">
+						<th style="padding-top: 20px;"><?php printf( __( '%1$s Sign In Button', 'social-login-bws' ), $scllgn_providers['google'] ); ?></th>
+						<td style="padding-top: 20px;">
+							<input type="checkbox" value="1" name="scllgn_google_is_enabled"<?php checked( $this->options['google_is_enabled'] ); disabled( ! $php_version_is_proper ); ?> class="scllgn_provider_checkbox" data-scllgn-provider="google" />
+							<span class="bws_info">
+								<?php printf(
+									__( 'Enable to add %1$s Sign In button to the necessary WordPress form.', 'social-login-bws' ),
+									$scllgn_providers['google']
+									); ?>
+							</span>
+						</td>
+					</tr>
+					<tr scope="row" valign="top" class="scllgn_google_client_data">
+						<th><?php _e( 'Client ID', 'social-login-bws' ); ?></th>
+						<td>
+							<input type="text" name="scllgn_google_client_id" value="<?php echo $this->options['google_client_id']; ?>" size="20" />
+							<div class="bws_info">
+								<?php _e( 'You need to create your own credentials in order to use google API.', 'social-login-bws' ); ?> <a href="https://docs.google.com/document/d/1jS1pGbaIyhR9-6wsvWFueMqd8ZJYKRQAJGkOc8j5lWE/edit#heading=h.ly70c5c1dj07" target="_blank" nohref="nohref"><?php _e( 'Learn More', 'social-login-bws' ); ?></a>
+								<br/>
+								<?php _e( 'While creating Google API use this redirect url: ', 'social-login-bws' );?><code><? echo plugins_url() . '/social-login-bws/hybrid/hybridauth/?hauth.done=Google'; ?></code>
+							</div>
+						</td>
+					</tr>
+					<tr scope="row" valign="top" class="scllgn_google_client_data">
+						<th><?php _e( 'Client Secret', 'social-login-bws' ); ?></th>
+						<td>
+							<input type="text" name="scllgn_google_client_secret" value="<?php echo $this->options['google_client_secret']; ?>" size="20">
+						</td>
+					</tr>
 					<?php /*GOOGLE*/ ?>
 					<tr scope="row" valign="top" class="scllgn_google_client_data">
 						<th><?php _e( 'Button Display', 'social-login-bws' ); ?></th>

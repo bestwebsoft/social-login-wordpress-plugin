@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: social-login-bws\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-12 15:07+0200\n"
-"PO-Revision-Date: 2019-02-12 15:07+0200\n"
+"POT-Creation-Date: 2019-08-28 11:44+0300\n"
+"PO-Revision-Date: 2019-08-28 11:45+0300\n"
 "Last-Translator: plugin@bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language-Team: BestWebSoft <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -13,11 +13,11 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: includes/class-scllgn-settings.php:23 social-login-bws.php:37
-#: social-login-bws.php:1106 social-login-bws.php:1119
+#: social-login-bws.php:1009 social-login-bws.php:1022
 msgid "Settings"
 msgstr "Настройки"
 
@@ -138,145 +138,154 @@ msgstr "Роль нового пользователя"
 msgid "Choose the role for newly registered users."
 msgstr "Выберите роль для новых зарегистрированных пользователей."
 
-#: includes/class-scllgn-settings.php:200
-#: includes/class-scllgn-settings.php:255
-#: includes/class-scllgn-settings.php:309
-#: includes/class-scllgn-settings.php:363
+#: includes/class-scllgn-settings.php:201
+msgid "Delete User Metadata"
+msgstr "Удалить метаданные пользователя"
+
+#: includes/class-scllgn-settings.php:207
+msgid "Enable to delete all user metadata when deleting the plugin."
+msgstr ""
+"Включите, чтобы удалить метаданные всех пользователей при удалении плагина."
+
+#: includes/class-scllgn-settings.php:214
+#: includes/class-scllgn-settings.php:269
+#: includes/class-scllgn-settings.php:323
+#: includes/class-scllgn-settings.php:377
 #, php-format
 msgid "%1$s Sign In Button"
 msgstr "Кнопка \"Войти с помощью %1$s\""
 
 # Включите, чтобы добавить кнопку "Войти с помощью %1$s" в выбранные формы.
-#: includes/class-scllgn-settings.php:205
-#: includes/class-scllgn-settings.php:260
-#: includes/class-scllgn-settings.php:314
-#: includes/class-scllgn-settings.php:368
+#: includes/class-scllgn-settings.php:219
+#: includes/class-scllgn-settings.php:274
+#: includes/class-scllgn-settings.php:328
+#: includes/class-scllgn-settings.php:382
 #, php-format
 msgid "Enable to add %1$s Sign In button to the necessary WordPress form."
 msgstr ""
 "Включите, чтобы добавить кнопку \"Войти с помощью %1$s\" в выбранные формы."
 
-#: includes/class-scllgn-settings.php:212
-#: includes/class-scllgn-settings.php:375
+#: includes/class-scllgn-settings.php:226
+#: includes/class-scllgn-settings.php:389
 msgid "Client ID"
 msgstr "Идентификатор клиента"
 
 # Для того, чтобы использовать Google API, вам необходимо создать свои собственные учетные данные.
-#: includes/class-scllgn-settings.php:216
+#: includes/class-scllgn-settings.php:230
 msgid "You need to create your own credentials in order to use google API."
 msgstr ""
 "Для того, чтобы использовать Google API, вам необходимо создать свои "
 "собственные учетные данные."
 
 # Подробнее
-#: includes/class-scllgn-settings.php:216
-#: includes/class-scllgn-settings.php:271
-#: includes/class-scllgn-settings.php:325
-#: includes/class-scllgn-settings.php:379
+#: includes/class-scllgn-settings.php:230
+#: includes/class-scllgn-settings.php:285
+#: includes/class-scllgn-settings.php:339
+#: includes/class-scllgn-settings.php:393
 msgid "Learn More"
 msgstr "Подробнее"
 
-#: includes/class-scllgn-settings.php:218
+#: includes/class-scllgn-settings.php:232
 msgid "While creating Google API use this redirect url: "
 msgstr "При создании Google API используйте этот URL-адрес перенаправления:"
 
-#: includes/class-scllgn-settings.php:223
-#: includes/class-scllgn-settings.php:386
+#: includes/class-scllgn-settings.php:237
+#: includes/class-scllgn-settings.php:400
 msgid "Client Secret"
 msgstr "Секрет клиента"
 
-#: includes/class-scllgn-settings.php:230
-#: includes/class-scllgn-settings.php:284
-#: includes/class-scllgn-settings.php:338
-#: includes/class-scllgn-settings.php:392
+#: includes/class-scllgn-settings.php:244
+#: includes/class-scllgn-settings.php:298
+#: includes/class-scllgn-settings.php:352
+#: includes/class-scllgn-settings.php:406
 msgid "Button Display"
 msgstr "Отображение кнопки"
 
-#: includes/class-scllgn-settings.php:267
+#: includes/class-scllgn-settings.php:281
 msgid "App ID"
 msgstr "Идентификатор приложения"
 
 # см строку 25
-#: includes/class-scllgn-settings.php:271
+#: includes/class-scllgn-settings.php:285
 msgid "You need to create your own credentials in order to use Facebook API."
 msgstr ""
 "Для того, чтобы использовать Facebook API, вам необходимо создать свои "
 "собственные учетные данные."
 
-#: includes/class-scllgn-settings.php:273
+#: includes/class-scllgn-settings.php:287
 msgid "While creating Facebook API use this redirect url: "
 msgstr "При создании Facebook API используйте этот URL-адрес перенаправления:"
 
-#: includes/class-scllgn-settings.php:278
+#: includes/class-scllgn-settings.php:292
 msgid "App Secret"
 msgstr "Секрет приложения"
 
-#: includes/class-scllgn-settings.php:321
+#: includes/class-scllgn-settings.php:335
 msgid "Consumer Key (API Key)"
 msgstr "Ключ пользователя (ключ приложения)"
 
-#: includes/class-scllgn-settings.php:325
+#: includes/class-scllgn-settings.php:339
 msgid "You need to create your own credentials in order to use twitter API."
 msgstr ""
 "Для того, чтобы использовать Twitter API, вам необходимо создать свои "
 "собственные учетные данные."
 
-#: includes/class-scllgn-settings.php:327
+#: includes/class-scllgn-settings.php:341
 msgid "While creating Twitter API use this redirect url: "
 msgstr "При создании Twitter API используйте этот URL-адрес перенаправления:"
 
-#: includes/class-scllgn-settings.php:332
+#: includes/class-scllgn-settings.php:346
 msgid "Consumer Secret (API Secret)"
 msgstr "Секрет пользователя (секрет приложения)"
 
-#: includes/class-scllgn-settings.php:379
+#: includes/class-scllgn-settings.php:393
 msgid "You need to create your own credentials in order to use linkedin API."
 msgstr ""
 "Для того, чтобы использовать LinkedIn API, вам необходимо создать свои "
 "собственные учетные данные."
 
-#: includes/class-scllgn-settings.php:381
+#: includes/class-scllgn-settings.php:395
 msgid "While creating LinkedIn API use this redirect url: "
 msgstr "При создании LinkedIn API используйте этот URL-адрес перенаправления:"
 
-#: social-login-bws.php:35 social-login-bws.php:37 social-login-bws.php:477
+#: social-login-bws.php:35 social-login-bws.php:37 social-login-bws.php:339
 msgid "Social Login Settings"
 msgstr "Настройки Social Login"
 
-#: social-login-bws.php:260 social-login-bws.php:286 social-login-bws.php:1334
-#: social-login-bws.php:1348 social-login-bws.php:1359
+#: social-login-bws.php:132 social-login-bws.php:158 social-login-bws.php:1237
+#: social-login-bws.php:1251 social-login-bws.php:1262
 msgid "ERROR"
 msgstr "Ошибка"
 
-#: social-login-bws.php:261 social-login-bws.php:287 social-login-bws.php:1261
+#: social-login-bws.php:133 social-login-bws.php:159 social-login-bws.php:1164
 msgid "This email is already registered, please choose another one."
 msgstr "Этот email уже зарегистрирован, пожалуйста, выберите другой."
 
-#: social-login-bws.php:447
+#: social-login-bws.php:308
 msgid "Sign in with LinkedIn"
 msgstr ""
 
-#: social-login-bws.php:448
+#: social-login-bws.php:309
 msgid "Sign in with Twitter"
 msgstr ""
 
-#: social-login-bws.php:449
+#: social-login-bws.php:310
 msgid "Sign in with Facebook"
 msgstr ""
 
-#: social-login-bws.php:450
+#: social-login-bws.php:311
 msgid "Sign in with Google"
 msgstr ""
 
-#: social-login-bws.php:480
+#: social-login-bws.php:342
 msgid "WARNING"
 msgstr ""
 
-#: social-login-bws.php:481
+#: social-login-bws.php:343
 msgid "The plugin works correctly only if JavaScript is enabled."
 msgstr "Плагин работает корректно только при включенном JavaScript."
 
-#: social-login-bws.php:496
+#: social-login-bws.php:358
 msgid ""
 "You're going to allow user registration via social buttons regardless "
 "WordPress default settings. Make sure that you understand the consequences. "
@@ -286,11 +295,11 @@ msgstr ""
 "независимо от основных настроек WordPress. Убедитесь, что вы понимаете "
 "последствия. Прочитайте следующую"
 
-#: social-login-bws.php:497 social-login-bws.php:503
+#: social-login-bws.php:359 social-login-bws.php:365
 msgid "article"
 msgstr "статью"
 
-#: social-login-bws.php:502
+#: social-login-bws.php:364
 msgid ""
 "You're going to deny user registration via social buttons regardless "
 "WordPress default settings. Make sure that you understand the consequences. "
@@ -300,77 +309,77 @@ msgstr ""
 "независимо от основных настроек WordPress. Убедитесь, что вы понимаете "
 "последствия. Прочитайте следующую"
 
-#: social-login-bws.php:845
+#: social-login-bws.php:714
 msgid "please allow the access to your profile information."
 msgstr "разрешите доступ к вашей информации о профиле."
 
-#: social-login-bws.php:846
+#: social-login-bws.php:715
 msgid "failed to register new user."
 msgstr "ошибка при регистрации нового пользователя"
 
-#: social-login-bws.php:847
+#: social-login-bws.php:716
 msgid "new users registration is disabled."
 msgstr "регистрация новых пользователей отключена."
 
-#: social-login-bws.php:848
+#: social-login-bws.php:717
 msgid "you need to verify your Account Email."
 msgstr "вам необходимо подтвердить свою учетную запись электронной почты."
 
-#: social-login-bws.php:849
+#: social-login-bws.php:718
 msgid "user data is insufficient for registration."
 msgstr "пользовательских данных недостаточно для регистрации."
 
-#: social-login-bws.php:850
+#: social-login-bws.php:719
 msgid "provided token data is invalid."
 msgstr "данные токена недействительны."
 
-#: social-login-bws.php:851
+#: social-login-bws.php:720
 msgid "provided token is invalid."
 msgstr "токен некорректен."
 
-#: social-login-bws.php:852
+#: social-login-bws.php:721
 msgid "login failed."
 msgstr "ошибка авторизации."
 
-#: social-login-bws.php:860
+#: social-login-bws.php:729
 msgid "Error"
 msgstr "Ошибка"
 
-#: social-login-bws.php:1120
+#: social-login-bws.php:1023
 msgid "FAQ"
 msgstr "FAQ"
 
-#: social-login-bws.php:1121
+#: social-login-bws.php:1024
 msgid "Support"
 msgstr "Поддержка"
 
-#: social-login-bws.php:1159
+#: social-login-bws.php:1062
 #, php-format
 msgid "Enter %s to enable sign in with Social Login button."
 msgstr "Введите %s для возможности использования кнопки Social Login."
 
-#: social-login-bws.php:1165
+#: social-login-bws.php:1068
 msgid "existing Gmail address"
 msgstr "существующий адрес Gmail"
 
-#: social-login-bws.php:1172
+#: social-login-bws.php:1075
 msgid "existing email address of Facebook account"
 msgstr "электронную почту существующего аккаунта Facebook"
 
-#: social-login-bws.php:1179
+#: social-login-bws.php:1082
 msgid "existing email address of Twitter account"
 msgstr "электронную почту существующего аккаунта Twitter"
 
-#: social-login-bws.php:1186
+#: social-login-bws.php:1089
 msgid "existing email address of LinkedIn account"
 msgstr "электронную почту существующего аккаунта LinkedIn"
 
-#: social-login-bws.php:1195
+#: social-login-bws.php:1098
 msgid "Social Login Accounts"
 msgstr "Аккаунты Social Login"
 
-#: social-login-bws.php:1268 social-login-bws.php:1283
-#: social-login-bws.php:1298 social-login-bws.php:1313
+#: social-login-bws.php:1171 social-login-bws.php:1186
+#: social-login-bws.php:1201 social-login-bws.php:1216
 #, php-format
 msgid ""
 "The %1$s you specified for %2$s Account is already used by another user."
@@ -378,19 +387,19 @@ msgstr ""
 "Указанный вами %1$s для учетной записи %2$s уже используются другим "
 "пользователем."
 
-#: social-login-bws.php:1269 social-login-bws.php:1284
-#: social-login-bws.php:1299 social-login-bws.php:1314
+#: social-login-bws.php:1172 social-login-bws.php:1187
+#: social-login-bws.php:1202 social-login-bws.php:1217
 msgid "email address"
 msgstr "email адрес"
 
-#: social-login-bws.php:1273 social-login-bws.php:1288
-#: social-login-bws.php:1303 social-login-bws.php:1318
+#: social-login-bws.php:1176 social-login-bws.php:1191
+#: social-login-bws.php:1206 social-login-bws.php:1221
 #, php-format
 msgid "Please enter valid %1$s Account %2$s"
 msgstr "Пожалуйста, заполните корректно %2$s для аккаунта %1$s"
 
-#: social-login-bws.php:1275 social-login-bws.php:1290
-#: social-login-bws.php:1305 social-login-bws.php:1320
+#: social-login-bws.php:1178 social-login-bws.php:1193
+#: social-login-bws.php:1208 social-login-bws.php:1223
 msgid "email"
 msgstr "email"
 

@@ -6,7 +6,7 @@ Description: Add social media login, registration, and commenting to your WordPr
 Author: BestWebSoft
 Text Domain: social-login-bws
 Domain Path: /languages
-Version: 1.3
+Version: 1.4
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -309,7 +309,8 @@ if ( ! function_exists( 'scllgn_get_default_options' ) ) {
             'twitter_button_name'					=> __( 'Sign in with Twitter', 'social-login-bws' ),
             'facebook_button_name'					=> __( 'Sign in with Facebook', 'social-login-bws' ),
             'google_button_name'					=> __( 'Sign in with Google', 'social-login-bws' ),
-            'allow_registration'					=> 'default'
+            'allow_registration'					=> 'default',
+            'delete_metadata'                       => 0,
         );
 
         return $default_options;
@@ -516,7 +517,7 @@ if ( ! function_exists( 'scllgn_social_regiser' ) ) {
                     if ( $scllgn_options['allow_registration'] == 'allow' ) {
                         $userdata['role'] = $scllgn_options['user_role'];
                     }
-                    if ($scllgn_options['allow_registration'] == 'default' ){
+                    if ( $scllgn_options['allow_registration'] == 'default' ) {
                         $userdata['role'] = $default_role;
                     }
                     $userdata['user_pass'] = wp_generate_password( $length = 12, $include_standard_special_chars = false );
@@ -581,47 +582,47 @@ if( ! function_exists( 'scllgn_social_client' ) ) {
             $scllgn_options = get_option( 'scllgn_options' );
         }
         $baseurl = home_url() . "/wp-content/plugins/social-login-bws/hybrid/hybridauth/";
-        $config = [
+        $config = array(
             //Location where to redirect users once they authenticate with a provider
             'base_url' => $baseurl,
             //Providers specifics
-            'providers' => [
-                'Twitter' => [
+            'providers' => array(
+                'Twitter' => array(
                     'enabled' => true,     //Optional: indicates whether to enable or disable Twitter adapter. Defaults to false
-                    'keys' => [
+                    'keys' => array(
                         'key'    => $scllgn_options['twitter_client_id'], //Required: your Twitter consumer key
                         'secret' => $scllgn_options['twitter_client_secret']  //Required: your Twitter consumer secret
-                    ],
-                ],
-                "LinkedIn"  => [
+                    ),
+                ),
+                "LinkedIn"  => array(
                     "enabled" => true,
-                    "keys"    => [
+                    "keys"    => array(
                         "id" => $scllgn_options['linkedin_client_id'],
                         "secret" => $scllgn_options['linkedin_client_secret']
-                    ],
-                    "scope"   => ["r_basicprofile", "r_emailaddress", "w_share"], // optional
-                    "fields"  => ["id", "email-address", "first-name", "last-name"], // optional
-                ],
-                "Google" => [
+                    ),
+                    "scope"   => array( "r_basicprofile", "r_emailaddress", "w_share" ), // optional
+                    "fields"  => array( "id", "email-address", "first-name", "last-name" ), // optional
+                ),
+                "Google" => array(
                     'enabled' => true,     //Optional: indicates whether to enable or disable Twitter adapter. Defaults to false
-                    'keys' => [
+                    'keys' => array(
                         'id'     => $scllgn_options['google_client_id'],
                         'secret' => $scllgn_options['google_client_secret']
-                    ],
+                    ),
                     "access_type"     => "offline",   // optional
                     "approval_prompt" => "force",     // optional
                     "hd"              => "gmail.com" // optional
-                ],
-                "Facebook" => [
+                ),
+                "Facebook" => array(
                     "enabled" => true,
-                    "keys"    => [
+                    "keys"    => array(
                         "id" => $scllgn_options['facebook_client_id'],
                         "secret" => $scllgn_options['facebook_client_secret'],
-                    ],
-                    "scope"   => ['email', 'user_about_me', 'user_birthday', 'user_hometown'],
-                ],
-            ],
-        ];
+                    ),
+                    "scope"   => array( 'email', 'user_birthday', 'user_hometown' ),
+                ),
+            ),
+        );
         if ( isset( $_REQUEST['hauth_start'] ) || isset( $_REQUEST['hauth_done'] ) ) {
             Hybrid_Endpoint::process();
         } else {
@@ -744,7 +745,7 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
             $dashicon_for_button = 	'dashicons-googleplus';
             $button_html = $scllgn_options['button_display_google'];
             $button_text = $scllgn_options['google_button_name'];
-            if ( $_GET['provider'] =="google" )
+            if ( isset( $_GET['provider'] ) && 'google' == $_GET['provider'] )
             {
                 scllgn_social_client( 'Google' );
             }
@@ -754,7 +755,7 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
             $dashicon_for_button = 	'dashicons-facebook';
             $button_html = $scllgn_options['button_display_facebook'];
             $button_text = $scllgn_options['facebook_button_name'];
-            if ( $_GET['provider'] =="facebook" )
+            if ( isset( $_GET['provider'] ) && 'facebook' == $_GET['provider'] )
             {
                 scllgn_social_client( 'Facebook' );
             }
@@ -764,7 +765,7 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
             $dashicon_for_button = 	'dashicons-twitter';
             $button_html = $scllgn_options['button_display_twitter'];
             $button_text = $scllgn_options['twitter_button_name'];
-            if ( $_GET['provider']=="twitter" )
+            if ( isset( $_GET['provider'] ) && 'twitter' == $_GET['provider'] )
             {
                 scllgn_social_client( 'Twitter' );
             }
@@ -774,7 +775,7 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
             $dashicon_for_button = 	'bws-icons';
             $button_html = $scllgn_options['button_display_linkedin'];
             $button_text = $scllgn_options['linkedin_button_name'];
-            if ( $_GET['provider']=="linkedin" )
+            if ( isset( $_GET['provider'] ) && 'linkedin' == $_GET['provider'] )
             {
                 scllgn_social_client( 'LinkedIn' );
             }
@@ -832,20 +833,19 @@ if ( ! function_exists( 'scllgn_login_form' ) ) {
                 }
             }
             if ( ! empty( $scllgn_options["login_form"] ) ){
-                if ( !empty( $buttons_short ) ) {
-                    $buttons_short = implode('', $buttons_short );
+                if ( ! empty( $buttons_short ) ) {
+                    $buttons_short = implode( '', $buttons_short );
                     printf(
                         '<div class="scllgn_buttons_block">%s</div>',
                         $buttons_short
                     );
                 }
-                if ( !empty( $buttons_long ) ) {
-                    $buttons_long = implode('', $buttons_long );
+                if ( ! empty( $buttons_long ) ) {
+                    $buttons_long = implode( '', $buttons_long );
                     printf(
                         '<div class="scllgn_buttons_block">%s</div>',
                         $buttons_long
                     );
-
                 }
             }
         }
@@ -1272,7 +1272,8 @@ if ( ! function_exists( 'scllgn_user_profile_update_errors' ) ) {
 /* Function for delete options */
 if ( ! function_exists( 'scllgn_delete_options' ) ) {
     function scllgn_delete_options() {
-        global $scllgn_providers;
+        global $scllgn_providers, $scllgn_options;
+        scllgn_settings();
         if ( function_exists( 'is_multisite' ) && is_multisite() ) {
             global $wpdb;
             $old_blog = $wpdb->blogid;
@@ -1280,15 +1281,19 @@ if ( ! function_exists( 'scllgn_delete_options' ) ) {
             $blogids = $wpdb->get_col( "SELECT `blog_id` FROM $wpdb->blogs" );
             foreach ( $blogids as $blog_id ) {
                 switch_to_blog( $blog_id );
-                foreach ( $scllgn_providers as $provider => $provider_name ) {
-                    delete_metadata( 'user', 1, 'scllgn_' . $provider . '_login', false, true );
+                if ( $scllgn_options['delete_metadata'] ) {
+                    foreach ( $scllgn_providers as $provider => $provider_name ) {
+                        delete_metadata( 'user', 1, 'scllgn_' . $provider . '_login', false, true );
+                    }
                 }
                 delete_option( 'scllgn_options' );
             }
             switch_to_blog( $old_blog );
         } else {
-            foreach ( $scllgn_providers as $provider => $provider_name ) {
-                delete_metadata( 'user', 1, 'scllgn_' . $provider . '_login', false, true );
+            if ( $scllgn_options['delete_metadata'] ) {
+                foreach ( $scllgn_providers as $provider => $provider_name ) {
+                    delete_metadata( 'user', 1, 'scllgn_' . $provider . '_login', false, true );
+                }
             }
             delete_option( 'scllgn_options' );
         }
