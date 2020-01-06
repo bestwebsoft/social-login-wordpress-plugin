@@ -6,12 +6,12 @@ Description: Add social media login, registration, and commenting to your WordPr
 Author: BestWebSoft
 Text Domain: social-login-bws
 Domain Path: /languages
-Version: 1.4
+Version: 1.4.1
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
 
-/*  © Copyright 2019  BestWebSoft  ( https://support.bestwebsoft.com )
+/*  © Copyright 2020  BestWebSoft  ( https://support.bestwebsoft.com )
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -27,11 +27,8 @@ License: GPLv2 or later
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/* Add BWS menu */
 if ( ! function_exists( 'add_scllgn_admin_menu' ) ) {
     function add_scllgn_admin_menu() {
-        global $submenu, $wp_version, $scllgn_plugin_info;
-
         $settings = add_menu_page( __( 'Social Login Settings', 'social-login-bws' ), 'Social Login', 'manage_options', 'social-login.php', 'scllgn_settings_page' );
 
         add_submenu_page( 'social-login.php', __( 'Social Login Settings', 'social-login-bws' ), __( 'Settings', 'social-login-bws' ), 'manage_options', 'social-login.php', 'scllgn_settings_page' );
@@ -41,6 +38,7 @@ if ( ! function_exists( 'add_scllgn_admin_menu' ) ) {
         add_action( 'load-' . $settings, 'scllgn_add_tabs' );
     }
 }
+
 if ( ! function_exists( 'scllgn_plugins_loaded' ) ) {
     function scllgn_plugins_loaded() {
         /* Internationalization, first(!) */
@@ -48,7 +46,6 @@ if ( ! function_exists( 'scllgn_plugins_loaded' ) ) {
     }
 }
 
-/* Initialization */
 if ( ! function_exists( 'scllgn_init' ) ) {
     function scllgn_init() {
         global $scllgn_plugin_info, $scllgn_options;
@@ -64,7 +61,7 @@ if ( ! function_exists( 'scllgn_init' ) ) {
         bws_include_init( plugin_basename( __FILE__ ) );
 
         /* check compatible with current WP version */
-        bws_wp_min_version_check( plugin_basename( __FILE__ ), $scllgn_plugin_info, '3.9' );
+        bws_wp_min_version_check( plugin_basename( __FILE__ ), $scllgn_plugin_info, '4.5' );
 
         $is_admin = is_admin() && ! defined( 'DOING_AJAX' );
         /* Get/Register and check settings for plugin */
@@ -332,7 +329,8 @@ if ( ! function_exists( 'scllgn_plugin_activate' ) ) {
 
 if ( ! function_exists( 'scllgn_settings_page' ) ) {
     function scllgn_settings_page() {
-        global $scllgn_options;
+        if ( ! class_exists( 'Bws_Settings_Tabs' ) )
+            require_once( dirname( __FILE__ ) . '/bws_menu/class-bws-settings.php' );
         require_once( dirname( __FILE__ ) . '/includes/class-scllgn-settings.php' );
         $page = new Scllgn_Settings_Tabs( plugin_basename( __FILE__ ) ); ?>
         <div class="wrap">
@@ -383,8 +381,8 @@ if ( ! function_exists( 'scllgn_get_current_commenter' ) ) {
 if ( ! function_exists( 'scllgn_enqueue_scripts' ) ) {
     function scllgn_enqueue_scripts() {
         global $scllgn_options, $scllgn_providers, $scllgn_plugin_info;
-        bws_enqueue_settings_scripts();
-        if( is_admin() ) {
+        
+        if (  is_admin() ) {
             /*Adding styles for dashicons*/
             wp_enqueue_style( 'scllgn_admin_page_stylesheet', plugins_url( 'css/admin_page.css', __FILE__ ) );
         }
@@ -394,9 +392,9 @@ if ( ! function_exists( 'scllgn_enqueue_scripts' ) ) {
             /* Adding script to settings page */
             wp_enqueue_script( 'scllgn_script', plugins_url( 'js/script.js', __FILE__ ), array( 'jquery' ), $scllgn_plugin_info['Version'] );
 
-            if ( isset( $_GET['action'] ) && 'custom_code' == $_GET['action'] ) {
-                bws_plugins_include_codemirror();
-            }
+            bws_enqueue_settings_scripts();
+            bws_plugins_include_codemirror();
+
         } elseif ( scllgn_is_login_page() || scllgn_is_signup_page() || ! is_admin() && is_singular() && comments_open() && ! is_user_logged_in() && ! empty( $scllgn_options["comment_form"] ) ) {
             /* Adding style to pages with comments and custom login pages */
             foreach ( $scllgn_providers as $provider => $provider_name ) {
@@ -550,28 +548,8 @@ if ( ! function_exists( 'scllgn_social_regiser' ) ) {
     }
 }
 
-/* Get page contents using CURl or file_get_contents */
-if ( ! function_exists( 'scllgn_get_url_contents' ) ) {
-    function scllgn_get_url_contents( $url = '' ) {
-        if ( empty( $url ) ) {
-            return false;
-        }
-
-        if ( ! function_exists( 'curl_init' ) ) {
-            $response = file_get_contents( $url );
-        } else {
-            $ch = curl_init();
-            curl_setopt( $ch, CURLOPT_URL, $url );
-            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-            curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-            $response = curl_exec( $ch );
-            curl_close( $ch );
-        }
-        return $response;
-    }
-}
 /*Function include library hybridauth*/
-if( ! function_exists( 'scllgn_social_client' ) ) {
+if ( ! function_exists( 'scllgn_social_client' ) ) {
     function scllgn_social_client( $provider_for_auth ) {
         global $scllgn_options;
         require_once( "hybrid/hybridauth/Hybrid/Auth.php" );
@@ -581,7 +559,9 @@ if( ! function_exists( 'scllgn_social_client' ) ) {
         if ( empty( $scllgn_options ) ) {
             $scllgn_options = get_option( 'scllgn_options' );
         }
-        $baseurl = home_url() . "/wp-content/plugins/social-login-bws/hybrid/hybridauth/";
+
+        $baseurl = plugins_url( 'hybrid/hybridauth/', __FILE__ );
+
         $config = array(
             //Location where to redirect users once they authenticate with a provider
             'base_url' => $baseurl,
@@ -643,7 +623,7 @@ if( ! function_exists( 'scllgn_social_client' ) ) {
                     'display_name'		=> $user_profile->displayName,
                 );
                 $email_is_verified = $user_profile->emailVerified;
-                if( $provider_for_auth == 'Twitter' ){
+                if ( $provider_for_auth == 'Twitter' ) {
                     $email_is_verified = true;
                 }
                 /* checking if user already exists */
@@ -699,8 +679,7 @@ if( ! function_exists( 'scllgn_social_client' ) ) {
 
 /*function for adding quotes. Using for twitter auth */
 if ( ! function_exists( 'scllgn_add_quotes' ) ) {
-    function scllgn_add_quotes( $str )
-    {
+    function scllgn_add_quotes( $str ) {
         return '"' . $str . '"';
     }
 }
@@ -745,8 +724,7 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
             $dashicon_for_button = 	'dashicons-googleplus';
             $button_html = $scllgn_options['button_display_google'];
             $button_text = $scllgn_options['google_button_name'];
-            if ( isset( $_GET['provider'] ) && 'google' == $_GET['provider'] )
-            {
+            if ( isset( $_GET['provider'] ) && 'google' == $_GET['provider'] ) {
                 scllgn_social_client( 'Google' );
             }
         }
@@ -755,8 +733,7 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
             $dashicon_for_button = 	'dashicons-facebook';
             $button_html = $scllgn_options['button_display_facebook'];
             $button_text = $scllgn_options['facebook_button_name'];
-            if ( isset( $_GET['provider'] ) && 'facebook' == $_GET['provider'] )
-            {
+            if ( isset( $_GET['provider'] ) && 'facebook' == $_GET['provider'] ) {
                 scllgn_social_client( 'Facebook' );
             }
         }
@@ -765,8 +742,7 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
             $dashicon_for_button = 	'dashicons-twitter';
             $button_html = $scllgn_options['button_display_twitter'];
             $button_text = $scllgn_options['twitter_button_name'];
-            if ( isset( $_GET['provider'] ) && 'twitter' == $_GET['provider'] )
-            {
+            if ( isset( $_GET['provider'] ) && 'twitter' == $_GET['provider'] ) {
                 scllgn_social_client( 'Twitter' );
             }
         }
@@ -775,12 +751,11 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
             $dashicon_for_button = 	'bws-icons';
             $button_html = $scllgn_options['button_display_linkedin'];
             $button_text = $scllgn_options['linkedin_button_name'];
-            if ( isset( $_GET['provider'] ) && 'linkedin' == $_GET['provider'] )
-            {
+            if ( isset( $_GET['provider'] ) && 'linkedin' == $_GET['provider'] ) {
                 scllgn_social_client( 'LinkedIn' );
             }
         }
-        if( 'long' == $button_html ) {
+        if ( 'long' == $button_html ) {
             $button .=	sprintf(
                 '<a href="%1$s" class="scllgn_login_button scllgn_button_%2$s scllgn_login_button_long scllgn_%5$s_button" id="scllgn_%5$s_button" data-scllgn-position="%2$s" data-scllgn-provider="%5$s">' .
                 '<span class="dashicons %3$s""></span>' .
@@ -817,9 +792,9 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
 
 /* Adding Sign In buttons to the Login form page */
 if ( ! function_exists( 'scllgn_login_form' ) ) {
-    function scllgn_login_form()
-    {
+    function scllgn_login_form() {
         global $scllgn_options, $scllgn_providers;
+
         if ( ! is_user_logged_in() ) {
             scllgn_display_all_buttons( 'login_form' );
             $buttons_short = $buttons_long = array();
@@ -856,7 +831,6 @@ if ( ! function_exists( 'scllgn_login_form' ) ) {
 if ( ! function_exists( 'scllgn_register_form' ) ) {
     function scllgn_register_form() {
         global $scllgn_options, $scllgn_providers;
-
 
         if ( ! is_user_logged_in()  ) {
             $buttons_short = $buttons_long = array();
@@ -995,63 +969,6 @@ if ( ! function_exists( 'scllgn_allow_redirect' ) ) {
     }
 }
 
-/* Functions creates other links on plugins page. */
-if ( ! function_exists( 'scllgn_action_links' ) ) {
-    function scllgn_action_links( $links, $file ) {
-        if ( ! is_network_admin() ) {
-            /* Static so we don't call plugin_basename on every plugin row. */
-            static $this_plugin;
-            if ( ! $this_plugin ) {
-                $this_plugin = plugin_basename( __FILE__ );
-            }
-            if ( $file == $this_plugin ) {
-                $settings_link = '<a href="admin.php?page=social-login.php">' . __( 'Settings', 'social-login-bws' ) . '</a>';
-                array_unshift( $links, $settings_link );
-            }
-        }
-        return $links;
-    }
-}
-
-if ( ! function_exists( 'scllgn_links' ) ) {
-    function scllgn_links( $links, $file ) {
-        $base = plugin_basename( __FILE__ );
-        if ( $file == $base ) {
-            if ( ! is_network_admin() )
-                $links[]	=	'<a href="admin.php?page=social-login.php">' . __( 'Settings', 'social-login-bws' ) . '</a>';
-            $links[]	=	'<a href="http://wordpress.org/plugins/social-login-bws/faq/" target="_blank">' . __( 'FAQ', 'social-login-bws' ) . '</a>';
-            $links[]	=	'<a href="https://support.bestwebsoft.com">' . __( 'Support', 'social-login-bws' ) . '</a>';
-        }
-        return $links;
-    }
-}
-
-/* add help tab  */
-if ( ! function_exists( 'scllgn_add_tabs' ) ) {
-    function scllgn_add_tabs() {
-        $screen = get_current_screen();
-        $args = array(
-            'id' 			=> 'scllgn',
-            'section' 		=> ''
-        );
-        bws_help_tab( $screen, $args );
-    }
-}
-
-if ( ! function_exists( 'scllgn_plugin_banner' ) ) {
-    function scllgn_plugin_banner() {
-        global $hook_suffix, $scllgn_plugin_info;
-        if ( 'plugins.php' == $hook_suffix ) {
-            if ( ! is_network_admin() ) {
-                bws_plugin_banner_to_settings( $scllgn_plugin_info, 'scllgn_options', 'social-login-bws', 'admin.php?page=social-login.php' );
-            }
-        }
-        if ( isset( $_REQUEST['page'] ) && 'social-login.php' == $_REQUEST['page'] ) {
-            bws_plugin_suggest_feature_banner( $scllgn_plugin_info, 'scllgn_options', 'social-login-bws' );
-        }
-    }
-}
-
 /* Adding "Social Login" block to the user profile page */
 if ( ! function_exists( 'scllgn_user_profile' ) ) {
     function scllgn_user_profile() {
@@ -1129,7 +1046,7 @@ if ( ! function_exists( 'scllgn_user_profile_update' ) ) {
 
         foreach ( $scllgn_providers as $provider => $provider_name ) {
             if ( isset( $_POST['scllgn_' . $provider . '_login'] ) ) {
-                $provider_login = trim( stripslashes( esc_html( $_POST['scllgn_' . $provider . '_login'] ) ) );
+                $provider_login = sanitize_user( $_POST['scllgn_' . $provider . '_login'] );
                 if ( ! empty( $provider_login ) ) {
                     if ( is_email( $provider_login ) ) { /* preg_match is used for PHP versions older than 5.3 */
                         $user = scllgn_get_user( $provider_login, '', $provider );
@@ -1228,7 +1145,7 @@ if ( ! function_exists( 'scllgn_user_profile_update_errors' ) ) {
         if ( isset( $_POST['email'] ) ) {
             $error_codes = $errors->get_error_codes();
             if ( ! in_array( 'email_exists', $error_codes ) ) {
-                $user_email = sanitize_text_field( wp_unslash( $_POST['email'] ) );
+                $user_email = sanitize_email( $_POST['email'] );
                 $user = scllgn_get_user( $user_email );
                 if ( false !== $user && $user_id != $user->ID ) {
                     $error_message = sprintf(
@@ -1243,7 +1160,7 @@ if ( ! function_exists( 'scllgn_user_profile_update_errors' ) ) {
 
         foreach ( $scllgn_providers as $provider => $provider_name ) {
             if ( isset( $_POST['scllgn_' . $provider . '_login'] ) ) {
-                $provider_login = sanitize_text_field( wp_unslash( $_POST['scllgn_'. $provider . '_login'] ) );
+                $provider_login = sanitize_user( $_POST['scllgn_'. $provider . '_login'] );
                 if ( ! empty( $provider_login ) && 'email' == $providers_data[ $provider ][ 'type' ] && ! is_email( $provider_login ) ) {
                     $error_message = sprintf(
                         '<strong>%1$s</strong>: %2$s',
@@ -1265,6 +1182,77 @@ if ( ! function_exists( 'scllgn_user_profile_update_errors' ) ) {
                     }
                 }
             }
+        }
+    }
+}
+
+/* The function receives data from AJAX */
+if ( ! function_exists( 'scllgn_ajax_data' ) ) {
+    function scllgn_ajax_data() {
+        check_ajax_referer( plugin_basename( __FILE__ ), 'scllgn_nonce' );
+
+        /* Get redirect url to session variable */
+        if ( ! empty( $_POST['scllgn_url'] ) ) {
+            $_SESSION['scllgn_redirect'] = esc_url( strval( $_POST['scllgn_url'] ) );
+        }
+
+        wp_die();
+    }
+}
+
+/* Functions creates other links on plugins page. */
+if ( ! function_exists( 'scllgn_action_links' ) ) {
+    function scllgn_action_links( $links, $file ) {
+        if ( ! is_network_admin() ) {
+            /* Static so we don't call plugin_basename on every plugin row. */
+            static $this_plugin;
+            if ( ! $this_plugin ) {
+                $this_plugin = plugin_basename( __FILE__ );
+            }
+            if ( $file == $this_plugin ) {
+                $settings_link = '<a href="admin.php?page=social-login.php">' . __( 'Settings', 'social-login-bws' ) . '</a>';
+                array_unshift( $links, $settings_link );
+            }
+        }
+        return $links;
+    }
+}
+
+if ( ! function_exists( 'scllgn_links' ) ) {
+    function scllgn_links( $links, $file ) {
+        $base = plugin_basename( __FILE__ );
+        if ( $file == $base ) {
+            if ( ! is_network_admin() )
+                $links[]    =   '<a href="admin.php?page=social-login.php">' . __( 'Settings', 'social-login-bws' ) . '</a>';
+            $links[]    =   '<a href="http://wordpress.org/plugins/social-login-bws/faq/" target="_blank">' . __( 'FAQ', 'social-login-bws' ) . '</a>';
+            $links[]    =   '<a href="https://support.bestwebsoft.com">' . __( 'Support', 'social-login-bws' ) . '</a>';
+        }
+        return $links;
+    }
+}
+
+/* add help tab  */
+if ( ! function_exists( 'scllgn_add_tabs' ) ) {
+    function scllgn_add_tabs() {
+        $screen = get_current_screen();
+        $args = array(
+            'id'            => 'scllgn',
+            'section'       => ''
+        );
+        bws_help_tab( $screen, $args );
+    }
+}
+
+if ( ! function_exists( 'scllgn_plugin_banner' ) ) {
+    function scllgn_plugin_banner() {
+        global $hook_suffix, $scllgn_plugin_info;
+        if ( 'plugins.php' == $hook_suffix ) {
+            if ( ! is_network_admin() ) {
+                bws_plugin_banner_to_settings( $scllgn_plugin_info, 'scllgn_options', 'social-login-bws', 'admin.php?page=social-login.php' );
+            }
+        }
+        if ( isset( $_REQUEST['page'] ) && 'social-login.php' == $_REQUEST['page'] ) {
+            bws_plugin_suggest_feature_banner( $scllgn_plugin_info, 'scllgn_options', 'social-login-bws' );
         }
     }
 }
@@ -1302,18 +1290,6 @@ if ( ! function_exists( 'scllgn_delete_options' ) ) {
         bws_include_init( plugin_basename( __FILE__ ) );
         bws_delete_plugin( plugin_basename( __FILE__ ) );
     }
-}
-
-/* The function receives data from AJAX */
-function scllgn_ajax_data() {
-    check_ajax_referer( plugin_basename( __FILE__ ), 'scllgn_nonce' );
-
-    /* Get redirect url to session variable */
-    if ( ! empty( $_POST['scllgn_url'] ) ) {
-        $_SESSION['scllgn_redirect'] = strval( $_POST['scllgn_url'] );
-    }
-
-    wp_die();
 }
 
 register_activation_hook( __FILE__, 'scllgn_plugin_activate' );

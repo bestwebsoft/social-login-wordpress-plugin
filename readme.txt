@@ -2,9 +2,9 @@
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: social login, social connect, social networks, google login, registration, facebook login, twitter login, social authentication, sign in button, social plugin WordPress, LinkedIn login, social networks, comments via social networks, registration using social networks.
-Requires at least: 3.9
-Tested up to: 5.2.4
-Stable tag: 1.4
+Requires at least: 4.5
+Tested up to: 5.3.2
+Stable tag: 1.4.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -66,7 +66,7 @@ Some of these translations are not complete. We are constantly adding new featur
 
 1. Upload the `social-login-bws` folder to `/wp-content/plugins/` directory.
 2. Activate the plugin using the 'Plugins' menu in your WordPress admin panel.
-3. You can adjust the necessary settings using your WordPress admin panel in "BWS Panel" > "Social Login".
+3. You can adjust the necessary settings using your WordPress admin panel in "Social Login".
 
 [View a Step-by-step Instruction on Social Login Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
 
@@ -90,6 +90,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 5. Social Login short buttons displaying on the login form.
 
 == Changelog ==
+
+= V1.4.1 - 03.01.2020 =
+* Bugfix : Vulnerabilities and security issues were fixed.
 
 = V1.4 - 31.10.2019
 * NEW : Ability to delete user metadata when deleting the plugin has been added.
@@ -130,6 +133,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : Plugin has been released.
 
 == Upgrade Notice ==
+
+= V1.4.1 =
+* Bugs fixed.
 
 = V1.4 = 
 * Functionality expanded

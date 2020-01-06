@@ -10,7 +10,7 @@
 // ----------------------------------------------------------------------------------------
 
 return array(
-    "base_url" => "http://localhost/hybridauth-git/hybridauth/",
+    "base_url" => "",
     "providers" => array(
         // openid providers
         "OpenID" => array(

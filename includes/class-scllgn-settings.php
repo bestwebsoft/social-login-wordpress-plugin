@@ -2,11 +2,10 @@
 /**
  * Displays the content on the plugin settings page
  */
-
-require_once( dirname( dirname( __FILE__ ) ) . '/bws_menu/class-bws-settings.php' );
-
 if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
-	class Scllgn_Settings_Tabs extends Bws_Settings_Tabs {	
+	class Scllgn_Settings_Tabs extends Bws_Settings_Tabs {
+		private $forms, $array_role;
+
 		/**
 		 * Constructor.
 		 *
@@ -17,7 +16,7 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 		 * @param string $plugin_basename
 		 */
 		public function __construct( $plugin_basename ) {
-			global $forms, $scllgn_options, $scllgn_plugin_info, $scllgn_providers;
+			global $scllgn_options, $scllgn_plugin_info;
 
 			$tabs = array(
 				'settings'		=> array( 'label' => __( 'Settings', 'social-login-bws' ) ),
@@ -33,39 +32,37 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 				'options'				=> $scllgn_options,
 				'is_network_options'	=> is_network_admin(),
 				'tabs'					=> $tabs,
-				'wp_slug'				=> 'social-login',
-				'link_pn'				=> '81'
+				'wp_slug'				=> 'social-login'
 			) );
 
-			$forms = array(
+			$this->forms = array(
 				'login_form'		=> __( 'WordPress Login form', 'social-login-bws' ),
 				'register_form'		=> __( 'WordPress Registration form', 'social-login-bws' ),
 				'comment_form'		=> __( 'WordPress Comments form', 'social-login-bws' )
 			);
-			$scllgn_providers = array(
-				'google' 	=> 'Google',
-				'facebook' 	=> 'Facebook',
-				'twitter'	=> 'Twitter',
-				'linkedin'	=> 'LinkedIn',
-			);
+
+			$this->array_role = get_editable_roles();
 		}
 
 		public function save_options() {
-			global $scllgn_providers, $forms;
+			global $scllgn_providers;
+
+			$message = $notice = $error = '';
+
 			foreach ( $scllgn_providers as $provider => $provider_name ) {
 				if ( ! empty( $_REQUEST["scllgn_{$provider}_is_enabled"] ) ) {
-					$this->options['button_display_' . $provider] = $_REQUEST['scllgn_' . $provider . '_display_button'];
-					$this->options[ $provider . '_button_name'] = $_REQUEST['scllgn_' . $provider . '_button_text'];
+					$this->options['button_display_' . $provider] = ( isset( $_REQUEST['scllgn_' . $provider . '_display_button'] ) && in_array( $_REQUEST['scllgn_' . $provider . '_display_button'], array( 'long', 'short' ) ) ) ? $_REQUEST['scllgn_' . $provider . '_display_button'] : 'long';
+					$this->options[ $provider . '_button_name'] = sanitize_text_field( wp_unslash( $_REQUEST['scllgn_' . $provider . '_button_text'] ) );
 					$this->options["{$provider}_is_enabled"] = 1;
 
 					if ( ! empty( $_REQUEST["scllgn_{$provider}_client_id"]  ) ) {
-						$this->options["{$provider}_client_id"] = trim( stripslashes( esc_html( $_REQUEST["scllgn_{$provider}_client_id"] ) ) );
+						$this->options["{$provider}_client_id"] = trim( stripslashes( sanitize_text_field( $_REQUEST["scllgn_{$provider}_client_id"] ) ) );
 					} else {
 						$error .= sprintf( __( 'Please fill the Client ID for %s.', 'social-login-bws' ), $provider_name );
 					}
 
 					if ( ! empty( $_REQUEST["scllgn_{$provider}_client_secret"] ) ) {
-						$this->options["{$provider}_client_secret"] = trim( stripslashes( esc_html( $_REQUEST["scllgn_{$provider}_client_secret"] ) ) );
+						$this->options["{$provider}_client_secret"] = trim( stripslashes( sanitize_text_field( $_REQUEST["scllgn_{$provider}_client_secret"] ) ) );
 					} else {
 						$error .= sprintf( __( 'Please fill the Client secret for %s.', 'social-login-bws' ), $provider_name );
 					}
@@ -74,12 +71,12 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 				}
 			}
 
-			foreach ( $forms as $form_slug => $form ) {
+			foreach ( $this->forms as $form_slug => $form ) {
 				$this->options[ $form_slug ] = isset( $_REQUEST["scllgn_{$form_slug}"] ) ? 1 : 0;
 			}
 			$this->options['loginform_buttons_position'] = ( isset( $_REQUEST['scllgn_loginform_buttons_position'] ) && in_array( $_REQUEST['scllgn_loginform_buttons_position'], array( 'top', 'middle', 'bottom' ) ) ) ? $_REQUEST['scllgn_loginform_buttons_position'] : $this->options['loginform_buttons_position'];
-			$this->options['user_role'] = isset( $_REQUEST['scllgn_role'] ) ? $_REQUEST['scllgn_role'] : $this->options['user_role'];
-			$this->options['allow_registration'] = esc_attr( $_POST['scllgn_register_option'] );
+			$this->options['user_role'] = ( isset( $_REQUEST['scllgn_role'] ) && array_key_exists( $_REQUEST['scllgn_role'], $this->array_role ) ) ? $_REQUEST['scllgn_role'] : $this->options['user_role'];
+			$this->options['allow_registration'] = ( isset( $_REQUEST['scllgn_register_option'] ) && in_array( $_REQUEST['scllgn_register_option'], array( 'default', 'allow', 'deny' ) ) ) ? $_POST['scllgn_register_option'] : 'default';
 			$this->options['delete_metadata'] = isset( $_POST['scllgn_delete_metadata'] ) ? 1 : 0;
 
 			update_option( 'scllgn_options', $this->options );
@@ -89,8 +86,9 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 			return compact( 'message', 'notice', 'error' );
 		}
 
-		public function tab_settings() { 
-			global $scllgn_providers, $forms;
+		public function tab_settings() {
+			global $scllgn_providers;
+			
 			$php_version_is_proper = ( version_compare( phpversion(), '5.3', '>=' ) ) ? true : false; ?>	
 			<table class="form-table scllgn-form-table">
 				<tbody>
@@ -98,11 +96,12 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 						<th><?php _e( 'Enable Social Login for', 'social-login-bws' ); ?></th>
 						<td>
 							<fieldset>
-								<?php foreach ( $forms as $form_slug => $form ) { ?>
-								<label>
-									<input type="checkbox" value="1" name="<?php echo "scllgn_{$form_slug}"; ?>"<?php checked( $this->options[ $form_slug ], 1 ); ?> class="<?php echo "scllgn_{$form_slug}_checkbox"; ?>" />
-									<?php echo $form; ?>
-								</label><br />
+								<?php foreach ( $this->forms as $form_slug => $form ) { ?>
+									<label>
+										<input type="checkbox" value="1" name="<?php echo "scllgn_{$form_slug}"; ?>"<?php checked( $this->options[ $form_slug ], 1 ); ?> class="<?php echo "scllgn_{$form_slug}_checkbox"; ?>" />
+										<?php echo $form; ?>
+									</label>
+									<br />
 								<?php } ?>
 							</fieldset>
 						</td>
@@ -175,8 +174,7 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 								<?php if ( function_exists( 'get_editable_roles' ) ) {
 									$default_role = get_option( 'default_role' ); ?>
 									<select name="scllgn_role" >
-										<?php $array_role = get_editable_roles();
-										foreach ( $array_role as $role => $fields ) {
+										<?php foreach ( $this->array_role as $role => $fields ) {
 											printf(
 												'<option value="%1$s" %2$s >
 												%3$s%4$s
@@ -209,7 +207,6 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 							</label>
 						</td>
 					</tr>
-
 					<tr scope="row" valign="top" style="border-top: 1px solid #ccc;">
 						<th style="padding-top: 20px;"><?php printf( __( '%1$s Sign In Button', 'social-login-bws' ), $scllgn_providers['google'] ); ?></th>
 						<td style="padding-top: 20px;">
@@ -317,7 +314,6 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 							</fieldset>
 						</td>
 					</tr>
-
 					<?php /*TWITTER*/ ?>
 					<tr scope="row" valign="top" style="border-top: 1px solid #ccc;">
 						<th style="padding-top: 40px;"><?php printf( __( '%1$s Sign In Button', 'social-login-bws' ), $scllgn_providers['twitter'] ); ?></th>
@@ -427,7 +423,6 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 					</tr>
 				</tbody>
 			</table>
-	<?php }
+		<?php }
 	}
-}
-?>
+} ?>
