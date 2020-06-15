@@ -9,9 +9,11 @@
 		buttons.each( function() {
 			position = $( this ).data( 'scllgn-position' );
 			if ( 'top' == position ) {
-				$( '.scllgn_buttons_block' ).prependTo( form ).css( "margin-bottom", "30px" );
+				$( '.scllgn_buttons_block' ).prependTo( form );
+				$( '.scllgn_buttons_block' ).last().css( "margin-bottom", "30px" )
 			} else if ( 'bottom' == position ) {
-				$( '.scllgn_buttons_block' ).appendTo( form ).css( "margin-top", "30px" );
+				$( '.scllgn_buttons_block' ).appendTo( form );
+				$( '.scllgn_buttons_block' ).first().css( "margin-top", "30px" );
 			}
 		} );
 
@@ -57,11 +59,7 @@
 					type 	: 'POST',
 					data 	: ajax_data,
 					success	: function( auth_url ) {
-						if ( 'google' == provider && remember_checked ) {
-							window.location.href = auth_url;
-						} else {
-							window.location.href = click_url;
-						}
+						window.location.href = click_url;
 					},
 					error: function() {
 						window.location.reload();
@@ -69,5 +67,6 @@
 				} );
 			}
 		} );
+
 	} );
 } )( jQuery );

@@ -1,3 +1,6 @@
+body.scllgn_twentytwenty .scllgn_buttons_block + .comment-notes {
+	margin-top: 10px !important;
+}
 .scllgn_login_button {
 	display: inline-block;
 	margin: 5px !important;
@@ -21,7 +24,10 @@
 }
 .scllgn_login_button .dashicons {
 	display: table-cell;
-	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
 	vertical-align: middle;
 	font-size: 20px;
 	border-right: 1px solid rgba( 0, 0, 0, 0.2 );
@@ -59,12 +65,9 @@
 	line-height: 24px;
 	color: #fff;
 }
-#scllgn_google_button {
-	background-color: #dd4b39;
-	color: #fff;
-}
-#scllgn_google_button:hover {
-	background-color: #c23321;
+.scllgn_buttons_block {
+	display: flex;
+	flex-wrap: wrap;
 }
 #scllgn_facebook_button {
 	background-color: #4080ff;
@@ -83,4 +86,56 @@
 }
 #scllgn_linkedin_button:hover {
 	background-color: #00689a;
+}
+.scllgn_google_button {
+	margin-bottom: 10px;
+	display: inline-block;	
+	background: white;
+	color: #757575;
+	border-radius: 5px;
+	white-space: nowrap;
+	text-decoration: none;
+	border: 1px solid #7e8993;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.scllgn_google_button.scllgn_google_dark_btn {
+	background: #4285f4;
+	border: none;
+}
+.scllgn_google_button span.scllgn_icon {
+	background: url(../images/g-normal.png) #ffffff 5px 50% no-repeat;
+	background-position: center;
+    border-radius: 5px 0 0 5px;
+	display: inline-block;
+	vertical-align: middle;
+	width: 18px;
+	height: 18px;
+	padding: 8px;
+	margin: 1px;
+	-moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -ms-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.rtl .scllgn_google_button span.scllgn_icon {
+	border-radius: 0 5px 5px 0;
+}
+.scllgn_google_button span.scllgn_buttonText {
+	font-size: 14px;
+	font-family: 'Roboto-Medium', sans-serif;
+	font-weight: bold;
+	color: #000000;
+	margin-left: 23px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+.rtl .scllgn_google_button span.scllgn_buttonText {
+	margin-right: 23px;
+    margin-left: 8px;
+}
+.scllgn_google_button.scllgn_google_dark_btn span.scllgn_buttonText {
+	color: #FFFFFF;
 }

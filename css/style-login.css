@@ -10,7 +10,6 @@
 .scllgn-form-table .scllgn_login_button_long {
 	display: inline-block;
 	width: 272px;
-	height: 32px;
 	margin: 0 0 0 0;
 	vertical-align: middle;
 	padding: 5px;
@@ -70,7 +69,6 @@
 	font-size: 14px;
 	line-height: 24px;
 	color: #fff;
-	border-left: 1px solid rgba( 0, 0, 0, 0.2 );
 }
 .scllgn_login_button  {
 	display: inline-block;
@@ -93,12 +91,31 @@
 	text-align: center;
 	color: #fff;
 }
+.scllgn_login_button .scllgn_google_icon {
+	background-image: url('../images/g-normal.png');
+	position: relative;
+	margin-top: -3px;
+	margin-left: 1px;
+	width: 31px;
+	height: 30px;
+	display: inline-block;
+}
+.scllgn_login_button_short .scllgn_google_icon {
+	width: 28px;
+	min-height: 30px;
+}
 .scllgn_login_button_icon  {
 	height: 32px !important;
 	width: 32px !important;
 }
-.scllgn_google_button {
-	background-color: #dd4b39;
+.scllgn_google_client_data .scllgn_google_icon {
+	background-image: url('../images/g-normal.png');
+	position: relative;
+	margin-top: -4px;
+	margin-left: -4px;
+	width: 31px;
+	height: 30px;
+	display: inline-block;
 }
 .scllgn_facebook_button {
 	background-color: #4080ff;
@@ -108,10 +125,6 @@
 }
 .scllgn_linkedin_button {
 	background-color: #4080ff;
-}
-.scllgn_google_button:hover {
-	background-color: #c23321;
-	color: #fff;
 }
 .scllgn_facebook_button:hover {
 	background-color: #2f62c9;
@@ -137,6 +150,46 @@
 .scllgn_button_bottom .scllgn_login_button_long :last-of-type {
 	margin-bottom: 0;
 }
+.scllgn_login_button.scllgn_google_button {
+	padding: 0;
+	background: white;
+	color: #757575;
+	border: 1px solid #7e8993;
+}
+.scllgn_google_button.scllgn_google_dark_btn {
+	background: #4285f4;
+	border: none;
+}
+.scllgn_google_button span.scllgn_icon {
+	background: url(../images/g-normal.png) #ffffff 5px 50% no-repeat;
+	background-position: center;
+    border-radius: 5px 0 0 5px;
+	display: inline-block;
+	vertical-align: middle;
+	width: 18px;
+	height: 18px;
+	padding: 8px;
+	margin: 1px;
+}
+.rtl .scllgn_google_button span.scllgn_icon {
+	border-radius: 0 5px 5px 0;
+}
+.scllgn_google_button span.scllgn_buttonText {
+	font-size: 14px;
+	font-family: 'Roboto-Medium', sans-serif;
+	font-weight: bold;
+	color: #000000;
+	margin-left: 23px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+.rtl .scllgn_google_button span.scllgn_buttonText {
+	margin-right: 23px;
+    margin-left: 8px;
+}
+.scllgn_google_button.scllgn_google_dark_btn span.scllgn_buttonText {
+	color: #FFFFFF;
+}
 
 @media screen and ( max-width: 1300px ) {
 	.scllgn-form-table .scllgn_login_button_long {
@@ -154,10 +207,8 @@
 	}
 	.scllgn_button_text input {
 		width: 78%;
-
 	}
 }
-
 @media screen and ( max-width: 782px ) {
 	.scllgn-form-table .scllgn_login_button_long {
 		width: 100%;
@@ -166,19 +217,16 @@
 		width: 80% !important;
 	}
 }
-
 @media screen and ( max-width: 463px ) {
 	.scllgn-form-table .scllgn_login_button_long {
 		width: 80%;
 	}
 }
-
 @media screen and ( max-width: 413px ) {
 	.scllgn-form-table .scllgn_login_button_long {
 		width: 77%;
 	}
 }
-
 @media screen and ( max-width: 378px ) {
 	.scllgn-form-table .scllgn_login_button_long {
 		width: 70%;

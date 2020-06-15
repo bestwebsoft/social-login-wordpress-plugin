@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: social login, social connect, social networks, google login, registration, facebook login, twitter login, social authentication, sign in button, social plugin WordPress, LinkedIn login, social networks, comments via social networks, registration using social networks.
 Requires at least: 4.5
-Tested up to: 5.3.2
-Stable tag: 1.4.1
+Tested up to: 5.4.1
+Stable tag: 1.4.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -19,7 +19,7 @@ Install now and make forms filling for your visitors easier!
 = Features =
 
 * Enable login with social networks:
-	* Google +1
+	* Google
 	* Facebook
 	* Twitter
 	* LinkedIn
@@ -56,11 +56,10 @@ Some of these translations are not complete. We are constantly adding new featur
 = Recommended Plugins =
 
 * [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=9456e33f48ae2ccb14bcca845086399d) - Automatically check and update WordPress website core with all installed plugins and themes to the latest versions.
-* [LinkedIn](https://bestwebsoft.com/products/wordpress/plugins/linkedin/?k=fd63f141dd7954e625f68d684c0aee7c) - Add LinkedIn Share and Follow buttons to WordPress posts, pages and widgets. 5 plugins included – profile, insider, etc.
-* [Pinterest](https://bestwebsoft.com/products/wordpress/plugins/pinterest/?k=115b7e72549acfa247b637d0040fdcae) - Add Pinterest Follow, Save buttons and profile widgets (Pin, Board, Profile) to WordPress posts, pages and widgets.
-* [Twitter](https://bestwebsoft.com/products/wordpress/plugins/twitter/?k=9dd47e185976cb75279eae306663689c) - Add Twitter Follow, Tweet, Hashtag, and Mention buttons to WordPress posts and pages.
-* [Facebook Button](https://bestwebsoft.com/products/wordpress/plugins/facebook-like-button/?k=26157e2f3eddedd08bcc065dc0e957a8) - Add Facebook Follow, Like, and Share buttons to WordPress posts, pages, and widgets.
-* [Google +1](https://bestwebsoft.com/products/wordpress/plugins/google-plus-one/?k=fc954e6c65aa88799d4fc3ec859c334e) - Add Google +1 Share, Follow, Hangout buttons and profile badge to WordPress posts, pages and widgets.
+* [BestWebSoft's LinkedIn](https://bestwebsoft.com/products/wordpress/plugins/linkedin/?k=fd63f141dd7954e625f68d684c0aee7c) - Add LinkedIn Share and Follow buttons to WordPress posts, pages and widgets. 5 plugins included – profile, insider, etc.
+* [BestWebSoft's Pinterest](https://bestwebsoft.com/products/wordpress/plugins/pinterest/?k=115b7e72549acfa247b637d0040fdcae) - Add Pinterest Follow, Save buttons and profile widgets (Pin, Board, Profile) to WordPress posts, pages and widgets.
+* [BestWebSoft's Twitter](https://bestwebsoft.com/products/wordpress/plugins/twitter/?k=9dd47e185976cb75279eae306663689c) - Add Twitter Follow, Tweet, Hashtag, and Mention buttons to WordPress posts and pages.
+* [BestWebSoft's Like & Share](https://bestwebsoft.com/products/wordpress/plugins/facebook-like-button/?k=26157e2f3eddedd08bcc065dc0e957a8) - Add Facebook Follow, Like, and Share buttons to WordPress posts, pages, and widgets.
 
 == Installation ==
 
@@ -84,12 +83,17 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 == Screenshots ==
 
 1. Social Login buttons displaying on the login form.
-2. Linking social accounts to existing WordPress account on the profile page.
+2. Social Login short buttons displaying on the login form.
 3. Social Login buttons displaying on the comment form.
 4. Plugin Settings page.
-5. Social Login short buttons displaying on the login form.
+5. Linking social accounts to existing WordPress account on the profile page.
 
 == Changelog ==
+
+= V1.4.2 - 15.06.2020 =
+* Update : Plugin settings page was updated.
+* Update : Google Login button was updated.
+* Update : HybridAuth library was updated.
 
 = V1.4.1 - 03.01.2020 =
 * Bugfix : Vulnerabilities and security issues were fixed.
@@ -133,6 +137,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : Plugin has been released.
 
 == Upgrade Notice ==
+
+= V1.4.2 =
+* Changes related to API functionality implemented.
+* Appearance improved.
 
 = V1.4.1 =
 * Bugs fixed.

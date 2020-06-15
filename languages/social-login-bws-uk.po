@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: social-login-bws\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-28 11:45+0300\n"
-"PO-Revision-Date: 2019-08-28 11:45+0300\n"
+"POT-Creation-Date: 2020-06-12 17:02+0300\n"
+"PO-Revision-Date: 2020-06-12 17:03+0300\n"
 "Last-Translator: plugin@bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language-Team: BestWebSoft <plugin@bestwebsoft.com>\n"
 "Language: uk\n"
@@ -13,69 +13,87 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.3.1\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: bws_menu\n"
 
-#: includes/class-scllgn-settings.php:23 social-login-bws.php:37
-#: social-login-bws.php:1009 social-login-bws.php:1022
+#: includes/class-scllgn-settings.php:22 social-login-bws.php:34
+#: social-login-bws.php:1160 social-login-bws.php:1173
 msgid "Settings"
 msgstr "Налаштування"
 
-#: includes/class-scllgn-settings.php:24
+#: includes/class-scllgn-settings.php:23
 msgid "Misc"
 msgstr "Різне"
 
-#: includes/class-scllgn-settings.php:25
+#: includes/class-scllgn-settings.php:24
 msgid "Custom Code"
 msgstr "Користувацький код"
 
+#: includes/class-scllgn-settings.php:39
+msgid "Login form"
+msgstr "Форма логіну"
+
+#: includes/class-scllgn-settings.php:40
+msgid "Registration form"
+msgstr "Форма реєстрації"
+
 #: includes/class-scllgn-settings.php:41
-msgid "WordPress Login form"
-msgstr "Форми логіна WordPress"
+msgid "Comments form"
+msgstr "Форма коментарів"
 
-#: includes/class-scllgn-settings.php:42
-msgid "WordPress Registration form"
-msgstr "Форми реєстрації WordPress"
-
-#: includes/class-scllgn-settings.php:43
-msgid "WordPress Comments form"
-msgstr "Форми коментарів WordPress"
-
-#: includes/class-scllgn-settings.php:64
+#: includes/class-scllgn-settings.php:63
 #, php-format
 msgid "Please fill the Client ID for %s."
 msgstr "Будь ласка, заповніть ідентифікатор клієнта для %s."
 
-#: includes/class-scllgn-settings.php:70
+#: includes/class-scllgn-settings.php:69
 #, php-format
 msgid "Please fill the Client secret for %s."
 msgstr "Будь ласка, заповніть секрет клієнта для %s."
 
-#: includes/class-scllgn-settings.php:87
+#: includes/class-scllgn-settings.php:86
 msgid "Settings saved"
 msgstr "Налаштування збережено"
 
+#: includes/class-scllgn-settings.php:95 social-login-bws.php:32
+#: social-login-bws.php:34 social-login-bws.php:236
+msgid "Social Login Settings"
+msgstr "Налаштування Social Login"
+
 #: includes/class-scllgn-settings.php:98
+msgid "General"
+msgstr "Загальні налаштування"
+
+#: includes/class-scllgn-settings.php:101
+msgid "Buttons"
+msgstr "Кнопки"
+
+#: includes/class-scllgn-settings.php:115
 msgid "Enable Social Login for"
 msgstr "Включити Social Login для"
 
-#: includes/class-scllgn-settings.php:112
+#: includes/class-scllgn-settings.php:118
+msgid "WordPress default"
+msgstr "Стандартнi форми WordPress"
+
+#: includes/class-scllgn-settings.php:134
 msgid "Buttons Position"
 msgstr "Позиція кнопок"
 
-#: includes/class-scllgn-settings.php:117
+#: includes/class-scllgn-settings.php:139
 msgid "Top"
 msgstr "Зверху"
 
-#: includes/class-scllgn-settings.php:120
+#: includes/class-scllgn-settings.php:142
 msgid "Before the submit button"
 msgstr "Перед кнопкою підтвердження"
 
-#: includes/class-scllgn-settings.php:123
+#: includes/class-scllgn-settings.php:145
 msgid "Bottom"
 msgstr "Знизу"
 
-#: includes/class-scllgn-settings.php:127
+#: includes/class-scllgn-settings.php:149
 msgid ""
 "Choose the buttons position in the form. This option is available only for "
 "Login and Registration forms."
@@ -83,206 +101,200 @@ msgstr ""
 "Оберіть позицію кнопок у формі. Ця опція доступна лише для форм логіна і "
 "реєстрації."
 
-#: includes/class-scllgn-settings.php:133
+#: includes/class-scllgn-settings.php:155
 msgid "User Registration"
 msgstr "Реєстрація користувачів"
 
-#: includes/class-scllgn-settings.php:138
-#: includes/class-scllgn-settings.php:187
+#: includes/class-scllgn-settings.php:160
+#: includes/class-scllgn-settings.php:195
 msgid "Default"
 msgstr "За замовчуванням"
 
-#: includes/class-scllgn-settings.php:141
-msgid ""
-"Select to allow or deny user registration using social buttons depending on"
-msgstr ""
-"Оберіть, щоб дозволити або заборонити реєстрацію користувачів через "
-"соціальні кнопки в залежності від"
-
-#: includes/class-scllgn-settings.php:143
-#: includes/class-scllgn-settings.php:153
-#: includes/class-scllgn-settings.php:163
-msgid "WordPress General settings."
-msgstr "основних налаштувань WordPress"
-
-#: includes/class-scllgn-settings.php:148
+#: includes/class-scllgn-settings.php:164
 msgid "Allow"
 msgstr "Дозволити"
 
-#: includes/class-scllgn-settings.php:151
-msgid "Select to allow user registration using social buttons regardless"
-msgstr ""
-"Оберіть, щоб дозволити реєстрацію користувачів через соціальні кнопки "
-"незалежно від"
-
-#: includes/class-scllgn-settings.php:158
+#: includes/class-scllgn-settings.php:168
 msgid "Deny"
 msgstr "Заборонити"
 
-#: includes/class-scllgn-settings.php:161
-msgid "Select to deny user registration using social buttons regardless"
+#: includes/class-scllgn-settings.php:172
+#, php-format
+msgid "Allow or deny user registration using social buttons regardless %s."
 msgstr ""
-"Оберіть, щоб заборонити реєстрацію користувачів через соціальні кнопки "
-"незалежно від"
+"Дозволити чи заборонити реєстрацію користувачів через соціальні кнопки "
+"незалежно від %s."
 
-#: includes/class-scllgn-settings.php:171
+#: includes/class-scllgn-settings.php:173
+msgid "WordPress General settings"
+msgstr "основних налаштувань WordPress"
+
+#: includes/class-scllgn-settings.php:180
 msgid "New User Default Role"
 msgstr "Роль нового користувача"
 
-#: includes/class-scllgn-settings.php:194
-msgid "Choose the role for newly registered users."
-msgstr "Оберіть роль для нових зареєстрованих користувачів."
+#: includes/class-scllgn-settings.php:202
+msgid "Choose a default role for newly registered users."
+msgstr "Оберіть стандартну роль для нових зареєстрованих користувачів."
 
-#: includes/class-scllgn-settings.php:201
-msgid "Delete User Metadata"
-msgstr "Видалити метаданнi користувача"
-
-#: includes/class-scllgn-settings.php:207
-msgid "Enable to delete all user metadata when deleting the plugin."
+#: includes/class-scllgn-settings.php:208
+msgid "Google"
 msgstr ""
-"Увімкніть, щоб видалити метаданнi всiх користувачiв пiдчас видалення плагiну."
 
-#: includes/class-scllgn-settings.php:214
-#: includes/class-scllgn-settings.php:269
-#: includes/class-scllgn-settings.php:323
-#: includes/class-scllgn-settings.php:377
-#, php-format
-msgid "%1$s Sign In Button"
-msgstr "Кнопка \"Увійти за допомогою %1$s\""
-
-#: includes/class-scllgn-settings.php:219
-#: includes/class-scllgn-settings.php:274
-#: includes/class-scllgn-settings.php:328
-#: includes/class-scllgn-settings.php:382
-#, php-format
-msgid "Enable to add %1$s Sign In button to the necessary WordPress form."
-msgstr ""
-"Увімкніть, щоб додати кнопку \"Увійти за допомогою %1$s\" до обраних форм."
-
-#: includes/class-scllgn-settings.php:226
-#: includes/class-scllgn-settings.php:389
+#: includes/class-scllgn-settings.php:211
+#: includes/class-scllgn-settings.php:336
 msgid "Client ID"
 msgstr "Ідентифікатор клієнта"
 
-#: includes/class-scllgn-settings.php:230
+#: includes/class-scllgn-settings.php:215
 msgid "You need to create your own credentials in order to use google API."
 msgstr ""
 "Щоб використовувати Google API, вам потрібно створити свої власні облікові "
 "дані ."
 
-#: includes/class-scllgn-settings.php:230
-#: includes/class-scllgn-settings.php:285
-#: includes/class-scllgn-settings.php:339
-#: includes/class-scllgn-settings.php:393
+#: includes/class-scllgn-settings.php:215
+#: includes/class-scllgn-settings.php:256
+#: includes/class-scllgn-settings.php:298
+#: includes/class-scllgn-settings.php:340
 msgid "Learn More"
 msgstr "Дізнатись більше"
 
-#: includes/class-scllgn-settings.php:232
-msgid "While creating Google API use this redirect url: "
-msgstr ""
-"Під час створення API Google скористайтеся цією URL-адресою перенаправлення:"
-
-#: includes/class-scllgn-settings.php:237
-#: includes/class-scllgn-settings.php:400
+#: includes/class-scllgn-settings.php:220
+#: includes/class-scllgn-settings.php:345
 msgid "Client Secret"
 msgstr "Секрет клієнта"
 
-#: includes/class-scllgn-settings.php:244
-#: includes/class-scllgn-settings.php:298
-#: includes/class-scllgn-settings.php:352
-#: includes/class-scllgn-settings.php:406
-msgid "Button Display"
-msgstr "Вiдображення кнопки"
+#: includes/class-scllgn-settings.php:226
+msgid "Button Style"
+msgstr "Стиль кнопки"
 
-#: includes/class-scllgn-settings.php:281
+#: includes/class-scllgn-settings.php:231
+msgid "Dark"
+msgstr "Темна"
+
+#: includes/class-scllgn-settings.php:236
+msgid "Light"
+msgstr "Свiтла"
+
+#: includes/class-scllgn-settings.php:242
+msgid "Button Label Text"
+msgstr "Текст кнопки"
+
+#: includes/class-scllgn-settings.php:249
+msgid "Facebook"
+msgstr ""
+
+#: includes/class-scllgn-settings.php:252
 msgid "App ID"
 msgstr "Ідентифікатор додатка"
 
-#: includes/class-scllgn-settings.php:285
+#: includes/class-scllgn-settings.php:256
 msgid "You need to create your own credentials in order to use Facebook API."
 msgstr ""
 "Щоб використовувати Facebook API, вам потрібно створити свої власні облікові "
 "дані ."
 
-#: includes/class-scllgn-settings.php:287
-msgid "While creating Facebook API use this redirect url: "
-msgstr ""
-"Під час створення Facebook API скористайтеся цією URL-адресою "
-"перенаправлення:"
-
-#: includes/class-scllgn-settings.php:292
+#: includes/class-scllgn-settings.php:261
 msgid "App Secret"
 msgstr "Секрет додатка"
 
-#: includes/class-scllgn-settings.php:335
+#: includes/class-scllgn-settings.php:267
+#: includes/class-scllgn-settings.php:309
+#: includes/class-scllgn-settings.php:351
+msgid "Button Display"
+msgstr "Вiдображення кнопки"
+
+#: includes/class-scllgn-settings.php:291
+msgid "Twitter"
+msgstr ""
+
+#: includes/class-scllgn-settings.php:294
 msgid "Consumer Key (API Key)"
 msgstr "Споживчий ключ (ключ додатка)"
 
-#: includes/class-scllgn-settings.php:339
+#: includes/class-scllgn-settings.php:298
 msgid "You need to create your own credentials in order to use twitter API."
 msgstr ""
 "Щоб використовувати Twitter API, вам потрібно створити свої власні облікові "
 "дані ."
 
-#: includes/class-scllgn-settings.php:341
-msgid "While creating Twitter API use this redirect url: "
-msgstr ""
-"Під час створення Twitter API скористайтеся цією URL-адресою перенаправлення:"
-
-#: includes/class-scllgn-settings.php:346
+#: includes/class-scllgn-settings.php:303
 msgid "Consumer Secret (API Secret)"
 msgstr "Споживчий секрет (секрет додатка)"
 
-#: includes/class-scllgn-settings.php:393
+#: includes/class-scllgn-settings.php:333
+msgid "LinkedIn"
+msgstr ""
+
+#: includes/class-scllgn-settings.php:340
 msgid "You need to create your own credentials in order to use linkedin API."
 msgstr ""
 "Щоб використовувати LinkedIn API, вам потрібно створити свої власні облікові "
 "дані ."
 
-#: includes/class-scllgn-settings.php:395
-msgid "While creating LinkedIn API use this redirect url: "
+#: includes/class-scllgn-settings.php:379
+msgid "Delete User Metadata"
+msgstr "Видалити метаданнi користувача"
+
+#: includes/class-scllgn-settings.php:385
+msgid "Enable to delete all user metadata when deleting the plugin."
 msgstr ""
-"Під час створення LinkedIn API скористайтеся цією URL-адресою "
-"перенаправлення:"
+"Увімкніть, щоб видалити метаданнi всiх користувачiв пiдчас видалення плагiну."
 
-#: social-login-bws.php:35 social-login-bws.php:37 social-login-bws.php:339
-msgid "Social Login Settings"
-msgstr "Налаштування Social Login"
+#: social-login-bws.php:87
+msgid "requires"
+msgstr "вимагає"
 
-#: social-login-bws.php:132 social-login-bws.php:158 social-login-bws.php:1237
-#: social-login-bws.php:1251 social-login-bws.php:1262
-msgid "ERROR"
-msgstr "Помилка"
+#: social-login-bws.php:89
+msgid ""
+"or higher, that is why it has been deactivated! Please upgrade your PHP "
+"version and try again."
+msgstr ""
+"або вище, тому він був відключений! Будь ласка, Оновіть версію PHP і "
+"спробуйте ще раз."
 
-#: social-login-bws.php:133 social-login-bws.php:159 social-login-bws.php:1164
-msgid "This email is already registered, please choose another one."
-msgstr "Цей email вже зареєстрований, будь ласка, оберіть інший."
+#: social-login-bws.php:90
+msgid "Back to the WordPress"
+msgstr "Назад до WordPress"
 
-#: social-login-bws.php:308
+#: social-login-bws.php:92
+msgid "Plugins page"
+msgstr "Сторінка плагінів"
+
+#: social-login-bws.php:204
 msgid "Sign in with LinkedIn"
 msgstr ""
 
-#: social-login-bws.php:309
+#: social-login-bws.php:205
 msgid "Sign in with Twitter"
 msgstr ""
 
-#: social-login-bws.php:310
+#: social-login-bws.php:206
 msgid "Sign in with Facebook"
 msgstr ""
 
-#: social-login-bws.php:311
+#: social-login-bws.php:207
 msgid "Sign in with Google"
 msgstr ""
 
-#: social-login-bws.php:342
+#: social-login-bws.php:239
 msgid "WARNING"
 msgstr "УВАГА"
 
-#: social-login-bws.php:343
+#: social-login-bws.php:240
 msgid "The plugin works correctly only if JavaScript is enabled."
 msgstr "Плагін працює коректно тільки при включеному JavaScript."
 
-#: social-login-bws.php:358
+#: social-login-bws.php:345 social-login-bws.php:371 social-login-bws.php:1100
+#: social-login-bws.php:1114 social-login-bws.php:1125
+msgid "ERROR"
+msgstr "Помилка"
+
+#: social-login-bws.php:346 social-login-bws.php:372 social-login-bws.php:1027
+msgid "This email is already registered, please choose another one."
+msgstr "Цей email вже зареєстрований, будь ласка, оберіть інший."
+
+#: social-login-bws.php:461
 msgid ""
 "You're going to allow user registration via social buttons regardless "
 "WordPress default settings. Make sure that you understand the consequences. "
@@ -292,11 +304,11 @@ msgstr ""
 "незалежно від основних налаштувань WordPress. Переконайтеся, що ви розумієте "
 "наслідки. Прочитайте наступню"
 
-#: social-login-bws.php:359 social-login-bws.php:365
+#: social-login-bws.php:462 social-login-bws.php:468
 msgid "article"
 msgstr "статтю"
 
-#: social-login-bws.php:364
+#: social-login-bws.php:467
 msgid ""
 "You're going to deny user registration via social buttons regardless "
 "WordPress default settings. Make sure that you understand the consequences. "
@@ -306,98 +318,140 @@ msgstr ""
 "незалежно від основних налаштувань WordPress. Переконайтеся, що ви розумієте "
 "наслідки. Прочитайте наступню"
 
-#: social-login-bws.php:714
+#: social-login-bws.php:614
 msgid "please allow the access to your profile information."
 msgstr "будь-ласка, дозвольте отримати доступ до інформації вашого профілю."
 
-#: social-login-bws.php:715
+#: social-login-bws.php:615
 msgid "failed to register new user."
 msgstr "не вдалося зареєструвати нового користувача."
 
-#: social-login-bws.php:716
+#: social-login-bws.php:616
 msgid "new users registration is disabled."
 msgstr "реєстрація нових користувачів відключена."
 
-#: social-login-bws.php:717
+#: social-login-bws.php:617
 msgid "you need to verify your Account Email."
 msgstr "вам потрібно підтвердити адресу електронної пошти аккаунту."
 
-#: social-login-bws.php:718
+#: social-login-bws.php:618
 msgid "user data is insufficient for registration."
 msgstr "Користувацькі дані недостатні для реєстрації."
 
-#: social-login-bws.php:719
+#: social-login-bws.php:619
 msgid "provided token data is invalid."
 msgstr "токен дані недійсні."
 
-#: social-login-bws.php:720
+#: social-login-bws.php:620
 msgid "provided token is invalid."
 msgstr "токен недійсний."
 
-#: social-login-bws.php:721
+#: social-login-bws.php:621
 msgid "login failed."
 msgstr "помилка авторизації."
 
-#: social-login-bws.php:729
+#: social-login-bws.php:629
 msgid "Error"
 msgstr "Помилка"
 
-#: social-login-bws.php:1023
-msgid "FAQ"
-msgstr "FAQ"
-
-#: social-login-bws.php:1024
-msgid "Support"
-msgstr "Підтримка"
-
-#: social-login-bws.php:1062
+#: social-login-bws.php:925
 #, php-format
 msgid "Enter %s to enable sign in with Social Login button."
 msgstr "Введіть %s для того, щоб увійти в систему з кнопкою Social Login."
 
-#: social-login-bws.php:1068
+#: social-login-bws.php:931
 msgid "existing Gmail address"
 msgstr "існуючу адресу Gmail"
 
-#: social-login-bws.php:1075
+#: social-login-bws.php:938
 msgid "existing email address of Facebook account"
 msgstr "електронну пошту існуючого аккаунта в Facebook"
 
-#: social-login-bws.php:1082
+#: social-login-bws.php:945
 msgid "existing email address of Twitter account"
 msgstr "електронну пошту існуючого аккаунта в Twitter"
 
-#: social-login-bws.php:1089
+#: social-login-bws.php:952
 msgid "existing email address of LinkedIn account"
 msgstr "електронну пошту існуючого аккаунта в LinkedIn"
 
-#: social-login-bws.php:1098
+#: social-login-bws.php:961
 msgid "Social Login Accounts"
 msgstr "Облікові записи Social Login"
 
-#: social-login-bws.php:1171 social-login-bws.php:1186
-#: social-login-bws.php:1201 social-login-bws.php:1216
+#: social-login-bws.php:1034 social-login-bws.php:1049
+#: social-login-bws.php:1064 social-login-bws.php:1079
 #, php-format
 msgid ""
 "The %1$s you specified for %2$s Account is already used by another user."
 msgstr ""
 "%1$s ви вказали для %2$s акаунту вже використовується іншим користувачем."
 
-#: social-login-bws.php:1172 social-login-bws.php:1187
-#: social-login-bws.php:1202 social-login-bws.php:1217
+#: social-login-bws.php:1035 social-login-bws.php:1050
+#: social-login-bws.php:1065 social-login-bws.php:1080
 msgid "email address"
 msgstr "Email"
 
-#: social-login-bws.php:1176 social-login-bws.php:1191
-#: social-login-bws.php:1206 social-login-bws.php:1221
+#: social-login-bws.php:1039 social-login-bws.php:1054
+#: social-login-bws.php:1069 social-login-bws.php:1084
 #, php-format
 msgid "Please enter valid %1$s Account %2$s"
 msgstr "Будь ласка, введіть дійсний %2$s для облікового запису %1$s"
 
-#: social-login-bws.php:1178 social-login-bws.php:1193
-#: social-login-bws.php:1208 social-login-bws.php:1223
+#: social-login-bws.php:1041 social-login-bws.php:1056
+#: social-login-bws.php:1071 social-login-bws.php:1086
 msgid "email"
 msgstr "email"
+
+#: social-login-bws.php:1174
+msgid "FAQ"
+msgstr "FAQ"
+
+#: social-login-bws.php:1175
+msgid "Support"
+msgstr "Підтримка"
+
+#~ msgid "Social Login plugin requires PHP version %s or higher."
+#~ msgstr "Плагіну Social Login потрібно PHP версії %s або вище."
+
+#~ msgid ""
+#~ "Select to allow or deny user registration using social buttons depending "
+#~ "on"
+#~ msgstr ""
+#~ "Оберіть, щоб дозволити або заборонити реєстрацію користувачів через "
+#~ "соціальні кнопки в залежності від"
+
+#~ msgid "Select to allow user registration using social buttons regardless"
+#~ msgstr ""
+#~ "Оберіть, щоб дозволити реєстрацію користувачів через соціальні кнопки "
+#~ "незалежно від"
+
+#~ msgid "%1$s Sign In Button"
+#~ msgstr "Кнопка \"Увійти за допомогою %1$s\""
+
+#~ msgid "Enable to add %1$s Sign In button to the necessary WordPress form."
+#~ msgstr ""
+#~ "Увімкніть, щоб додати кнопку \"Увійти за допомогою %1$s\" до обраних форм."
+
+#~ msgid "While creating Google API use this redirect url: "
+#~ msgstr ""
+#~ "Під час створення API Google скористайтеся цією URL-адресою "
+#~ "перенаправлення:"
+
+#~ msgid "While creating Facebook API use this redirect url: "
+#~ msgstr ""
+#~ "Під час створення Facebook API скористайтеся цією URL-адресою "
+#~ "перенаправлення:"
+
+#~ msgid "While creating Twitter API use this redirect url: "
+#~ msgstr ""
+#~ "Під час створення Twitter API скористайтеся цією URL-адресою "
+#~ "перенаправлення:"
+
+#~ msgid "While creating LinkedIn API use this redirect url: "
+#~ msgstr ""
+#~ "Під час створення LinkedIn API скористайтеся цією URL-адресою "
+#~ "перенаправлення:"
 
 #~ msgid "Save Changes"
 #~ msgstr "Зберегти зміни"
