@@ -60,13 +60,13 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 					if ( ! empty( $_REQUEST["scllgn_{$provider}_client_id"]  ) ) {
 						$this->options["{$provider}_client_id"] = trim( stripslashes( sanitize_text_field( $_REQUEST["scllgn_{$provider}_client_id"] ) ) );
 					} else {
-						$error .= sprintf( __( 'Please fill the Client ID for %s.', 'social-login-bws' ), $provider_name );
+						$error .= sprintf( __( 'Please fill the Client ID for %s.', 'social-login-bws' ), $provider_name ) . '<br />';
 					}
 
 					if ( ! empty( $_REQUEST["scllgn_{$provider}_client_secret"] ) ) {
 						$this->options["{$provider}_client_secret"] = trim( stripslashes( sanitize_text_field( $_REQUEST["scllgn_{$provider}_client_secret"] ) ) );
 					} else {
-						$error .= sprintf( __( 'Please fill the Client secret for %s.', 'social-login-bws' ), $provider_name );
+						$error .= sprintf( __( 'Please fill the Client secret for %s.', 'social-login-bws' ), $provider_name ) . '<br />';
 					}
 				} else {
 					$this->options["{$provider}_is_enabled"] = 0;
@@ -205,7 +205,7 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 				</tr>
 			</table>
 				<?php /*GOOGLE*/ ?>
-			<div class="bws_tab_sub_label scllgn_google_client_data"><?php _e( 'Google', 'social-login-bws' ); ?></div>
+			<div class="bws_tab_sub_label scllgn_google_client_data">Google</div>
 			<table class="form-table scllgn_google_client_data">
 				<tr>
 					<th><?php _e( 'Client ID', 'social-login-bws' ); ?></th>
@@ -246,7 +246,7 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 				</tr>
 			</table>
 				<?php /*FACEBOOK*/ ?>
-			<div class="bws_tab_sub_label scllgn_facebook_client_data"><?php _e( 'Facebook', 'social-login-bws' ); ?></div>
+			<div class="bws_tab_sub_label scllgn_facebook_client_data">Facebook</div>
 			<table class="form-table scllgn-form-table scllgn_facebook_client_data">
 				<tr>
 					<th><?php _e( 'App ID', 'social-login-bws' ); ?></th>
@@ -288,7 +288,7 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 				</tr>
 			</table>
 				<?php /*TWITTER*/ ?>
-			<div class="bws_tab_sub_label scllgn_twitter_client_data"><?php _e( 'Twitter', 'social-login-bws' ); ?></div>
+			<div class="bws_tab_sub_label scllgn_twitter_client_data">Twitter</div>
 			<table class="form-table scllgn-form-table scllgn_twitter_client_data">
 				<tr>
 					<th><?php _e( 'Consumer Key (API Key)', 'social-login-bws' ); ?></th>
@@ -330,7 +330,7 @@ if ( ! class_exists( 'Scllgn_Settings_Tabs' ) ) {
 				</tr>
 			</table>
 				<?php /*LINKEDIN*/ ?>
-			<div class="bws_tab_sub_label scllgn_linkedin_client_data"><?php _e( 'LinkedIn', 'social-login-bws' ); ?></div>
+			<div class="bws_tab_sub_label scllgn_linkedin_client_data">LinkedIn</div>
 			<table class="form-table scllgn-form-table scllgn_linkedin_client_data">
 				<tr>
 					<th><?php _e( 'Client ID', 'social-login-bws' ); ?></th>

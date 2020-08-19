@@ -28,11 +28,11 @@ if ( ! function_exists( 'scllgn_social_client' ) ) {
 				"LinkedIn"  => array(
 					"enabled" => true,
 					"keys"    => array(
-						"id" => $scllgn_options['linkedin_client_id'],
-						"secret" => $scllgn_options['linkedin_client_secret']
+						"id"        => $scllgn_options['linkedin_client_id'],
+						"secret"    => $scllgn_options['linkedin_client_secret']
 					),
-					"scope"   => array( "r_basicprofile", "r_emailaddress", "w_share" ), // optional
-					"fields"  => array( "id", "email-address", "first-name", "last-name" ), // optional
+					"scope"     => ("r_liteprofile r_emailaddress"), // optional
+					"fields"    => array( "id", "email-address", "first-name", "last-name" ), // optional
 				),
 				"Google" => array(
 					'enabled' => true,	 //Optional: indicates whether to enable or disable Twitter adapter. Defaults to false
@@ -83,9 +83,8 @@ if ( ! function_exists( 'scllgn_social_client' ) ) {
 					$user = scllgn_get_user( $user_profile->email, $user_profile->identifier, 'twitter' );
 				}
 				$hybridauth_per_for_function = scllgn_registration_enabled();
-				$anyone_can_register = get_option( 'users_can_register' );
 				if ( ! $user ) {
-					if ( ! empty( $hybridauth_per_for_function ) ) {
+					if ( $hybridauth_per_for_function ) {
 						if ( $email_is_verified ) {
 							$default_role = get_option( 'default_role' );
 							if ( $scllgn_options['allow_registration'] == 'allow' ) {
@@ -100,28 +99,16 @@ if ( ! function_exists( 'scllgn_social_client' ) ) {
 							}
 						}
 					} else {
-						if ( ! empty( $_SESSION['scllgn_redirect'] ) ) {
-							$_SESSION['scllgn_userdata'] = $userdata;
-							$redirect = $_SESSION['scllgn_redirect'];
-							unset( $_SESSION['scllgn_redirect'] );
-							wp_safe_redirect( $redirect );
-							exit();
-						} else {
-							/* new users registration is disabled */
-							$error = 'register_disabled';
-						}
-						if ( ! empty( $error ) ) {
-							/* redirecting to login page on error with error message */
-							$login_redirect_url = filter_var( wp_login_url() . "?error=$error", FILTER_SANITIZE_URL );
-							wp_redirect( $login_redirect_url );
-							exit();
-						}
+						/* redirecting to login page on error with error message - new users registration is disabled */
+						wp_redirect( wp_login_url() . "?error=register_disabled" );
+						exit();
 					}
 				} elseif ( $user instanceof WP_User ) {
 					scllgn_login_user( $user->ID );
 				}
 			} catch ( Exception $e ) {
-				echo "Ooophs, we got an error: " . $e->getMessage();
+				wp_redirect( wp_login_url() . "?error=invalid_token" );
+				exit();
 			}
 		}
 		return false;

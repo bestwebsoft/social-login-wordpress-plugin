@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: social login, social connect, social networks, google login, registration, facebook login, twitter login, social authentication, sign in button, social plugin WordPress, LinkedIn login, social networks, comments via social networks, registration using social networks.
 Requires at least: 4.5
-Tested up to: 5.4.1
-Stable tag: 1.4.2
+Tested up to: 5.5
+Stable tag: 1.4.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,11 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.4.3 - 19.08.2020 =
+* Bugfix : Issue with authorization via LinkedIn has been fixed.
+* Bugfix : Google re-login issue has been fixed.
+* Update : BWS panel section was updated.
+
 = V1.4.2 - 15.06.2020 =
 * Update : Plugin settings page was updated.
 * Update : Google Login button was updated.
@@ -137,6 +142,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : Plugin has been released.
 
 == Upgrade Notice ==
+
+= V1.4.3 =
+* Bugs fixed.
 
 = V1.4.2 =
 * Changes related to API functionality implemented.

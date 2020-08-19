@@ -6,7 +6,7 @@ Description: Add social media login, registration, and commenting to your WordPr
 Author: BestWebSoft
 Text Domain: social-login-bws
 Domain Path: /languages
-Version: 1.4.2
+Version: 1.4.3
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -71,7 +71,7 @@ if ( ! function_exists( 'scllgn_init' ) ) {
 			defined( 'IS_PROFILE_PAGE' ) || /* defined on profile.php(set to true) and user-edit.php(set to false) pages */
 			( defined( 'BWS_ENQUEUE_ALL_SCRIPTS' ) && BWS_ENQUEUE_ALL_SCRIPTS )
 		) {
-			if ( ! isset( $_SESSION ) ) {
+			if ( ! session_id() ) {
 				session_start();
 			}
 			scllgn_settings();
@@ -104,7 +104,7 @@ if ( ! function_exists( 'scllgn_init' ) ) {
 		}
 
 		if ( isset( $_GET['provider'] ) && in_array( $_GET['provider'], array( 'google', 'facebook', 'twitter', 'linkedin', ) ) ) {
-			$_SESSION['provider'] = ucfirst( $_GET['provider'] );
+			$_SESSION['provider'] = ( 'linkedin' == $_GET['provider'] ) ? 'LinkedIn' : ucfirst( $_GET['provider'] );
 			scllgn_social_client( $_SESSION['provider'] );
 		}
 
@@ -201,10 +201,10 @@ if ( ! function_exists( 'scllgn_get_default_options' ) ) {
 			'button_display_facebook'               => 'long',
 			'button_display_twitter'                => 'long',
 			'button_display_linkedin'               => 'long',
-			'linkedin_button_name'                  => __( 'Sign in with LinkedIn', 'social-login-bws' ),
-			'twitter_button_name'                   => __( 'Sign in with Twitter', 'social-login-bws' ),
-			'facebook_button_name'                  => __( 'Sign in with Facebook', 'social-login-bws' ),
-			'google_button_name'                    => __( 'Sign in with Google', 'social-login-bws' ),
+			'linkedin_button_name'                  => sprintf( __( 'Sign in with %s', 'social-login-bws' ), 'LinkedIn' ),
+			'twitter_button_name'                   => sprintf( __( 'Sign in with %s', 'social-login-bws' ), 'Twitter' ),
+			'facebook_button_name'                  => sprintf( __( 'Sign in with %s', 'social-login-bws' ), 'Facebook' ),
+			'google_button_name'                    => sprintf( __( 'Sign in with %s', 'social-login-bws' ), 'Google' ),
 			'allow_registration'                    => 'default',
 			'delete_metadata'                       => 0,
 		);
@@ -540,8 +540,7 @@ if ( ! function_exists( 'scllgn_login_enqueue_scripts' ) ) {
 /* New user social registration, register or authenticate users */
 if ( ! function_exists( 'scllgn_social_regiser' ) ) {
 	function scllgn_social_regiser( $userinfo, $provider_name = '' ) {
-		global $error, $scllgn_options;
-		$error = '';
+		global $scllgn_options;
 		$userdata = array(
 			'user_login'        => $userinfo->id,
 			'user_email'        => $userinfo->email,
@@ -559,7 +558,7 @@ if ( ! function_exists( 'scllgn_social_regiser' ) ) {
 		$scllgn_func_per = scllgn_registration_enabled();
 
 		if ( ! $user ) {
-			if ( ! empty( $scllgn_func_per ) ) {
+			if ( $scllgn_func_per ) {
 				if ( $email_is_verified ) {
 					$default_role = get_option( 'default_role' );
 					if ( $scllgn_options['allow_registration'] == 'allow' ) {
@@ -575,22 +574,9 @@ if ( ! function_exists( 'scllgn_social_regiser' ) ) {
 					}
 				}
 			} else {
-				if ( ! empty( $_SESSION['scllgn_redirect'] ) ) {
-					$_SESSION['scllgn_userdata'] = $userdata;
-					$redirect = $_SESSION['scllgn_redirect'];
-					unset( $_SESSION['scllgn_redirect'] );
-					wp_safe_redirect( $redirect );
-					exit();
-				} else {
-					/* new users registration is disabled */
-					$error = 'register_disabled';
-				}
-				if ( ! empty( $error ) ) {
-					/* redirecting to login page on error with error message */
-					$login_redirect_url = filter_var( wp_login_url() . "?error=$error", FILTER_SANITIZE_URL );
-					wp_redirect( $login_redirect_url );
-					exit();
-				}
+				/* redirecting to login page on error with error message - new users registration is disabled */
+				wp_redirect( wp_login_url() . "?error=register_disabled" );
+				exit();
 			}
 		} elseif ( $user instanceof WP_User ) {
 			scllgn_login_user( $user->ID );
@@ -623,8 +609,7 @@ if ( ! function_exists( 'scllgn_login_error' ) ) {
 
 			$error_message = isset( $messages[ $_REQUEST['error'] ] ) ? $messages[ $_REQUEST['error'] ] : esc_html( esc_attr( $_REQUEST['error'] ) );
 
-			$error = ( ! empty( $error ) ) ? $error . "\n" : "";
-			$error .= sprintf(
+			$error = sprintf(
 				'<strong>%1$s</strong>: %2$s',
 				__( 'Error', 'social-login-bws' ),
 				$error_message
@@ -664,7 +649,7 @@ if ( ! function_exists( 'scllgn_get_button' ) ) {
 			$button_html = $scllgn_options['button_display_twitter'];
 			$button_text = $scllgn_options['twitter_button_name'];
 			if ( isset( $_GET['provider'] ) && 'twitter' == $_GET['provider'] ) {
-			  scllgn_social_client( 'Twitter' );
+			    scllgn_social_client( 'Twitter' );
 			}
 		}
 		if ( 'linkedin' == $provider ) {
@@ -894,11 +879,10 @@ if ( ! function_exists( 'scllgn_login_user' ) ) {
 		$redirect = admin_url();
 		if ( ! empty( $_SESSION['scllgn_redirect'] ) ) {
 			/* redirecting to the referrer page */
-			$redirect = $_SESSION['scllgn_redirect'];
+			if ( wp_login_url() == $redirect ) {
+				$redirect = $_SESSION['scllgn_redirect'];
+			}
 			unset( $_SESSION['scllgn_redirect'] );
-		}
-		if ( wp_login_url() == $redirect ) {
-			$redirect = apply_filters( 'scllgn_redirect_url', admin_url() );
 		}
 		wp_redirect( $redirect );
 		exit();
