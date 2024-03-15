@@ -138,6 +138,26 @@
 	background-color: #00689a;
 	color: #fff;
 }
+#scllgn_discord_button{
+	background-image: url( '../images/icons-discord.png' );
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-color: #7289da;
+}
+#scllgn_discord_button:hover {
+	background-color: #5a68a5;
+}
+.scllgn_discord_icon {
+	height: 32px !important;
+	width: 32px !important;
+	background-color: #7289da;
+}
+.scllgn_amazon_button {
+	background-color: #FDC02D;
+}
+.scllgn_discord_icon:hover {
+	background-color: #5a68a5;
+}
 .scllgn_button_top .scllgn_login_button_long :first-of-type {
 	margin-top: 0;
 }
@@ -163,7 +183,7 @@
 .scllgn_google_button span.scllgn_icon {
 	background: url(../images/g-normal.png) #ffffff 5px 50% no-repeat;
 	background-position: center;
-    border-radius: 5px 0 0 5px;
+	border-radius: 5px 0 0 5px;
 	display: inline-block;
 	vertical-align: middle;
 	width: 18px;
@@ -180,12 +200,12 @@
 	font-weight: bold;
 	color: #000000;
 	margin-left: 23px;
-    margin-right: 8px;
-    vertical-align: middle;
+	margin-right: 8px;
+	vertical-align: middle;
 }
 .rtl .scllgn_google_button span.scllgn_buttonText {
 	margin-right: 23px;
-    margin-left: 8px;
+	margin-left: 8px;
 }
 .scllgn_google_button.scllgn_google_dark_btn span.scllgn_buttonText {
 	color: #FFFFFF;

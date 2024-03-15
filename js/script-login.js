@@ -18,7 +18,7 @@
 		} );
 
 		/* Remember me and redirect functionality */
-		$( '#scllgn_google_button, #scllgn_facebook_button, #scllgn_twitter_button, #scllgn_linkedin_button' ).on( 'click', function( event ) {
+		$( '#scllgn_google_button, #scllgn_facebook_button, #scllgn_twitter_button, #scllgn_linkedin_button, #scllgn_discord_button' ).on( 'click', function( event ) {
 			event.preventDefault();
 			var scllgn_url = window.location.search.substr( 1 );
 			var redirect_url = null,

@@ -1,10 +1,10 @@
 === Social Login by BestWebSoft ===
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
-Tags: social login, social connect, social networks, google login, registration, facebook login, twitter login, social authentication, sign in button, social plugin WordPress, LinkedIn login, social networks, comments via social networks, registration using social networks.
-Requires at least: 4.5
-Tested up to: 5.5
-Stable tag: 1.4.3
+Tags: social login, social connect, social networks, google login, registration, facebook login, instagram login, twitter login, social authentication, sign in button, social plugin WordPress, LinkedIn login, social networks, comments via social networks, registration using social networks.
+Requires at least: 5.6.2
+Tested up to: 6.4.3
+Stable tag: 1.4.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,9 +12,11 @@ Add social media login, registration, and commenting to your WordPress website.
 
 == Description ==
 
-Social login plugin adds website authentication via popular networks to WordPress login, registration and comments forms. Allow your visitors to login and comment with their existing accounts on Google, Facebook, Twitter, and LinkedIn.
+Social login plugin adds website authentication via popular networks to WordPress login, registration and comments forms. Allow your visitors to login and comment with their existing accounts on Google, Facebook, Twitter, LinkedIn and Instagram.
 
 Install now and make forms filling for your visitors easier!
+
+[View Demo](https://bestwebsoft.com/demo-social-login/?ref=readme)
 
 = Features =
 
@@ -23,6 +25,8 @@ Install now and make forms filling for your visitors easier!
 	* Facebook
 	* Twitter
 	* LinkedIn
+	* Discord [NEW]
+	* Amazon [NEW]
 * Add to:
 	* Login form
 	* Registration form
@@ -38,7 +42,7 @@ If you have a feature suggestion or idea you'd like to see in the plugin, we'd l
 
 = Documentation =
 
-* [[Doc] How to Use](https://docs.google.com/document/d/1jS1pGbaIyhR9-6wsvWFueMqd8ZJYKRQAJGkOc8j5lWE/)
+* [[Doc] User Guide](https://docs.google.com/document/d/1aDmpnAHYUmJWo0ebp-UEx0boZ_1P_wnQipazGoiMsyM/)
 * [[Doc] Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
 
 = Help & Support =
@@ -89,6 +93,22 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 5. Linking social accounts to existing WordPress account on the profile page.
 
 == Changelog ==
+
+= V1.4.5 - 15.03.2024 =
+* Bugfix : Facebook login issue has been fixed.
+* Bugfix : Google login issue has been fixed.
+* Bugfix : Linkedin login issue has been fixed.
+* Update : Instagram login has been removed.
+* NEW : Ability to link Discord Account to your existing WordPress account has been added.
+* NEW : Ability to link Amazon Account to your existing WordPress account has been added.
+* Update : All functionality was updated for WordPress 6.4.3.
+* Update : BWS menu has been updated.
+
+= V1.4.4 - 01.09.2021 =
+* NEW : Ability to login with Instagram has been added.
+* Update : All functionality was updated for WordPress 5.8.
+* Update : BWS panel section was updated.
+* Update : HybridAuth library was updated.
 
 = V1.4.3 - 19.08.2020 =
 * Bugfix : Issue with authorization via LinkedIn has been fixed.
@@ -142,6 +162,14 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : Plugin has been released.
 
 == Upgrade Notice ==
+
+= V1.4.5 =
+* Bugs fixed.
+
+= V1.4.4 =
+* The compatibility with new WordPress version updated.
+* Functionality improved.
+* New features added.
 
 = V1.4.3 =
 * Bugs fixed.
